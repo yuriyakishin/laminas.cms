@@ -1,0 +1,89 @@
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+        display: block;
+        margin-bottom: 50px;
+    }
+
+</style>
+
+<div id="map"></div>
+
+<div class="form-group row ">
+    <label class="col-sm-2 col-form-label">Найти на карте</label>
+    <div class="col-sm-10">
+        <input id="find-address" type="textbox" class="form-control" value="" style="width:40%; display: unset;">
+        <input id="submit-find-address" type="button" value=" Найти " style="padding: 0.35rem 0.75rem;
+                border: 1px solid #ced4da;
+                border-radius: 0.25rem;">
+    </div>
+</div>
+
+<script>
+    var map;
+    var marker;
+
+    function initMap() {
+        var lat = 47.097133;
+        var lng = 37.543367;
+
+        if(document.getElementsByName("geo[lat]")[0].value != '') {
+            lat = parseFloat(document.getElementsByName("geo[lat]")[0].value);
+        }
+        if(document.getElementsByName("geo[lng]")[0].value != '') {
+            lng = parseFloat(document.getElementsByName("geo[lng]")[0].value);
+        }
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: lat, lng: lng},
+            zoom: 16,
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: true,
+            streetViewControl: true,
+            rotateControl: true,
+            fullscreenControl: true
+        });
+
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            position: {lat: lat, lng: lng}
+        });
+        marker.addListener('dragend', toggleBounce);
+
+        var geocoder = new google.maps.Geocoder();
+        document.getElementById('submit-find-address').addEventListener('click', function() {
+            geocodeAddress(geocoder, map);
+        });
+    }
+
+    function toggleBounce() {
+        document.getElementsByName("geo[lat]")[0].value = marker.position.lat();
+        document.getElementsByName("geo[lng]")[0].value = marker.position.lng();
+    }
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('find-address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                marker.setPosition(results[0].geometry.location);
+                toggleBounce();
+                if(document.getElementsByName("geo[address][ru]")[0].value == '') {
+                    document.getElementsByName("geo[address][ru]")[0].value = address;
+                }
+            } else {
+                alert('Адрес не найден: ' + status);
+            }
+        });
+    }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $GLOBALS['google_api_key'] ?>&callback=initMap&language=ua&libraries=visualization"
+        async defer></script>
+
+<?php
+echo $this->partial('admin/form/fieldset', ['fieldset' => $fieldset]);
+?>

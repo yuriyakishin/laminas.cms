@@ -1,0 +1,95 @@
+<?php
+$path = $fieldset->getOption('path');
+$path_id = $fieldset->getOption('path_id');
+$this->inlineScript()
+    ->offsetSetFile(204, $this->basePath('/dist/modules/Yu/Media/web/plugins/File-Upload/js/vendor/jquery.ui.widget.js'))
+    ->offsetSetFile(205, $this->basePath('/dist/modules/Yu/Media/web/plugins/File-Upload/js/jquery.iframe-transport.js'))
+    ->offsetSetFile(206, $this->basePath('/dist/modules/Yu/Media/web/plugins/File-Upload/js/jquery.fileupload.js'));
+
+$script = <<<EOF
+
+$("#fileupload").fileupload({
+  dataType: "json",
+  formData: { path: '$path', path_id: $('[name="$path_id"]').val() },
+  add: function(e, data) {
+    data.submit();
+  },
+  start: function(e) {
+    $('body').css('opacity','0.9');
+    $('#image-load').addClass('spinner');
+  },
+  stop: function(e) {
+    $('body').css('opacity','1');
+    $('#image-load').removeClass('spinner');
+  },
+  progress: function(e, data) {
+  },
+  done: function(e, data) {
+    $('<tr id="tr-image-'+data.result.id+'">')
+          .append($('<td>').text(data.result.id))
+          .append($('<td>').html(data.result.preview))
+          .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data.result.id+'][comment]" value=""/></p>'))
+          .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data.result.id+'][sort]" value="'+data.result.sort+'"/></p>'))
+          .append($('<td>').html('<button type="button" class="btn btn-danger btn-xs button-image-delete" data-id="'+data.result.id+'"><i class="fas fa-trash"></i></button>'))
+          .appendTo('#table-body-images');
+  }
+});
+
+$(document).ready(function(){
+        $.ajax({
+            url: '/admin/image',
+            data: { path: '$path', path_id: $('[name="$path_id"]').val() },
+            dataType: "json"
+        })
+        .done(function(data) {
+            $.each(data, function(i, item) {
+                $('<tr id="tr-image-'+data[i].id+'">')
+                    .append($('<td>').text(data[i].id))
+                    .append($('<td>').html(data[i].preview))
+                    .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data[i].id+'][comment]" value="'+data[i].comment+'"/></p>'))
+                    .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data[i].id+'][sort]" value="'+data[i].sort+'"/></p>'))
+                    .append($('<td>').html('<button type="button" class="btn btn-danger btn-xs button-image-delete" data-id="'+data[i].id+'"><i class="fas fa-trash"></i></button>'))
+                    .appendTo('#table-body-images');
+            });
+        });
+        
+        $('#table-body-images').on('click', '.button-image-delete', function() {
+            if(1/*confirm('Удалить?')*/) {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/admin/image/delete',
+                    data: { id: id }
+                }).done(function() {
+                    $('#tr-image-' + id).remove();
+                });
+            }
+        });
+});
+
+EOF;
+$this->inlineScript()->offsetSetScript(210, $script);
+?>
+<div class="form-group">
+    <label for="exampleInputFile">Загрузка фото <span id="image-load" class=""><i class="fa fa-refresh fa-spin"></i></span></label>
+    <div class="input-group">
+        <div class="custom-file">
+            <input id="fileupload" class="custom-file-input btn-primary" type="file" name="images"
+                   data-url="/admin/image/upload" multiple>
+            <label class="custom-file-label" for="exampleInputFile">Выберите фото</label>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th style="width: 10px">#</th>
+        <th style="width: 50px">Изображения</th>
+        <th>Комментарий</th>
+        <th style="width: 50px">Сортировка</th>
+        <th style="width: 10px">#</th>
+    </tr>
+    </thead>
+    <tbody id="table-body-images">
+    </tbody>
+</table>

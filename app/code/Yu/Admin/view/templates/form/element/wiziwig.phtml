@@ -1,0 +1,13 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/plugins/summernote/summernote-bs4.css'));
+$this->inlineScript()
+->offsetSetFile(200, $this->basePath('/dist/modules/Yu/Admin/web/plugins/summernote/summernote-bs4.min.js'));
+$script = "
+    $(document).ready(function() {
+        $('.wiziwig').summernote({height: 250});
+    });
+";
+$this->inlineScript()->offsetSetScript(1100, $script);
+?>
+<textarea name="<?= $element->getAttribute('name') ?>" rows="10" class="form-control wiziwig"><?= $element->getValue() ?></textarea>

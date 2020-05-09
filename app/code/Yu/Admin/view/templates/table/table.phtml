@@ -1,0 +1,143 @@
+<?php
+/**
+ * @var \Yu\Admin\Model\TableModel $table
+ */
+$table = $this->table;
+
+/** Add DataTables plugin */
+$this->headLink()
+    ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/plugins/toastr/toastr.min.css'))
+    ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'))
+    ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'));
+$this->inlineScript()
+    ->offsetSetFile(100, $this->basePath('/dist/modules/Yu/Admin/web/plugins/datatables/jquery.dataTables.min.js'))
+    ->offsetSetFile(110, $this->basePath('/dist/modules/Yu/Admin/web/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'))
+    ->offsetSetFile(120, $this->basePath('/dist/modules/Yu/Admin/web/plugins/datatables-responsive/js/dataTables.responsive.min.js'))
+    ->offsetSetFile(130, $this->basePath('/dist/modules/Yu/Admin/web/plugins/datatables-responsive/js/responsive.bootstrap4.min.js'))
+    ->offsetSetFile(130, $this->basePath('/dist/modules/Yu/Admin/web/plugins/toastr/toastr.min.js'));
+$script = "
+$(function () {
+    var dataTableX = $('#data-table').DataTable({
+      'responsive': true,
+      'autoWidth': false,
+      'pagingType': 'full_numbers',
+      'language': {
+                'url': '//cdn.datatables.net/plug-ins/1.10.20/i18n/Russian.json'
+            }
+    });
+    $('.toastsDefaultDanger').click(function() {
+      $(document).Toasts('create', {
+        class: 'bg-danger', 
+        title: 'Toast Title',
+        subtitle: 'Subtitle',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+  
+  $('.button-delete').click(function() {
+        if(confirm('Удалить запись?')) {
+            var id = $(this).data('id');
+            $.ajax({
+                url: '" . $this->url($table->getRoute() . '/delete') . "',
+                data: { id: id }
+            }).done(function() {
+                //$('#tr-' + id).hide();
+                dataTableX.row('#tr-' + id).remove().draw();
+            });
+        }
+    });
+});
+";
+$this->inlineScript()->offsetSetScript(140, $script);
+?>
+<script>
+
+</script>
+<div class="card-header">
+    <!--h3 class="card-title">DataTable with minimal features & hover style</h3-->
+    <button type="button" class="btn btn-primary float-left"
+            onclick="javascript:window.location.href='<?= $this->url($table->getRoute() . '/edit') ?>'"><i
+                class="far fa-edit"></i> Добавить
+    </button>
+</div>
+<!-- /.card-header -->
+<div class="card-body">
+    <table id="data-table" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <?php
+            foreach ($table->getColumns() as $collumn) {
+                ?>
+                <th><?= $collumn['label'] ?></th>
+                <?php
+            }
+            ?>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($this->rowsData as $data) {
+            ?>
+            <tr id="tr-<?= $this->table()->retrieveValue($data, 'id') ?>">
+                <?php
+                foreach ($table->getColumns() as $collumn) {
+                    ?>
+                    <td><?= (string)$this->table()->retrieveValue($data, $collumn['key'], $collumn) ?></td>
+                    <?php
+                }
+                ?>
+                <td>
+                    <a class="btn btn-primary btn-flat btn-sm" href="<?= $this->url($table->getRoute() . '/edit', ['id' => $this->table()->retrieveValue($data, 'id')]) ?>"><i class="fa fa-edit bg"></i>
+                    </a>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-flat btn-sm button-delete" data-id="<?= $this->table()->retrieveValue($data, 'id')?>"
+                       href="<?= $this->url($table->getRoute() . '/delete', ['id' => $this->table()->retrieveValue($data, 'id')]) ?>">
+                        <i class="fas fa-trash">
+                        </i>
+                    </button>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+        <tfoot>
+        <tr>
+            <?php
+            foreach ($table->getColumns() as $collumn) {
+                ?>
+                <th><?= $collumn['label'] ?></th>
+                <?php
+            }
+            ?>
+            <th></th>
+            <th></th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="modal fade" id="modal-danger">
+    <div class="modal-dialog">
+        <div class="modal-content bg-danger">
+            <div class="modal-header">
+                <h4 class="modal-title">Внимание</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Удалить запись?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light button-delete">Удалить</button>
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

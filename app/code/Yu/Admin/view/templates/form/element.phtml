@@ -1,0 +1,25 @@
+<?php
+$element->setAttributes(['class' => 'form-control', 'placeholder' => $element->getLabel()]);
+?>
+<div class="form-group row <?php
+if ($element->getOption('lang')) {
+    echo ' lang-' . $element->getOption('lang');
+} ?>"
+    <?php
+    if ($element->getOption('lang') && $element->getOption('lang') !== \Yu\Site\ValueObject\Lang::getMainLang()['code']) {
+        $element->setAttribute('required', false);
+        echo ' style="display:none"';
+    } ?>
+>
+    <label class="col-sm-2 col-form-label"><?= $element->getLabel() ?>
+        <?php
+        if ($element->getOption('lang')) {
+            echo '<span class="current-lang-code">(' . \Yu\Site\ValueObject\Lang::getMainLang()['code'] . ')</span>';
+        } ?>
+    </label>
+    <div class="col-sm-10">
+        <?php
+        echo $this->formElement()->render($element);
+        ?>
+    </div>
+</div>

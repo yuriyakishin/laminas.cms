@@ -1,0 +1,16 @@
+<?php
+foreach ($fieldset->getIterator() as $element) {
+    if ($element instanceof \Laminas\Form\Element\Hidden) {
+        echo $this->formElement()->render($element);
+        continue;
+    }
+    if ($element instanceof \Laminas\Form\FieldsetInterface) {
+        foreach ($element->getElements() as $_e) {
+            echo $this->partial('admin/form/element', ['element' => $_e]);
+        }
+        continue;
+    }
+
+    echo $this->partial('admin/form/element', ['element' => $element]);
+}
+?>

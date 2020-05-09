@@ -1,0 +1,61 @@
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <?php
+    foreach ($this->container as $menu1) {
+        $active1 = false;
+        foreach ($menu1 as $_menu2) {
+            if ($_menu2->isActive()) {
+                $active1 = true;
+                break;
+            }
+            foreach ($_menu2 as $_menu3) {
+                if ($_menu3->isActive()) {
+                    $active1 = true;
+                    break;
+                }
+            }
+        }
+        ?>
+        <li class="nav-item has-treeview<?php if ($active1) {
+            echo ' menu-open';
+        } ?>">
+            <a href="#" class="nav-link<?php if ($active1) {
+                echo ' active';
+            } ?>">
+                <i class="nav-icon fas <?= $menu1->getClass() ?>"></i>
+                <p>
+                    <?= $menu1->getLabel() ?>
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview"><?php
+                foreach ($menu1 as $menu2) {
+                    $active2 = false;
+                    if($active1) {
+                        if ($menu2->isActive()) {
+                            $active2 = true;
+                        } else {
+                            foreach ($menu2 as $_menu3) {
+                                if ($_menu3->isActive()) {
+                                    $active2 = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    ?>
+                    <li class="nav-item">
+                    <a href="<?php echo $menu2->getHref() ?>" class="nav-link<?php if ($active2) {
+                        echo ' active';
+                    } ?>">
+                        <i class="far <?php /*fa-circle*/?> nav-icon"></i>
+                        <p><?= $menu2->getLabel() ?></p>
+                    </a>
+                    </li><?php
+                }
+                ?>
+            </ul>
+        </li>
+        <?php
+    }
+    ?>
+</ul>

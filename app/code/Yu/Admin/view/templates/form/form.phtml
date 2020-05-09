@@ -1,0 +1,166 @@
+<!-- /.col -->
+<?php
+/*
+$style = '';
+foreach (\Yu\Site\ValueObject\Lang::getLangs() as $lang) {
+    if ($lang['code'] !== \Yu\Site\ValueObject\Lang::getMainLang()['code']) {
+        $style .= '.lang-' . $lang['code'] . ' { display:none; } ';
+    }
+}
+$this->headStyle()->appendStyle($style);
+*/
+//$this->viewModel()->getRoot()->setVariable('h1', $this->h1);
+//$this->headTitle('Admin panel');
+/**
+ * @var Laminas\Form\View\Helper\FormElement $formElementHelper
+ */
+
+$this->formElement()->addType('wiziwig', 'wiziwig');
+
+$form->setAttribute('action', $this->url($form->getAttribute('action')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div class="card-header">
+    <ul class="nav nav-pills">
+        <?php
+        foreach ($form->getTabs() as $tab):
+            ?>
+            <li class="nav-item"><a class="nav-link tab-admin-link <?php if ($tab->getName() == 'main') echo ' active'; ?>"
+                                    onclick="javascript: localStorage.setItem('tab_admin', '<?php echo $tab->getName() ?>');"
+                                    data-name="<?php echo $tab->getName() ?>"
+                                    href="#<?php echo $tab->getName() ?>"
+                                    data-toggle="tab"><?php echo $tab->getLabel() ?></a></li>
+        <?php
+        endforeach;
+        ?>
+
+        <?php
+        if ($form->getOption('lang')) {
+            ?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="selected-lang"><?= \Yu\Site\ValueObject\Lang::getMainLang()['name'] ?></span> <span
+                            class="caret"></span>
+                </a>
+                <div class="dropdown-menu">
+                    <?php
+                    foreach (\Yu\Site\ValueObject\Lang::getLangs() as $lang) {
+                        ?>
+                        <a class="dropdown-item lang" data-lang="<?= $lang['code'] ?>" data-name="<?= $lang['name'] ?>"
+                           tabindex="-1" href="javascript:void(0)"><?= $lang['name'] ?></a>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </li>
+            <?php
+        }
+        ?>
+    </ul>
+</div><!-- /.card-header -->
+<div class="card-body">
+    <div class="tab-content">
+        <?php
+        foreach ($form->getTabs() as $tab) {
+            ?>
+            <div class="tab-pane<?php if ($tab->getName() == 'main') echo ' active'; ?>"
+                 id="<?php echo $tab->getName() ?>">
+                <?php
+                foreach ($tab->getFieldsetNames() as $fieldsetName) {
+
+                    $fieldset = $form->get($fieldsetName);
+                    $fieldsetOptions = $fieldset->getOptions();
+                    if(isset($fieldsetOptions['template'])) {
+                        echo $this->partial($fieldsetOptions['template'], ['fieldset' => $fieldset]);
+                    } else {
+                        echo $this->partial('admin/form/fieldset', ['fieldset' => $fieldset]);
+                        /*foreach ($fieldset->getIterator() as $element) {
+                            if ($element instanceof \Laminas\Form\Element\Hidden) {
+                                echo $this->formElement()->render($element);
+                                continue;
+                            }
+                            if ($element instanceof \Laminas\Form\FieldsetInterface) {
+                                foreach ($element->getElements() as $_e) {
+                                    echo $this->partial('admin/form/element', ['element' => $_e]);
+                                }
+                                continue;
+                            }
+
+                            echo $this->partial('admin/form/element', ['element' => $element]);
+                        }*/
+                    }
+                }
+                ?>
+            </div>
+            <?php
+        }
+        ?>
+        <!-- /.tab-pane -->
+    </div>
+    <!-- /.tab-content -->
+</div><!-- /.card-body -->
+<div class="card-footer">
+
+    <?php
+    if ($form->getOption('route-back')) {
+        ?>
+        <button type="submit" class="btn btn-primary button-save" name="save_end_close" value="1"><i class="far fa-save"></i> Сохранить и закрыть</button>
+        <?php
+    }
+    ?>
+    <button type="submit" class="btn btn-primary button-save"> Применить</button>
+    <?php
+    if ($form->getOption('route-back')) {
+        ?>
+        <button type="button" class="btn btn-secondary"
+                onclick="javascript:window.location.href='<?= $this->url($form->getOption('route-back')) ?>'"> Закрыть
+        </button>
+        <?php
+    }
+    ?>
+</div>
+<!-- /.nav-tabs-custom -->
+<?= $this->form()->closeTag() ?>
+<!-- /.col -->
+<?php
+$styleDisable = '';
+foreach (\Yu\Site\ValueObject\Lang::getLangs() as $lang) {
+    $styleDisable .= "$('.lang-" . $lang['code'] . "').attr('style', 'display:none');";
+}
+$script = <<<EOF
+
+    $(document).ready(function(){
+        $('.dropdown-item.lang').click(function() {
+            $('.selected-lang').text($(this).data('name'));
+            $('.current-lang-code').text('('+$(this).data('lang')+')');
+            $styleDisable
+            $('.lang-'+$(this).data('lang')).attr('style', 'display: ');
+        });
+    });
+    
+    var tab = localStorage.getItem('tab_admin');
+    $('.tab-admin-link').each(function(i,elem) {
+        if(tab == $(elem).data('name')) {
+            $(elem).trigger( 'click' );
+        }
+    });
+    
+    $('.button-save').click(function () {
+        $('[required="required"]').each(function () {
+            // Find the tab-pane that this element is inside, and get the id
+            var closestTab = $(this).closest('.tab-pane');
+            var id = closestTab.attr('id');
+            // Find the link that corresponds to the pane and have it show
+            if($(this).val() == '')
+            {
+                $('.nav a[href="#' + id + '"]').tab('show');
+                return false;
+            }
+        });
+    });
+
+EOF;
+$this->inlineScript()->offsetSetScript(1000, $script);
+?>

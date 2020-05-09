@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <?= $this->headTitle('Log in')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <?= $this->headLink()
+        /** Font Awesome */
+        ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/css/fontawesome-free/css/all.css'))
+        /** Ionicons */
+        ->appendStylesheet('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')
+        /** icheck bootstrap */
+        ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/plugins/icheck-bootstrap/icheck-bootstrap.min.css'))
+        /** Theme style */
+        ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/css/adminlte.css'))
+    ?>
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/admin"><b>Admin</b>Panel</a>
+    </div>
+    <?= $this->content ?>
+</div>
+<!-- /.login-box -->
+<?= $this->inlineScript()
+    /** jQuery */
+    ->appendFile($this->basePath('/dist/modules/Yu/Admin/web/plugins/jquery/jquery.min.js'))
+    /** jQuery UI 1.11.4 */
+    ->appendFile($this->basePath('/dist/modules/Yu/Admin/web/plugins/jquery-ui/jquery-ui.min.js'))
+    /** Bootstrap 4 */
+    ->appendFile($this->basePath('/dist/modules/Yu/Admin/web/plugins/bootstrap/js/bootstrap.bundle.min.js'))
+    /** jquery-validation */
+    ->appendFile($this->basePath('/dist/modules/Yu/Admin/web/plugins/jquery-validation/jquery.validate.min.js'))
+    ->appendFile($this->basePath('/dist/modules/Yu/Admin/web/plugins/jquery-validation/additional-methods.min.js'))
+    /** AdminLTE App */
+    ->appendFile($this->basePath('/dist/modules/Yu/Admin/web/js/adminlte.js'))
+?>
+
+</body>
+</html>

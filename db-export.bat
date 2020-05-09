@@ -1,0 +1,2 @@
+call .\vendor\bin\doctrine-module orm:convert-mapping --force --from-database annotation ./data/export/
+call .\vendor\bin\doctrine-module orm:generate-entities ./data/export/ --generate-annotations=true

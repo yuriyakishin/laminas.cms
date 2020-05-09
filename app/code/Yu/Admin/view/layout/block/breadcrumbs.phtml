@@ -1,0 +1,14 @@
+
+<ol class="breadcrumb float-sm-right">
+    <?php
+    foreach ($this->pages as $page) {
+        if ($page->isActive()) { ?>
+            <li class="breadcrumb-item active"><?= $page->getLabel() ?></li><?php
+        } else { ?>
+            <li class="breadcrumb-item"><a href="<?= $page->getHref() ?>"><?= $page->getLabel() ?></a></li><?php
+        }
+        ?>
+        <?php
+    }
+    ?>
+</ol>
