@@ -53,6 +53,36 @@ return [
                                                 'class' => 'custom-control-input',
                                             ],
                                         ],
+                                        'code' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'code',
+                                            'options' => [
+                                                'label' => 'Код',
+                                                'required' => false,
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                            ],
+                                        ],
+                                        'agent_id' => [
+                                            'type' => \DoctrineModule\Form\Element\ObjectSelect::class,
+                                            'name' => 'agent_id',
+                                            'options' => [
+                                                'label' => 'Агент',
+                                                'target_class' => \Yu\Realty\Entity\Agent::class,
+                                                'property' => 'name',
+                                                'label_generator' => function ($targetEntity) {
+                                                    $value = $targetEntity->getName();
+                                                    return \Yu\Core\DataHelper::getDefaultLangValue($value);
+                                                },
+                                                'display_empty_item' => true,
+                                                'empty_item_label'   => '- выберите',
+                                            ],
+                                            'attributes' => [
+                                                'required' => true,
+                                                'class' => 'custom-control-input',
+                                            ],
+                                        ],
                                     ],
                                 ],
                                 'params' => [
@@ -111,63 +141,35 @@ return [
                                                 'class' => 'custom-control-input',
                                             ],
                                         ],
-                                        'area_all' => [
+                                        'area' => [
                                             'type' => Element\Text::class,
-                                            'name' => 'area_all',
+                                            'name' => 'area',
                                             'options' => [
-                                                'label' => 'Общая площадь',
+                                                'label' => 'Общая площадь дома',
                                             ],
                                             'attributes' => [
                                                 'required' => false,
                                             ],
                                         ],
-                                        'area_live' => [
+                                        'area_land' => [
                                             'type' => Element\Text::class,
-                                            'name' => 'area_live',
+                                            'name' => 'area_land',
                                             'options' => [
-                                                'label' => 'Жилая площадь',
+                                                'label' => 'Площадь участка',
                                             ],
                                             'attributes' => [
                                                 'required' => false,
                                             ],
                                         ],
-                                        'area_kitchen' => [
+                                        'comm' => [
                                             'type' => Element\Text::class,
-                                            'name' => 'area_kitchen',
+                                            'name' => 'comm',
+                                            'lang' => true,
                                             'options' => [
-                                                'label' => 'Площадь кухни',
+                                                'label' => 'Коммуникации',
                                             ],
                                             'attributes' => [
                                                 'required' => false,
-                                            ],
-                                        ],
-                                        'project' => [
-                                            'type' => \DoctrineModule\Form\Element\ObjectSelect::class,
-                                            'name' => 'project',
-                                            'options' => [
-                                                'label' => 'Проект дома',
-                                                'required' => false,
-                                                'object_manager' => '',
-                                                'target_class' => \Yu\Eav\Entity\EavValueOption::class,
-                                                'property' => 'title',
-                                                'label_generator' => function ($targetEntity) {
-                                                    $value = $targetEntity->getValue();
-                                                    return \Yu\Core\DataHelper::getDefaultLangValue($value);
-                                                },
-                                                'display_empty_item' => true,
-                                                'empty_item_label'   => '- выберите',
-                                                'is_method'      => true,
-                                                'find_method'    => [
-                                                    'name'   => 'findBy',
-                                                    'params' => [
-                                                        'criteria' => ['optionId' => 101],
-                                                        'orderBy'  => ['sort' => 'ASC'],
-                                                    ],
-                                                ],
-                                            ],
-                                            'attributes' => [
-                                                'required' => false,
-                                                'class' => 'custom-control-input',
                                             ],
                                         ],
                                         'status' => [

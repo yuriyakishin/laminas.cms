@@ -52,6 +52,11 @@ return [
                             'attributes' => [
                                 'required' => false,
                             ],
+                            'filters' => [
+                                [
+                                    'name' => \Laminas\Filter\ToFloat::class,
+                                ],
+                            ],
                         ],
                         'lng' => [
                             'type' => Element\Text::class,
@@ -61,6 +66,11 @@ return [
                             ],
                             'attributes' => [
                                 'required' => false,
+                            ],
+                            'filters' => [
+                                [
+                                    'name' => \Laminas\Filter\ToFloat::class,
+                                ],
                             ],
                         ],
                     ],

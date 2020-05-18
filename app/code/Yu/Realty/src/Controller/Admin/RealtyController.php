@@ -142,6 +142,13 @@ class RealtyController extends AbstractAdminController
                     // Сохранить параметры
                     $this->realtyManager->saveParams($realty, $data);
 
+                    // Сохранить цену
+                    $dataPrice = $form->getData()['price'];
+                    $this->priceManager()->save([
+                        'siteId' => $this->authAdmin()->getCurrentUser()->getSiteId(),
+                        'path' => 'realty',
+                        'pathId' => $id], $dataPrice);
+
                     // Сохранить адрес
                     /** @var \Yu\Geo\Entity\Marker $marker */
                     $marker = $this->entityManager()->getRepository(Marker::class)->findMarker('realty', $id);
@@ -149,13 +156,6 @@ class RealtyController extends AbstractAdminController
                     $marker->setPathId($id);
                     $this->formManager()->importDataToEntity($form, 'geo', $marker);
                     $this->entityManager()->getRepository(Marker::class)->save($marker);
-
-                    // Сохранить цену
-                    $dataPrice = $form->getData()['price'];
-                    $this->priceManager()->save([
-                        'siteId' => $this->authAdmin()->getCurrentUser()->getSiteId(),
-                        'path' => 'realty',
-                        'pathId' => $id], $dataPrice);
 
                     // Сохранение Meta
                     $meta = $this->entityManager()->getRepository(Meta::class)->findMeta('realty', $id);

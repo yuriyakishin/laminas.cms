@@ -33,6 +33,7 @@ class SaleHouseRepository implements RealtyRepositoryInterface
         $queryBuilder
             ->addSelect('r.id as id')
             ->addSelect('r.active as active')
+            ->addSelect('r.code as code')
             ->addSelect('m.address as address')
             ->addSelect('i1.value as rooms')
             ->addSelect('d.value as district')

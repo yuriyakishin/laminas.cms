@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yu\RealtySaleFlat;
+namespace Yu\RealtySaleCommercial;
 
 use Laminas\Form\Element;
 
@@ -11,9 +11,9 @@ return [
         'form_manager' => [
             'forms' => [
                 // Forms
-                'realty-sale-flat' => [
-                    'action' => 'admin/realty-sale-flat/save',
-                    'route-back' => 'admin/realty-sale-flat',
+                'realty-sale-commercial' => [
+                    'action' => 'admin/realty-sale-commercial/save',
+                    'route-back' => 'admin/realty-sale-commercial',
                     'lang' => true,
                     'tabs' => [
                         'main' => [
@@ -116,66 +116,11 @@ return [
                                                 'class' => 'custom-control-input',
                                             ],
                                         ],
-                                        'rooms' => [
-                                            'type' => Element\Select::class,
-                                            'name' => 'rooms',
-                                            'options' => [
-                                                'label' => 'Количество комнат',
-                                                'required' => true,
-                                                'value_options' => [
-                                                    '' => '- выберите',
-                                                    '1' => '1',
-                                                    '2' => '2',
-                                                    '3' => '3',
-                                                    '4' => '4',
-                                                    '5' => '5',
-                                                    '6' => '6',
-                                                    '7' => '7',
-                                                    '8' => '8',
-                                                    '9' => '9',
-                                                    '10' => '10',
-                                                ],
-                                            ],
-                                            'attributes' => [
-                                                'required' => true,
-                                                'class' => 'custom-control-input',
-                                            ],
-                                        ],
-                                        'area_all' => [
-                                            'type' => Element\Text::class,
-                                            'name' => 'area_all',
-                                            'options' => [
-                                                'label' => 'Общая площадь',
-                                            ],
-                                            'attributes' => [
-                                                'required' => false,
-                                            ],
-                                        ],
-                                        'area_live' => [
-                                            'type' => Element\Text::class,
-                                            'name' => 'area_live',
-                                            'options' => [
-                                                'label' => 'Жилая площадь',
-                                            ],
-                                            'attributes' => [
-                                                'required' => false,
-                                            ],
-                                        ],
-                                        'area_kitchen' => [
-                                            'type' => Element\Text::class,
-                                            'name' => 'area_kitchen',
-                                            'options' => [
-                                                'label' => 'Площадь кухни',
-                                            ],
-                                            'attributes' => [
-                                                'required' => false,
-                                            ],
-                                        ],
-                                        'project' => [
+                                        'commercial' => [
                                             'type' => \DoctrineModule\Form\Element\ObjectSelect::class,
-                                            'name' => 'project',
+                                            'name' => 'commercial',
                                             'options' => [
-                                                'label' => 'Проект дома',
+                                                'label' => 'Виды коммерческой недвижимости',
                                                 'required' => false,
                                                 'object_manager' => '',
                                                 'target_class' => \Yu\Eav\Entity\EavValueOption::class,
@@ -190,14 +135,45 @@ return [
                                                 'find_method'    => [
                                                     'name'   => 'findBy',
                                                     'params' => [
-                                                        'criteria' => ['optionId' => 101],
+                                                        'criteria' => ['optionId' => 301],
                                                         'orderBy'  => ['sort' => 'ASC'],
                                                     ],
                                                 ],
                                             ],
                                             'attributes' => [
-                                                'required' => false,
+                                                'required' => true,
                                                 'class' => 'custom-control-input',
+                                            ],
+                                        ],
+                                        'area' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'area',
+                                            'options' => [
+                                                'label' => 'Площадь помещения',
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                            ],
+                                        ],
+                                        'area_land' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'area_land',
+                                            'options' => [
+                                                'label' => 'Площадь участка',
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                            ],
+                                        ],
+                                        'parking' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'parking',
+                                            'lang' => true,
+                                            'options' => [
+                                                'label' => 'Паркинг',
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
                                             ],
                                         ],
                                         'status' => [

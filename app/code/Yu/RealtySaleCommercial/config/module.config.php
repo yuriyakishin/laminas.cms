@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yu\RealtySaleFlat;
+namespace Yu\RealtySaleCommercial;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
@@ -13,12 +13,12 @@ return [
         'routes' => [
             'admin' => [
                 'child_routes' => [
-                    'realty-sale-flat' => [
+                    'realty-sale-commercial' => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/realty/sale/flat',
+                            'route' => '/realty/sale/commercial',
                             'defaults' => [
-                                'controller' => 'Yu\RealtySaleFlat\Controller\Admin\SaleFlatController',
+                                'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\SaleCommercialController',
                                 'action' => 'index',
                             ],
                         ],
@@ -29,7 +29,7 @@ return [
                                 'options' => [
                                     'route' => '/edit[/:id]',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleFlat\Controller\Admin\SaleFlatController',
+                                        'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\SaleCommercialController',
                                         'action' => 'edit',
                                         'id' => 0,
                                     ],
@@ -40,7 +40,7 @@ return [
                                 'options' => [
                                     'route' => '/delete',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleFlat\Controller\Admin\SaleFlatController',
+                                        'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\SaleCommercialController',
                                         'action' => 'delete',
                                         'id' => 0,
                                     ],
@@ -51,7 +51,7 @@ return [
                                 'options' => [
                                     'route' => '/save[/:id]',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleFlat\Controller\Admin\SaleFlatController',
+                                        'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\SaleCommercialController',
                                         'action' => 'save',
                                     ],
                                 ],
@@ -59,12 +59,12 @@ return [
                         ],
                     ],
 
-                    'eav-value-option-project' => [
+                    'eav-value-option-commercial' => [
                         'type' => Literal::class,
                         'options' => [
-                            'route' => '/eav/value-option/project',
+                            'route' => '/eav/value-option/commercial',
                             'defaults' => [
-                                'controller' => 'Yu\RealtySaleFlat\Controller\Admin\ValueOptionProject',
+                                'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\ValueOptionCommercial',
                                 'action' => 'index',
                             ],
                         ],
@@ -75,7 +75,7 @@ return [
                                 'options' => [
                                     'route' => '/edit[/:id]',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleFlat\Controller\Admin\ValueOptionProject',
+                                        'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\ValueOptionCommercial',
                                         'action' => 'edit',
                                         'id' => 0,
                                     ],
@@ -86,7 +86,7 @@ return [
                                 'options' => [
                                     'route' => '/delete',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleFlat\Controller\Admin\ValueOptionProject',
+                                        'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\ValueOptionCommercial',
                                         'action' => 'delete',
                                         'id' => 0,
                                     ],
@@ -97,7 +97,7 @@ return [
                                 'options' => [
                                     'route' => '/save[/:id]',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleFlat\Controller\Admin\ValueOptionProject',
+                                        'controller' => 'Yu\RealtySaleCommercial\Controller\Admin\ValueOptionCommercial',
                                         'action' => 'save',
                                     ],
                                 ],
@@ -111,21 +111,21 @@ return [
 
     'controllers' => [
         'factories' => [
-            'Yu\RealtySaleFlat\Controller\Admin\SaleFlatController' => Controller\Admin\Factory\SaleFlatControllerFactory::class,
-            'Yu\RealtySaleFlat\Controller\Admin\ValueOptionProject' => Controller\Admin\Factory\ValueOptionProjectControllerFactory::class,
+            'Yu\RealtySaleCommercial\Controller\Admin\SaleCommercialController' => Controller\Admin\Factory\SaleCommercialControllerFactory::class,
+            'Yu\RealtySaleCommercial\Controller\Admin\ValueOptionCommercial' => Controller\Admin\Factory\ValueOptionCommercialControllerFactory::class,
         ],
     ],
 
     'realty' => [
-        'sale-flat' => [
-            'name' => 'Sale flat',
+        'sale-commercial' => [
+            'name' => 'Sale Commercial',
             'admin' => [
                 'options' => [
-                    'title' => 'Продажа квартир',
-                    'table' => 'realty-sale-flat',
-                    'form' => 'realty-sale-flat',
-                    'route' => 'admin/realty-sale-flat',
-                    'type' => 'sale-flat',
+                    'title' => 'Продажа коммерческой недвижимости',
+                    'table' => 'realty-sale-commercial',
+                    'form' => 'realty-sale-commercial',
+                    'route' => 'admin/realty-sale-commercial',
+                    'type' => 'sale-commercial',
                 ],
             ],
             'attributes' => [
@@ -135,35 +135,29 @@ return [
                     'label' => 'District',
                     'type' => 'int',
                 ],
-                'rooms' => [
-                    'id' => 101,
-                    'code' => 'rooms',
-                    'label' => 'Rooms',
+                'commercial' => [
+                    'id' => 301,
+                    'code' => 'commercial',
+                    'label' => 'Commercial type',
                     'type' => 'int',
                 ],
-                'area_all' => [
-                    'id' => 102,
-                    'code' => 'area_all',
+                'area' => [
+                    'id' => 302,
+                    'code' => 'area',
                     'label' => 'Area',
                     'type' => 'text',
                 ],
-                'area_live' => [
-                    'id' => 103,
-                    'code' => 'area_live',
-                    'label' => 'Area live',
+                'area_land' => [
+                    'id' => 303,
+                    'code' => 'area_land',
+                    'label' => 'Area land',
                     'type' => 'text',
                 ],
-                'area_kitchen' => [
-                    'id' => 104,
-                    'code' => 'area_kitchen',
-                    'label' => 'Area kitchen',
+                'parking' => [
+                    'id' => 304,
+                    'code' => 'parking',
+                    'label' => 'Parking',
                     'type' => 'text',
-                ],
-                'project' => [
-                    'id' => 105,
-                    'code' => 'project',
-                    'label' => 'Project',
-                    'type' => 'int',
                 ],
                 'status' => [
                     'id' => 106,
@@ -189,10 +183,10 @@ return [
 
     'eav' => [
         'value-option' => [
-            'project' => [
-                'id' => '101',
-                'code' => 'project',
-                'label' => 'Проекты домов',
+            'commercial' => [
+                'id' => '301',
+                'code' => 'commercial',
+                'label' => 'Виды коммерческой недвижимости',
             ],
         ],
     ],

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Yu\RealtySaleHouse;
+namespace Yu\RealtySaleCommercial;
 
 return [
     'admin' => [
         'table_manager' => [
-            'realty-sale-house' => [
+            'realty-sale-commercial' => [
                 'columns' => [
                     [
                         'label' => '',
@@ -24,11 +24,14 @@ return [
                         'key' => 'code',
                     ],
                     [
-                        'label' => 'Кол. комнат',
-                        'key' => 'rooms',
-                        'target_class' => \Yu\Realty\Entity\RealtyValueInt::class,
-                        'findBy' => 'entityId',
-                        'property' => 'entityId',
+                        'label' => 'Виды коммерческой недвижимости',
+                        'key' => 'commercial',
+                        'source' => [
+                            'view_helper' => \Yu\Eav\View\Helper\ViewOptionHelper::class,
+                            'options' => function ($data) {
+                                return array('id' => $data['commercial']);
+                            }
+                        ],
                     ],
                     [
                         'label' => 'Район',
@@ -65,7 +68,7 @@ return [
                     ],
                 ],
                 'options' => [
-                    'route' => 'admin/realty-sale-house',
+                    'route' => 'admin/realty-sale-commercial',
                 ]
             ],
         ],

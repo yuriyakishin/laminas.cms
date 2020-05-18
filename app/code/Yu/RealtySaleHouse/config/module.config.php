@@ -18,7 +18,7 @@ return [
                         'options' => [
                             'route' => '/realty/sale/house',
                             'defaults' => [
-                                'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\SaleHouseController',
+                                'controller' => 'Yu\RealtySaleHouse\Controller\Admin\SaleHouseController',
                                 'action' => 'index',
                             ],
                         ],
@@ -29,7 +29,7 @@ return [
                                 'options' => [
                                     'route' => '/edit[/:id]',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\SaleHouseController',
+                                        'controller' => 'Yu\RealtySaleHouse\Controller\Admin\SaleHouseController',
                                         'action' => 'edit',
                                         'id' => 0,
                                     ],
@@ -40,7 +40,7 @@ return [
                                 'options' => [
                                     'route' => '/delete',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\SaleHouseController',
+                                        'controller' => 'Yu\RealtySaleHouse\Controller\Admin\SaleHouseController',
                                         'action' => 'delete',
                                         'id' => 0,
                                     ],
@@ -51,53 +51,7 @@ return [
                                 'options' => [
                                     'route' => '/save[/:id]',
                                     'defaults' => [
-                                        'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\SaleHouseController',
-                                        'action' => 'save',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-
-                    'eav-value-option-project' => [
-                        'type' => Literal::class,
-                        'options' => [
-                            'route' => '/eav/value-option/project',
-                            'defaults' => [
-                                'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\ValueOptionProject',
-                                'action' => 'index',
-                            ],
-                        ],
-                        'may_terminate' => true,
-                        'child_routes' => [
-                            'edit' => [
-                                'type' => Segment::class,
-                                'options' => [
-                                    'route' => '/edit[/:id]',
-                                    'defaults' => [
-                                        'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\ValueOptionProject',
-                                        'action' => 'edit',
-                                        'id' => 0,
-                                    ],
-                                ],
-                            ],
-                            'delete' => [
-                                'type' => Segment::class,
-                                'options' => [
-                                    'route' => '/delete',
-                                    'defaults' => [
-                                        'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\ValueOptionProject',
-                                        'action' => 'delete',
-                                        'id' => 0,
-                                    ],
-                                ],
-                            ],
-                            'save' => [
-                                'type' => Segment::class,
-                                'options' => [
-                                    'route' => '/save[/:id]',
-                                    'defaults' => [
-                                        'controller' => 'Yu\RealtySaleHouse\Comtroller\Admin\ValueOptionProject',
+                                        'controller' => 'Yu\RealtySaleHouse\Controller\Admin\SaleHouseController',
                                         'action' => 'save',
                                     ],
                                 ],
@@ -111,8 +65,7 @@ return [
 
     'controllers' => [
         'factories' => [
-            'Yu\RealtySaleHouse\Comtroller\Admin\SaleHouseController' => Controller\Admin\Factory\SaleHouseControllerFactory::class,
-            'Yu\RealtySaleHouse\Comtroller\Admin\ValueOptionProject' => Controller\Admin\Factory\ValueOptionProjectControllerFactory::class,
+            'Yu\RealtySaleHouse\Controller\Admin\SaleHouseController' => Controller\Admin\Factory\SaleHouseControllerFactory::class,
         ],
     ],
 
@@ -141,34 +94,41 @@ return [
                     'label' => 'Rooms',
                     'type' => 'int',
                 ],
-                'area_all' => [
-                    'id' => 102,
-                    'code' => 'area_all',
-                    'label' => 'Area',
+                'area' => [
+                    'id' => 202,
+                    'code' => 'area',
+                    'label' => 'Area house',
                     'type' => 'text',
                 ],
-                'area_live' => [
-                    'id' => 103,
-                    'code' => 'area_live',
-                    'label' => 'Area live',
+                'area_land' => [
+                    'id' => 203,
+                    'code' => 'area_land',
+                    'label' => 'Area land',
                     'type' => 'text',
                 ],
-                'area_kitchen' => [
-                    'id' => 104,
-                    'code' => 'area_kitchen',
-                    'label' => 'Area kitchen',
+
+                'comm' => [
+                    'id' => 205,
+                    'code' => 'comm',
+                    'label' => 'Communications',
                     'type' => 'text',
-                ],
-                'project' => [
-                    'id' => 105,
-                    'code' => 'project',
-                    'label' => 'Project',
-                    'type' => 'int',
                 ],
                 'status' => [
                     'id' => 106,
                     'code' => 'status',
                     'label' => 'Status',
+                    'type' => 'text',
+                ],
+                'anons' => [
+                    'id' => 107,
+                    'code' => 'anons',
+                    'label' => 'Anons',
+                    'type' => 'text',
+                ],
+                'about' => [
+                    'id' => 108,
+                    'code' => 'about',
+                    'label' => 'About',
                     'type' => 'text',
                 ],
             ],

@@ -33,9 +33,10 @@ return [
     'Yu\Realty',
     'Yu\RealtySaleFlat',
     'Yu\RealtySaleHouse',
+    'Yu\RealtySaleCommercial',
     'Yu\Content',
     'Yu\Seo',
     'Yu\Index',
     'Yu\Blog',
-    //'Laminas\DeveloperTools',
+    'Laminas\DeveloperTools',
 ];

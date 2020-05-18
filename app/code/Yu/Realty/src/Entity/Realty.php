@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Realty
  *
- * @ORM\Table(name="realty", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="type", columns={"type"}), @ORM\Index(name="sort", columns={"sort"}), @ORM\Index(name="site_id", columns={"site_id"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="agent_id", columns={"agent_id"})})
+ * @ORM\Table(name="realty", indexes={@ORM\Index(name="type", columns={"type"}), @ORM\Index(name="sort", columns={"sort"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="agent_id", columns={"agent_id"}), @ORM\Index(name="code", columns={"code"}), @ORM\Index(name="site_id", columns={"site_id"})})
  * @ORM\Entity(repositoryClass="\Yu\Realty\Repository\RealtyRepository")
  */
 class Realty
@@ -48,6 +48,13 @@ class Realty
      * @ORM\Column(name="type", type="string", length=20, precision=0, scale=0, nullable=false, unique=false)
      */
     private $type;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="code", type="string", length=20, precision=0, scale=0, nullable=true, unique=false)
+     */
+    private $code;
 
     /**
      * @var int|null
@@ -182,6 +189,30 @@ class Realty
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set code.
+     *
+     * @param string|null $code
+     *
+     * @return Realty
+     */
+    public function setCode($code = null)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code.
+     *
+     * @return string|null
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**
