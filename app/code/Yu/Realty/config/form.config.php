@@ -108,7 +108,101 @@ return [
                         ],
                     ],
                 ],
-            ]
+            ],
+
+            'fieldsets' => [
+                'realty' => [
+                    'elements' => [
+                        'realty_id' => [
+                            'type' => Element\Hidden::class,
+                            'name' => 'id',
+                            'options' => [
+                                'required' => false,
+                            ],
+                            'attributes' => [
+                                'required' => false,
+                            ],
+                            'filters' => [
+                                [
+                                    'name' => \Laminas\Filter\ToInt::class,
+                                ],
+                            ],
+                        ],
+                        'active' => [
+                            'type' => Element\Select::class,
+                            'name' => 'active',
+                            'options' => [
+                                'label' => 'Активность',
+                                'required' => false,
+                                'value_options' => [
+                                    '1' => 'Да',
+                                    '0' => 'Нет',
+                                ],
+                            ],
+                            'attributes' => [
+                                'required' => false,
+                                'class' => 'custom-control-input',
+                            ],
+                            'filters' => [
+                                [
+                                    'name' => \Laminas\Filter\ToInt::class,
+                                ],
+                            ],
+                        ],
+                        'main' => [
+                            'type' => Element\Select::class,
+                            'name' => 'main',
+                            'options' => [
+                                'label' => 'Показывать на главной',
+                                'required' => false,
+                                'value_options' => [
+                                    '0' => 'Нет',
+                                    '1' => 'Да',
+                                ],
+                            ],
+                            'attributes' => [
+                                'required' => false,
+                                'class' => 'custom-control-input',
+                            ],
+                            'filters' => [
+                                [
+                                    'name' => \Laminas\Filter\ToInt::class,
+                                ],
+                            ],
+                        ],
+                        'code' => [
+                            'type' => Element\Text::class,
+                            'name' => 'code',
+                            'options' => [
+                                'label' => 'Код',
+                                'required' => false,
+                            ],
+                            'attributes' => [
+                                'required' => false,
+                            ],
+                        ],
+                        'agent_id' => [
+                            'type' => \DoctrineModule\Form\Element\ObjectSelect::class,
+                            'name' => 'agent_id',
+                            'options' => [
+                                'label' => 'Агент',
+                                'target_class' => \Yu\Realty\Entity\Agent::class,
+                                'property' => 'name',
+                                'label_generator' => function ($targetEntity) {
+                                    $value = $targetEntity->getName();
+                                    return \Yu\Core\DataHelper::getDefaultLangValue($value);
+                                },
+                                'display_empty_item' => true,
+                                'empty_item_label' => '- выберите',
+                            ],
+                            'attributes' => [
+                                'required' => true,
+                                'class' => 'custom-control-input',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
 ];

@@ -24,6 +24,9 @@ class TableHelper extends AbstractHelper
      */
     private $columns;
 
+    /**
+     * @var
+     */
     private $entityManager;
 
     /**

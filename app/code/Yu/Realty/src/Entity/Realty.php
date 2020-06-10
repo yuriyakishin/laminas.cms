@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Realty
  *
- * @ORM\Table(name="realty", indexes={@ORM\Index(name="type", columns={"type"}), @ORM\Index(name="sort", columns={"sort"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="agent_id", columns={"agent_id"}), @ORM\Index(name="code", columns={"code"}), @ORM\Index(name="site_id", columns={"site_id"})})
+ * @ORM\Table(name="realty", indexes={@ORM\Index(name="type", columns={"type"}), @ORM\Index(name="sort", columns={"sort"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="main", columns={"main"}), @ORM\Index(name="agent_id", columns={"agent_id"}), @ORM\Index(name="code", columns={"code"}), @ORM\Index(name="site_id", columns={"site_id"})})
  * @ORM\Entity(repositoryClass="\Yu\Realty\Repository\RealtyRepository")
  */
 class Realty
@@ -62,6 +62,13 @@ class Realty
      * @ORM\Column(name="agent_id", type="integer", precision=0, scale=0, nullable=true, options={"unsigned"=true}, unique=false)
      */
     private $agentId;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="main", type="boolean", precision=0, scale=0, nullable=false, unique=false)
+     */
+    private $main;
 
     /**
      * @var int|null
@@ -237,6 +244,30 @@ class Realty
     public function getAgentId()
     {
         return $this->agentId;
+    }
+
+    /**
+     * Set main.
+     *
+     * @param bool $main
+     *
+     * @return Realty
+     */
+    public function setMain($main)
+    {
+        $this->main = $main;
+
+        return $this;
+    }
+
+    /**
+     * Get main.
+     *
+     * @return bool
+     */
+    public function getMain()
+    {
+        return $this->main;
     }
 
     /**

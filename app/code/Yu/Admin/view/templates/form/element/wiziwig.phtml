@@ -1,4 +1,16 @@
 <?php
+$this->inlineScript()
+->offsetSetFile(200, $this->basePath('/dist/modules/Yu/Admin/web/plugins/ckeditor/ckeditor.js'));
+$script = "
+    CKEDITOR.replace( '" . $element->getAttribute('name') . "' );
+";
+$this->inlineScript()->appendScript($script);
+?>
+<textarea name="<?= $element->getAttribute('name') ?>" rows="10" class="form-control wiziwig"><?= $element->getValue() ?></textarea>
+
+
+<?php
+/*
 $this->headLink()
     ->appendStylesheet($this->basePath('/dist/modules/Yu/Admin/web/plugins/summernote/summernote-bs4.css'));
 $this->inlineScript()
@@ -11,3 +23,4 @@ $script = "
 $this->inlineScript()->offsetSetScript(1100, $script);
 ?>
 <textarea name="<?= $element->getAttribute('name') ?>" rows="10" class="form-control wiziwig"><?= $element->getValue() ?></textarea>
+*/?>

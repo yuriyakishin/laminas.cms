@@ -71,7 +71,7 @@
                 resultsMap.setCenter(results[0].geometry.location);
                 marker.setPosition(results[0].geometry.location);
                 toggleBounce();
-                if(document.getElementsByName("geo[address][ru]")[0].value == '') {
+                if( 1 /*document.getElementsByName("geo[address][ru]")[0].value == ''*/ ) {
                     document.getElementsByName("geo[address][ru]")[0].value = address;
                 }
             } else {

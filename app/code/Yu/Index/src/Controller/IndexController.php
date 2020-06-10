@@ -11,7 +11,8 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $this->getResponse()->setContent('Some content');
-        return new ViewModel();
+        $view = new ViewModel();
+        $view->setTemplate('yu/index');
+        return $view;
     }
 }

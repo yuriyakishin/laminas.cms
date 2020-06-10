@@ -7,6 +7,7 @@ namespace Yu\Realty;
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\View\View;
 
 return [
     'router' => [
@@ -81,6 +82,15 @@ return [
             'realty.manager' => \Yu\Realty\Service\RealtyManager::class,
             'realty.config.manager' => \Yu\Realty\Service\RealtyConfigManager::class,
         ]
+    ],
+
+    'view_helpers' => [
+        'factories' => [
+            \Yu\Realty\View\Helper\Realty::class => \Yu\Realty\View\Helper\Factory\RealtyFactory::class,
+        ],
+        'aliases' => [
+            'realty' => \Yu\Realty\View\Helper\Realty::class,
+        ],
     ],
 
     'doctrine' => [

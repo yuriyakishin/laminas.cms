@@ -24,4 +24,15 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+
+    'translator' => [
+        'locale' => 'ru_RU',
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phparray',
+                'base_dir' => __DIR__ . '/../i18n',
+                'pattern'  => '%s.php',
+            ],
+        ],
+    ],
 ];

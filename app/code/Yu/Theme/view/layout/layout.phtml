@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ru" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Масштаб</title>
+    <meta name="description" content="">
+    <meta name="keywords" content=" ">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/menutop.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/media.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:300,400,700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column h-100">
+<header class="large">
+    <div class="container bg-header">
+        <div class="wsmenucontainer clearfix">
+            <div class="overlapblackbg"></div>
+            <div class="wsmobileheader clearfix"><a id="wsnavtoggle" class="animated-arrow"><span></span></a> <a
+                        class="smallogo"><img src="i/logo.png" alt=""/></a>
+                <!--compare-->
+                <div class="callusicon"><a href="#" title="Сравнение" class="compare"><i
+                                class="fas fa-balance-scale"><span>12</span></i></a></div>
+                <!--//compare-->
+
+            </div>
+            <div class="header">
+
+                <!--Main Menu HTML Code-->
+                <div class="wsmain">
+                    <nav class="wsmenu clearfix">
+                        <ul class="mobile-sub wsmenu-list">
+                            <li class="rightmenu">
+                                <div class="lang"><a href="#" class="active">RU</a><a href="#">UA</a><a href="#">EN</a>
+                                </div>
+                            </li>
+                            <li><a href="#">Главная</a></li>
+                            <li><a href="#" class="active">О компании<span class="arrow fas fa-angle-down"></span></a>
+                                <ul class="wsmenu-submenu">
+                                    <li><a href="#">О компании</a></li>
+                                    <li><a href="#" class="active">Сертификаты и награды</a></li>
+                                    <li><a href="#">Отзывы о кампании</a></li>
+                                    <li><a href="#">Видеовизитка РК</a></li>
+                                    <li><a href="#">Образцы договоров</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Услуги<span class="arrow fas fa-angle-down"></span></a>
+                                <ul class="wsmenu-submenu">
+                                    <li><a href="#">Риэлторские услуги</a></li>
+                                    <li><a href="#">Инвестиционные услуги</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Вакансии</a></li>
+                            <li><a href="#">Новости</a></li>
+                            <li><a href="#">Полезное<span class="arrow fas fa-angle-down"></span></a>
+                                <ul class="wsmenu-submenu">
+                                    <li><a href="#">Доска объявлений</a></li>
+                                    <li><a href="#">Расчет стоимости ремонта</a></li>
+                                    <li><a href="#">Фотогалерея Мариуполя</a></li>
+                                    <li><a href="#">Типовые планировки</a></li>
+                                    <li><a href="#">Статьи</a></li>
+                                    <li><a href="#">А получится ли из Вас риэлтор?</a></li>
+                                    <li><a href="#">Опросы</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Купим / снимем</a></li>
+                            <li><a href="#">Контакты</a></li>
+                            <li class="menu-hide"><a href="#" data-toggle="modal" data-target="#order" class="txt-cond"><i
+                                            class="far fa-check-circle"></i>Подать заявку</a></li>
+                            <li class="menu-hide"><a href="#" data-toggle="modal" data-target="#estimate"
+                                                     class="txt-cond"><i class="far fa-check-circle"></i>Оценить
+                                    недвижимость On-line</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!--Menu HTML Code-->
+
+            </div>
+        </div>
+        <div class="top-site">
+            <div class="row">
+                <div class="col-lg-2 col-xl-3"><a href="#" title="На Главную"><img src="i/logo.png"
+                                                                                   alt="Риэлторская компания Масштаб"/></a>
+                </div>
+                <div class="col-lg-10 col-xl-9">
+                    <div class="send-form float-left pt-lg-2 pt-xl-3"><a href="#" class="txt-cond red-top"
+                                                                         data-toggle="modal" data-target="#order"><i
+                                    class="far fa-check-circle"></i>Подать заявку</a><a href="#"
+                                                                                        class="txt-cond red-top"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#estimate"><i
+                                    class="far fa-check-circle"></i>Оценить недвижимость On-line</a></div>
+                    <div class="phon-top pt-lg-2 pt-xl-3"><i class="fas fa-phone"></i><a href="tel:+380629407407"
+                                                                                         class="txt-cond mr-4">+38 0629
+                            407-407</a><a href="tel:+380676259111" class="txt-cond">+38 067 62-59-111</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--//header-->
+<div class="wraper">
+    <!--panel search-->
+    <div class="container search-panel">
+        <ul id="tabs" class="row nav nav-tabs no-gutters" role="tablist">
+            <li class="col-2 nav-item pr-1"><a id="buy" href="#pane-buy" class="nav-link active" data-toggle="tab"
+                                               role="tab">Купить</a></li>
+            <li class="col-2 nav-item pr-1"><a id="rent" href="#pane-rent" class="nav-link" data-toggle="tab"
+                                               role="tab">Снять</a></li>
+            <li class="col-2 nav-item pr-1"><a id="rent-day" href="#pane-rent-day" class="nav-link" data-toggle="tab"
+                                               role="tab">Посуточно</a></li>
+            <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link" data-toggle="tab" role="tab">Поиск
+                    по коду</a></li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+            <!--panel-item-->
+            <div id="pane-buy" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="buy">
+                <div class="card-header txt-cond" role="tab" id="heading-buy"><a class="active" data-toggle="collapse"
+                                                                                 href="#collapse-buy"
+                                                                                 aria-expanded="true"
+                                                                                 aria-controls="collapse-buy">
+                        Купить </a></div>
+                <div id="collapse-buy" class="collapse show" data-parent="#content" role="tabpanel"
+                     aria-labelledby="heading-buy">
+                    <div class="card-body">
+                        <form action="">
+                            <div class="form-row d-flex">
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Недвижимость"
+                                            data-hide-disabled="true">
+                                        <option selected>Квартира</option>
+                                        <option>Дом</option>
+                                        <option>Помещение</option>
+                                        <option>Земля</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Район"
+                                            data-hide-disabled="true">
+                                        <option selected>Район</option>
+                                        <option>Центральный</option>
+                                        <option>Приморский</option>
+                                        <option>Кальмиусский</option>
+                                        <option>Левобережний</option>
+                                        <option>Новоазовский</option>
+                                        <option>Первомайський</option>
+                                        <option>Володарский</option>
+                                        <option>Пригород</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Комнат"
+                                            data-hide-disabled="true">
+                                        <option selected>1-комнатная</option>
+                                        <option>2-комнатная</option>
+                                        <option>3-комнатная</option>
+                                        <option>4-комнатная</option>
+                                        <option>5 и более</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="price"
+                                           placeholder="Цена не более, у.е.">
+                                </div>
+                                <button type="submit" class="btn search txt-cond">ИСКАТЬ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--//panel-item-->
+            <!--panel-item-->
+            <div id="pane-rent" class="card tab-pane fade" role="tabpanel" aria-labelledby="rent">
+                <div class="card-header txt-cond" role="tab" id="heading-rent"><a class="collapsed"
+                                                                                  data-toggle="collapse"
+                                                                                  href="#collapse-rent"
+                                                                                  aria-expanded="false"
+                                                                                  aria-controls="collapse-rent">
+                        Снять </a></div>
+                <div id="collapse-rent" class="collapse" data-parent="#content" role="tabpanel"
+                     aria-labelledby="heading-rent">
+                    <div class="card-body">
+                        <form action="">
+                            <div class="form-row d-flex">
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Недвижимость"
+                                            data-hide-disabled="true">
+                                        <option selected>Квартира</option>
+                                        <option>Дом</option>
+                                        <option>Помещение</option>
+                                        <option>Земля</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Район"
+                                            data-hide-disabled="true">
+                                        <option selected>Район</option>
+                                        <option>Центральный</option>
+                                        <option>Приморский</option>
+                                        <option>Кальмиусский</option>
+                                        <option>Левобережний</option>
+                                        <option>Новоазовский</option>
+                                        <option>Первомайський</option>
+                                        <option>Володарский</option>
+                                        <option>Пригород</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Комнат"
+                                            data-hide-disabled="true">
+                                        <option selected>1-комнатная</option>
+                                        <option>2-комнатная</option>
+                                        <option>3-комнатная</option>
+                                        <option>4-комнатная</option>
+                                        <option>5 и более</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="price"
+                                           placeholder="Цена не более, у.е.">
+                                </div>
+                                <button type="submit" class="btn search txt-cond">ИСКАТЬ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--//panel-item-->
+            <!--panel-item-->
+            <div id="pane-rent-day" class="card tab-pane fade" role="tabpanel" aria-labelledby="rent-day">
+                <div class="card-header txt-cond" role="tab" id="heading-rent-day"><a class="collapsed"
+                                                                                      data-toggle="collapse"
+                                                                                      href="#collapse-rent-day"
+                                                                                      aria-expanded="false"
+                                                                                      aria-controls="collapse-rent-day">
+                        Посуточно </a></div>
+                <div id="collapse-rent-day" class="collapse" role="tabpanel" data-parent="#content"
+                     aria-labelledby="heading-rent-day">
+                    <div class="card-body">
+                        <form action="">
+                            <div class="form-row d-flex">
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Недвижимость"
+                                            data-hide-disabled="true">
+                                        <option selected>Квартира</option>
+                                        <option>Дом</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Район"
+                                            data-hide-disabled="true">
+                                        <option selected>Район</option>
+                                        <option>Центральный</option>
+                                        <option>Приморский</option>
+                                        <option>Кальмиусский</option>
+                                        <option>Левобережний</option>
+                                        <option>Новоазовский</option>
+                                        <option>Первомайський</option>
+                                        <option>Володарский</option>
+                                        <option>Пригород</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectpicker form-control" id="number2" title="Комнат"
+                                            data-hide-disabled="true">
+                                        <option selected>1-комнатная</option>
+                                        <option>2-комнатная</option>
+                                        <option>3-комнатная</option>
+                                        <option>4-комнатная</option>
+                                        <option>5 и более</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="price"
+                                           placeholder="Цена не более, у.е.">
+                                </div>
+                                <button type="submit" class="btn search txt-cond">ИСКАТЬ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--//panel-item-->
+            <!--panel-item-->
+            <div id="pane-code" class="card tab-pane fade" role="tabpanel" aria-labelledby="code">
+                <div class="card-header txt-cond" role="tab" id="heading-rent-day"><a class="collapsed"
+                                                                                      data-toggle="collapse"
+                                                                                      href="#collapse-code"
+                                                                                      aria-expanded="false"
+                                                                                      aria-controls="collapse-code">
+                        Поиск по коду </a></div>
+                <div id="collapse-code" class="collapse" role="tabpanel" data-parent="#content"
+                     aria-labelledby="heading-code">
+                    <div class="card-body">
+                        <form action="">
+                            <div class="form-row d-flex">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="price" placeholder="Код объекта">
+                                </div>
+                                <button type="submit" class="btn search code txt-cond">ИСКАТЬ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--//panel-item-->
+        </div>
+    </div>
+    <!--//panel search-->
+    <?= $this->content; ?>
+
+</div>
+<footer class="mt-auto">
+    <div class="container footer">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3 contact-bt"><img src="i/logo.png" alt="Риэлторская компания Масштаб"/>
+                <div class="adres d-sm-inline-flex d-md-flex"><i class="fas fa-map-marker-alt mt-1"></i>
+                    <p>Мариуполь,<br/>
+                        пр. Металлургов 194
+                </div>
+                <div class="phone txt-cond d-sm-inline-flex d-md-flex "><i class="fas fa-phone mt-1"></i>
+                    <p>+38 (0629) 407-407<br/>
+                        +38 068 783-14-34<br/>
+                        +38 966 121-34-34</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond">Продаем</strong>
+                <ul class="menu-list">
+                    <li><a href="#">Квартиры</a></li>
+                    <li><a href="#">Дома</a></li>
+                    <li><a href="#">Помещение</a></li>
+                    <li><a href="#">Земля</a></li>
+                    <li><a href="#">Коммерческая недвижимость</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond">Сдаем</strong>
+                <ul class="menu-list">
+                    <li><a href="#">Квартиры</a></li>
+                    <li><a href="#">Дома</a></li>
+                    <li><a href="#">Посуточно</a></li>
+                    <li><a href="#">Коммерческая недвижимость</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-lg-3  text-center pt-2">
+                <ul class="icon-soc">
+                    <li><a href="#" class="text-hide soc vk">ВКонтакте</a></li>
+                    <li><a href="#" class="text-hide soc fb">Facebook</a></li>
+                    <li><a href="#" class="text-hide soc ins">Instagram</a></li>
+                    <li><a href="#" class="text-hide soc ut">YouTube</a></li>
+                </ul>
+                <img src="i/ulitka.png" alt="" class="ms-ul"/>
+                <div class="cop">Риэлторская кампания «МАСШТАБ»<br/>
+                    Мариуполь © 2020
+                </div>
+                <div class="rp">Сделано в <a href="https://www.rp-studio.net">RP-Studio</a></div>
+            </div>
+        </div>
+    </div>
+</footer>
+<a href="#" class="scrollup">Наверх</a>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<!--modal compare-yes-->
+<div class="modal fade my" id="compare-yes" tabindex="-1" role="dialog" aria-labelledby="compare-yes"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-1 d-none d-md-block "><i class="fas fa-balance-scale"></i></div>
+                    <div class="col-md-7 text-center">
+                        <p class="p-0 mt-1">Объект добавлен в "Сравнение"</p>
+                    </div>
+                    <div class="col-md-4 text-center"><a href="#" class="btn red">Перейти в Сравнение</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//modal compare-yes-->
+<!--modal order-->
+<div class="modal fade my" id="order" tabindex="-1" role="dialog" aria-labelledby="order" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-4 pb-4">
+                <h5>Заявка в кампанию Масштаб</h5>
+                <div class="coment"></div>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="phon" placeholder="Телефон">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="text"
+                                  placeholder="Текст заявки если из обявления то - Заголовок Продажа 1-комнатная квартира, Центральный р-н, Мариуполь, ул. 50 лет СССР,  17 ЖМР,  рынок"
+                                  style="height:100px;"></textarea>
+                    </div>
+                    <div class="form-group text-center"><a href="#" type="submit" class="btn form m-auto">Отправить</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//modal order-->
+</body>
+</html>
