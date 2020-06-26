@@ -57,7 +57,7 @@ class ImageManager
      */
     public function resize(int $width = null, int $height = null, \Closure $callback = null)
     {
-        return $this->image->resize($width, $height, $callback);
+        return $this->image->fit($width, $height, $callback);
     }
 
     /**

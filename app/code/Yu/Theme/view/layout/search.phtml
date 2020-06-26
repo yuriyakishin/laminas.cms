@@ -1,0 +1,184 @@
+<div class="container search-panel">
+    <ul id="tabs" class="row nav nav-tabs no-gutters" role="tablist">
+        <li class="col-2 nav-item pr-1"><a id="buy" href="#pane-buy" class="nav-link active" v-on:click="type='sale'"
+                                           role="tab">Купить</a></li>
+        <li class="col-2 nav-item pr-1"><a id="rent" href="#pane-rent" class="nav-link" v-on:click="type='rent'"
+                                           role="tab">Снять</a></li>
+        <li class="col-2 nav-item pr-1"><a id="rent-day" href="#pane-rent-day" class="nav-link" v-on:click="type='apartmen'"
+                                           role="tab">Посуточно</a></li>
+        <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link"  role="tab" v-on:click="type='code'">Поиск
+                по коду</a></li>
+    </ul>
+    <div id="content" class="tab-content" role="tablist">
+        <!--panel-item-->
+        <div id="pane-buy" class="card tab-pane show active" role="tabpanel" aria-labelledby="buy">
+            <div class="card-header txt-cond" role="tab" id="heading-buy"><a class="active" data-toggle="collapse"
+                                                                             href="#collapse-buy"
+                                                                             aria-expanded="true"
+                                                                             aria-controls="collapse-buy">
+                    Купить </a></div>
+            <div id="collapse-buy" class="collapse show" data-parent="#content" role="tabpanel"
+                 aria-labelledby="heading-buy">
+                <div class="card-body">
+
+                        <div class="form-row d-flex">
+                            <div class="col-md-2">
+
+                                <select class="selectpicker form-control" ref="select_realty1" title="Недвижимость" data-hide-disabled="true" v-model="realty">
+                                    <option v-for="option in realties" :value="option.id">{{ option.value }}</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2">
+                                <select class="selectpicker form-control" ref="select_district1"  title="Район" data-hide-disabled="true" v-model="district">
+                                    <option value="0" selected>Район</option>
+                                    <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" v-show="realty==='flat' || realty==='house'">
+                                <select class="selectpicker form-control" ref="select_flat1" title="Комнат" v-model="room"
+                                        data-hide-disabled="true">
+                                    <option value="0" selected>Комнат</option>
+                                    <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" v-show="realty==='commercial'">
+                                <select class="selectpicker form-control" ref="select_commercial1"  title="Помещение" data-hide-disabled="true" v-model="commercial">
+                                    <option value="0" selected>Тип помещения</option>
+                                    <option v-for="option in commercials" :value="option.id">{{ option.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control"
+                                       placeholder="Цена не более, у.е.">
+                            </div>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <!--//panel-item-->
+        <!--panel-item-->
+        <div id="pane-rent" class="card tab-pane" role="tabpanel" aria-labelledby="rent">
+            <div class="card-header txt-cond" role="tab" id="heading-rent"><a class="collapsed"
+                                                                              data-toggle="collapse"
+                                                                              href="#collapse-rent"
+                                                                              aria-expanded="false"
+                                                                              aria-controls="collapse-rent">
+                    Снять </a></div>
+            <div id="collapse-rent" class="collapse" data-parent="#content" role="tabpanel"
+                 aria-labelledby="heading-rent">
+                <div class="card-body">
+
+                        <div class="form-row d-flex">
+                            <div class="col-md-2">
+
+                                <select class="selectpicker form-control" ref="select_realty2" title="Недвижимость" data-hide-disabled="true" v-model="realty">
+                                    <option v-for="option in realties" :value="option.id">{{ option.value }}</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2">
+
+                                <select class="selectpicker form-control" ref="select_district2" title="Район" data-hide-disabled="true" v-model="district">
+                                    <option value="0" selected>Район</option>
+                                    <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2" v-show="realty==='flat' || realty==='house'">
+                                <select class="selectpicker form-control" ref="select_flat2" title="Комнат" v-model="room"
+                                        data-hide-disabled="true">
+                                    <option value="0" selected>Комнат</option>
+                                    <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" v-show="realty==='commercial'">
+                                <select class="selectpicker form-control" ref="select_commercia2"  title="Помещение" data-hide-disabled="true" v-model="commercial">
+                                    <option value="0" selected>Тип помещения</option>
+                                    <option v-for="option in commercials" :value="option.id">{{ option.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control"
+                                       placeholder="Цена не более, у.е.">
+                            </div>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <!--//panel-item-->
+        <!--panel-item-->
+        <div id="pane-rent-day" class="card tab-pane" role="tabpanel" aria-labelledby="rent-day">
+            <div class="card-header txt-cond" role="tab" id="heading-rent-day"><a class="collapsed"
+                                                                                  data-toggle="collapse"
+                                                                                  href="#collapse-rent-day"
+                                                                                  aria-expanded="false"
+                                                                                  aria-controls="collapse-rent-day">
+                    Посуточно </a></div>
+            <div id="collapse-rent-day" class="collapse" role="tabpanel" data-parent="#content"
+                 aria-labelledby="heading-rent-day">
+                <div class="card-body">
+
+                        <div class="form-row d-flex">
+                            <div class="col-md-2">
+                                <select class="selectpicker form-control" ref="select_realty3" title="Недвижимость" v-model="realty"
+                                        data-hide-disabled="true">
+                                    <option value="flat">Квартира</option>
+                                    <option value="house">Дом</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+
+                                <select class="selectpicker form-control" ref="select_district3" title="Район" data-hide-disabled="true" v-model="district">
+                                    <option value="0" selected>Район</option>
+                                    <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2">
+                                <select class="selectpicker form-control" ref="select_flat3" title="Комнат" v-model="room"
+                                        data-hide-disabled="true">
+                                    <option value="0" selected>Комнат</option>
+                                    <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control"
+                                       placeholder="Цена не более, у.е.">
+                            </div>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <!--//panel-item-->
+        <!--panel-item-->
+        <div id="pane-code" class="card tab-pane" role="tabpanel" aria-labelledby="code">
+            <div class="card-header txt-cond" role="tab" id="heading-rent-day"><a class="collapsed"
+                                                                                  data-toggle="collapse"
+                                                                                  href="#collapse-code"
+                                                                                  aria-expanded="false"
+                                                                                  aria-controls="collapse-code">
+                    Поиск по коду </a></div>
+            <div id="collapse-code" class="collapse" role="tabpanel" data-parent="#content"
+                 aria-labelledby="heading-code">
+                <div class="card-body">
+
+                        <div class="form-row d-flex">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Код объекта">
+                            </div>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <!--//panel-item-->
+    </div>
+</div>

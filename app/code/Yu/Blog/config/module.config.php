@@ -114,6 +114,23 @@ return [
         'factories' => [
             Controller\Admin\RubricController::class => Controller\Admin\Factory\RubricControllerFactory::class,
             Controller\Admin\PostController::class => Controller\Admin\Factory\PostControllerFactory::class,
+            Controller\BlogController::class => InvokableFactory::class,
+        ],
+    ],
+
+    'view_manager' => [
+        'template_map' => [
+            'yu/blog/rubric' => __DIR__ . '/../view/frontend/templates/blog/rubric.phtml',
+            'yu/blog/post' => __DIR__ . '/../view/frontend/templates/blog/post.phtml',
+        ],
+    ],
+
+    'view_helpers' => [
+        'factories' => [
+            \Yu\Blog\View\Helper\BlogHelper::class => \Yu\Blog\View\Helper\Factory\BlogHelperFactory::class,
+        ],
+        'aliases' => [
+            'blog' => \Yu\Blog\View\Helper\BlogHelper::class,
         ],
     ],
 

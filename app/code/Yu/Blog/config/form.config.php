@@ -118,7 +118,7 @@ return [
                     'lang' => true,
                     'tabs' => [
                         'main' => [
-                            'label' => 'Рубрика',
+                            'label' => 'Содержание',
                             'sort' => 1,
                             'fieldsets' => [
                                 'post' => [
@@ -175,6 +175,11 @@ return [
                                                 'required' => false,
                                                 'class' => 'custom-control-input',
                                             ],
+                                            'filters' => [
+                                                [
+                                                    'name' => \Laminas\Filter\ToInt::class,
+                                                ],
+                                            ]
                                         ],
                                         'date' => [
                                             'type' => Element\Date::class,
@@ -220,6 +225,19 @@ return [
                                             ],
                                             'attributes' => [
                                                 'required' => true,
+                                            ],
+                                        ],
+                                        'anons' => [
+                                            'type' => Element\Textarea::class,
+                                            'name' => 'anons',
+                                            'lang' => true,
+                                            'options' => [
+                                                'label' => 'Анонс',
+                                                'required' => false,
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                                'rows' => 4,
                                             ],
                                         ],
                                         'content' => [

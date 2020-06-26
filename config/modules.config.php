@@ -6,6 +6,7 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
+    'Laminas\Mvc\I18n',
     'Laminas\Serializer',
     'Laminas\I18n',
     'Laminas\Mvc\Plugin\FlashMessenger',
@@ -40,5 +41,5 @@ return [
     'Yu\Index',
     'Yu\Blog',
     'Yu\Theme',
-    'Laminas\DeveloperTools',
+    //'Laminas\DeveloperTools',
 ];

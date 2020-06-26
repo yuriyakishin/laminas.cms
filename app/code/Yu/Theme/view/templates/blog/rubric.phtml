@@ -1,0 +1,36 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang($rubric->getTitle()),
+    ],
+]);
+?>
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <h2><?= $this->lang()->getDataByLang($rubric->getTitle()); ?></h2>
+        <ul class="anons-block list-unstyled">
+            <?php
+            //$posts = $this->blog()->getPostsByRubric($rubric->getId());
+            foreach($posts as $post) {
+                ?>
+                <li>
+                    <h2>
+                        <a href="/<?= $rubric->getIdentifier() ?>/<?= $post->getIdentifier() ?>"><?= $this->lang()->getDataByLang($post->getTitle()); ?></a>
+                    </h2>
+                    <span class="data txt-cond"><?= $post->getDate()->format('d.m.Y') ?></span>
+                    <p><?= $this->lang()->getDataByLang($post->getAnons()); ?></p>
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+
+        <!--paginator-->
+        <div class="row mt-5">
+            <div class="col text-center">
+                <?= $this->paginationControl($posts,'Sliding','layout/paginator',['route' => 'blog', 'path' => $rubric->getIdentifier()]) ?>
+            </div>
+        </div>
+        <!--//paginator-->
+    </div>
+</div>

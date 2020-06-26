@@ -11,7 +11,16 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $view = new ViewModel();
+        $repository = $this->entityManager()->getRepository(\Yu\Content\Entity\Page::class);
+        $page = $repository->findOneByIdentifier('home');
+
+        $this->layout()->setVariable('isHome', true);
+
+        $view = new ViewModel(['page' => $page,
+            'metaKeys' => [
+                'path' => 'page',
+                'entityId' => $page->getId()
+            ]]);
         $view->setTemplate('yu/index');
         return $view;
     }

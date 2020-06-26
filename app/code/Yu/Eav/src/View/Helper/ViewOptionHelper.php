@@ -28,6 +28,10 @@ class ViewOptionHelper extends AbstractHelper implements SourceHelperInterface
         $this->options = $options;
     }
 
+    /**
+     * Get value by ID
+     * @return string
+     */
     public function getContent()
     {
         $criteria = [
@@ -40,5 +44,21 @@ class ViewOptionHelper extends AbstractHelper implements SourceHelperInterface
             $str = $entity->getValue();
         }
         return $str;
+    }
+
+
+    /**
+     * @param int $optionId
+     * @return mixed
+     */
+    public function getValuesOption(int $optionId)
+    {
+        $entities = $this->entityManager->getRepository(EavValueOption::class)->findBy([
+            'optionId' => $optionId,
+        ], [
+            'sort' => 'ASC',
+        ]);
+
+        return $entities;
     }
 }

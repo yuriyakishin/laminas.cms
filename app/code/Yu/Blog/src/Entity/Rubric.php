@@ -3,6 +3,7 @@
 namespace Yu\Blog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="\Yu\Blog\Repository\RibricRepository")
@@ -81,6 +82,20 @@ class Rubric
      * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Yu\Blog\Entity\Post", mappedBy="rubric")
+     * @ORM\JoinColumn(name="id", referencedColumnName="rubric_id")
+     */
+    private $posts;
+
+    /**
+     * Rubric constructor.
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -243,6 +258,22 @@ class Rubric
     public function setUpdatedAt(\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function addPost(Post $post)
+    {
+        $this->posts[] = $post;
     }
 
 

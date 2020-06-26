@@ -45,15 +45,26 @@ class ImageRepository extends EntityRepository
     {
         foreach ($dataFromRequest as $id => $data)
         {
-            /**
-             * @var \Yu\Media\Entity\Image $entity
-             */
+            if(is_array($data)) {
+                /**
+                 * @var \Yu\Media\Entity\Image $entity
+                 */
+                $entity = $this->getEntityManager()->getRepository(Image::class)->find($id);
+                $entity->setComment($data['comment']);
+                $entity->setSort($data['sort']);
+                $entity->setPath($options['path']);
+                $entity->setPathId($options['path_id']);
+                $entity->setType('');
+                $entity->setTemp(0);
+                $this->getEntityManager()->persist($entity);
+                $this->getEntityManager()->flush();
+            }
+        }
+
+        if(isset($dataFromRequest['preview'])) {
+            $id = $dataFromRequest['preview'];
             $entity = $this->getEntityManager()->getRepository(Image::class)->find($id);
-            $entity->setComment($data['comment']);
-            $entity->setSort($data['sort']);
-            $entity->setPath($options['path']);
-            $entity->setPathId($options['path_id']);
-            $entity->setTemp(0);
+            $entity->setType('preview');
             $this->getEntityManager()->persist($entity);
             $this->getEntityManager()->flush();
         }

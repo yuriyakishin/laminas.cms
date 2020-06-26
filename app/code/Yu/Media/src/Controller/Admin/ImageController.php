@@ -23,6 +23,7 @@ class ImageController extends AbstractAdminController
                 'img' => '<img src="/orig/preview/'.$image->getImage().'" class="file-preview-image" />',
                 'preview' => '<img src="/orig/preview/'.$image->getImage().'" height="50" class="file-preview-image" />',
                 'sort' => $image->getSort(),
+                'type' => $image->getType(),
                 'comment' => $image->getComment(),
             ];
         }
@@ -75,6 +76,7 @@ class ImageController extends AbstractAdminController
                 $image->setTemp(1);
                 $image->setActive(1);
                 $image->setComment('');
+                $image->setType('');
                 $image->setImage($img);
                 $image->setImageName($file);
                 $image->setImageDir($dir);

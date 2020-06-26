@@ -68,7 +68,7 @@ class RealtyController extends AbstractAdminController
         if (isset($this->options['table_options'])) {
             $table->setOptions($this->options['table_options']);
         }
-//var_dump($entities);die;
+
         $this->layout()->setVariable('h1', $this->options['title']);
         $view = new ViewModel();
         $view->setTemplate('admin/table');

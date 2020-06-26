@@ -17,6 +17,9 @@ return [
                 return new \Yu\Eav\Service\ValueOptionManager($config['eav']);
             },
         ],
+        'aliases' => [
+            'valueOptionManager' => \Yu\Eav\Service\ValueOptionManager::class,
+        ]
     ],
 
     'controller_plugins' => [
@@ -31,6 +34,11 @@ return [
     'view_helpers' => [
         'factories' => [
             \Yu\Eav\View\Helper\ViewOptionHelper::class => \Yu\Eav\View\Helper\Factory\ViewOptionHelperFactory::class,
+            \Yu\Eav\View\Helper\HandbookHelper::class => \Yu\Eav\View\Helper\Factory\HandbookHelperFactory::class,
+        ],
+        'aliases' => [
+            'viewOption' => \Yu\Eav\View\Helper\ViewOptionHelper::class,
+            'handbook' => \Yu\Eav\View\Helper\HandbookHelper::class,
         ],
     ],
 

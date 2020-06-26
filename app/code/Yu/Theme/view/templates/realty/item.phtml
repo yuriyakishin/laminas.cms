@@ -1,0 +1,29 @@
+<div class="col item wow fadeIn">
+    <div class="card"><a href="<?= $this->url($realty['type'].'/view',['id' => $realty['id']]) ?>">
+            <div class="card-header">
+                <h5><?= $this->translate($this->realty()->getTypeName($realty))?></h5>
+            </div>
+            <div class="img-prev"><img src="<?php echo $this->image()->load('realty',$realty['id'])->resize(480,347)->get() ?>" class="img-fluid" alt=""/>
+                <div class="price-code"><span class="price"><?= $this->partial('realty/price',['realty' => $realty])?></span> <span class="cod">код <?= $realty['code']?></span>
+                </div>
+                <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
+                   data-toggle="modal" data-target="#compare-yes"></i></div>
+            <div class="card-body">
+                <div class="d-flex chart-ob ">
+                    <?php
+                    if(isset($realty['area'])) {
+                        ?>
+                        <div class="mkv"><?= $realty['area']?> м.кв.</div>
+                        <?php
+                    }
+                    if(isset($realty['rooms'])) {
+                        ?>
+                        <div class="room ml-auto"><?= $realty['rooms']?> <?= $this->translate('ком.')?></div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <p class="adres"><?= $this->lang()->getDataByLang($realty['address']) ?></p>
+            </div>
+        </a></div>
+</div>

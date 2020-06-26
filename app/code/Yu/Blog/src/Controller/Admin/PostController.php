@@ -5,10 +5,12 @@ namespace Yu\Blog\Controller\Admin;
 use Yu\Admin\Controller\AbstractAdminController;
 use Laminas\View\Model\ViewModel;
 use Yu\Blog\Entity\Post;
+use Yu\Blog\Entity\Rubric;
 use Yu\Seo\Entity\Meta;
 
 class PostController extends AbstractAdminController
 {
+
     /**
      * @var \Yu\Admin\Service\Table\TableManager
      */
@@ -24,8 +26,8 @@ class PostController extends AbstractAdminController
      * @param \Yu\Admin\Service\TableManager $tableManager
      */
     public function __construct(
-        \Yu\Admin\Service\Table\TableManager $tableManager,
-        \Yu\Admin\Service\Form\FormManager $formManager
+            \Yu\Admin\Service\Table\TableManager $tableManager,
+            \Yu\Admin\Service\Form\FormManager $formManager
     )
     {
         $this->tableManager = $tableManager;
@@ -39,27 +41,27 @@ class PostController extends AbstractAdminController
         $table = $this->tableManager->createTable('blog-post');
         $table->setOptions(['route' => 'admin/post']);
 
-        $this->layout()->setVariable('h1','Записи');
+        $this->layout()->setVariable('h1', 'Записи');
         $view = new ViewModel();
         $view->setTemplate('admin/table');
-        $view->setVariable('table',$table);
-        $view->setVariable('rowsData',$entities);
+        $view->setVariable('table', $table);
+        $view->setVariable('rowsData', $entities);
         return $view;
     }
 
     public function editAction()
     {
-        $id = $this->params('id',0);
+        $id = $this->params('id', 0);
         /** @var \Yu\Admin\Service\Form\FormModel $form */
         $form = $this->formManager->getForm('blog-post');
 
         $post = $this->entityManager()->getRepository(Post::class)->findOneById($id);
         $meta = $this->entityManager()->getRepository(Meta::class)->findMeta('post', $id);
 
-        $this->formManager->setDataToFieldset($form,'post',$post);
-        $this->formManager->setDataToFieldset($form,'meta',$meta);
+        $this->formManager->setDataToFieldset($form, 'post', $post);
+        $this->formManager->setDataToFieldset($form, 'meta', $meta);
 
-        if(empty($id)) {
+        if (empty($id)) {
             $this->layout()->setVariable('h1', 'Создание записи');
         } else {
             $this->layout()->setVariable('h1', 'Редактирование записи');
@@ -81,17 +83,22 @@ class PostController extends AbstractAdminController
 
             if ($form->isValid()) {
                 try {
-                    $id = (int)$data['post']['id'] ?? 0;
+                    $id = (int) $data['post']['id'] ?? 0;
 
                     $postRepository = $this->entityManager()->getRepository(Post::class);
-                    /** @var \Yu\Content\Entity\Page $page */
+                    $rubricRepository = $this->entityManager()->getRepository(Rubric::class);
+                    /** @var \Yu\Blog\Entity\Post $post */
                     $post = $postRepository->findOneById($id);
-                    if(empty($post)) {
+                    if (empty($post)) {
                         $post = new Post();
                     }
                     $this->formManager->importDataToEntity($form, 'post', $post);
                     $post->setUserId($this->authAdmin()->getCurrentUser()->getId());
                     $post->setSiteId($this->authAdmin()->getCurrentUser()->getSiteId());
+
+                    $rubric = $rubricRepository->find($post->getRubricId());
+                    $post->setRubric($rubric);
+
                     $id = $postRepository->save($post);
 
                     $meta = $this->entityManager()->getRepository(Meta::class)->findMeta('post', $id);
@@ -102,19 +109,19 @@ class PostController extends AbstractAdminController
 
                     if (isset($data['images'])) {
                         $this->entityManager()->getRepository(\Yu\Media\Entity\Image::class)->saveGallery($data['images'],
-                            [
-                                'user_id' => $this->authAdmin()->getCurrentUser()->getId(),
-                                'site_id' => $this->authAdmin()->getCurrentUser()->getSiteId(),
-                                'path' => 'post',
-                                'path_id' => $id,
-                            ]);
+                                [
+                                    'user_id' => $this->authAdmin()->getCurrentUser()->getId(),
+                                    'site_id' => $this->authAdmin()->getCurrentUser()->getSiteId(),
+                                    'path'    => 'post',
+                                    'path_id' => $id,
+                        ]);
                     }
 
                     $this->flashMessenger()->addSuccessMessage("Данные сохранены");
                     if (empty($data['save_end_close'])) {
                         return $this->redirect()->toRoute('admin/post/edit', ['id' => $id]);
                     }
-                } catch (\Exception $e) {
+                } catch (\Doctrine\ORM\ORMException $e) {
                     $this->flashMessenger()->addErrorMessage("Ошибка записи в базу данных: " . $e->getMessage());
                     return $this->redirect()->toRoute('admin/post/edit', $form->getData());
                 }
@@ -126,8 +133,7 @@ class PostController extends AbstractAdminController
     public function deleteAction()
     {
         $id = $this->getRequest()->getQuery('id');
-        if(!empty($id))
-        {
+        if (!empty($id)) {
             $entity = $this->entityManager()->getRepository(Post::class)->findOneById($id);
             $this->entityManager()->getRepository(Post::class)->remove($entity);
 
@@ -138,4 +144,5 @@ class PostController extends AbstractAdminController
 
         return $this->getResponse();
     }
+
 }

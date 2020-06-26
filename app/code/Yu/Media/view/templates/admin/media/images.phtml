@@ -30,6 +30,7 @@ $("#fileupload").fileupload({
           .append($('<td>').html(data.result.preview))
           .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data.result.id+'][comment]" value=""/></p>'))
           .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data.result.id+'][sort]" value="'+data.result.sort+'"/></p>'))
+          .append($('<td>').html('<p><input type="radio" class="form-control" name="images[preview]" value="'+data.result.id+'"/></p>'))
           .append($('<td>').html('<button type="button" class="btn btn-danger btn-xs button-image-delete" data-id="'+data.result.id+'"><i class="fas fa-trash"></i></button>'))
           .appendTo('#table-body-images');
   }
@@ -43,11 +44,16 @@ $(document).ready(function(){
         })
         .done(function(data) {
             $.each(data, function(i, item) {
+                var checked_preview = '';
+                if(data[i].type == 'preview') {
+                    checked_preview = 'checked';
+                }
                 $('<tr id="tr-image-'+data[i].id+'">')
                     .append($('<td>').text(data[i].id))
                     .append($('<td>').html(data[i].preview))
                     .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data[i].id+'][comment]" value="'+data[i].comment+'"/></p>'))
                     .append($('<td>').html('<p><input type="text" class="form-control" name="images['+data[i].id+'][sort]" value="'+data[i].sort+'"/></p>'))
+                    .append($('<td>').html('<p><input type="radio" class="form-control" name="images[preview]" '+checked_preview+' value="'+data[i].id+'"/></p>'))
                     .append($('<td>').html('<button type="button" class="btn btn-danger btn-xs button-image-delete" data-id="'+data[i].id+'"><i class="fas fa-trash"></i></button>'))
                     .appendTo('#table-body-images');
             });
@@ -87,6 +93,7 @@ $this->inlineScript()->offsetSetScript(210, $script);
         <th style="width: 50px">Изображения</th>
         <th>Комментарий</th>
         <th style="width: 50px">Сортировка</th>
+        <th style="width: 30px">Превью</th>
         <th style="width: 10px">#</th>
     </tr>
     </thead>

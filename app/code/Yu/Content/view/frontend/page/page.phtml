@@ -1,0 +1,4 @@
+<?php
+$this->viewModel()->getRoot()->setVariable('h1',$page->getTitle());
+?>
+<?= $this->lang()->getDataByLang($page->getContent()); ?>

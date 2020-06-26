@@ -28,6 +28,8 @@ class Lang
         ],
     ];
 
+    private static $currentLang;
+
     /**
      * @return array
      */
@@ -47,6 +49,15 @@ class Lang
     public static function getLangs()
     {
         return static::$LANG;
+    }
+
+    public static function getCurrentLang()
+    {
+        if(empty(self::$currentLang)) {
+            self::$currentLang = self::getMainLang();
+        }
+
+        return self::$currentLang;
     }
 
 

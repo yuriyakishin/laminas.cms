@@ -92,6 +92,13 @@ return [
     'view_helpers' => [
         'factories' => [
             \Yu\Media\View\Helper\PreviewHelper::class => \Yu\Media\View\Helper\Factory\PreviewHelperFactory::class,
+            \Yu\Media\View\Helper\ImageHelper::class => \Yu\Media\View\Helper\Factory\ImageHelperFactory::class,
+            \Yu\Media\View\Helper\MediaHelper::class => \Yu\Media\View\Helper\Factory\MediaHelperFactory::class,
+        ],
+        'aliases' => [
+            'image' => \Yu\Media\View\Helper\ImageHelper::class,
+            'gallery' => \Yu\Media\View\Helper\MediaHelper::class,
+            'media' => \Yu\Media\View\Helper\MediaHelper::class,
         ],
     ],
 

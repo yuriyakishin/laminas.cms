@@ -15,10 +15,26 @@ return [
                 $entitymanager = $container->get('doctrine.entitymanager.orm_default');
                 return new \Yu\Core\Controller\Plugin\EntityManagerPlugin($entitymanager);
             },
+            \Yu\Core\Controller\Plugin\NavigationPlugin::class => function ($container) {
+                $navigation = $container->get('Laminas\Navigation\Pages');
+                return new \Yu\Core\Controller\Plugin\NavigationPlugin($navigation);
+            },
         ],
         'aliases' => [
             'entityManager' => \Yu\Core\Controller\Plugin\EntityManagerPlugin::class,
             'getEntityManager' => \Yu\Core\Controller\Plugin\EntityManagerPlugin::class,
+            'navigation' => \Yu\Core\Controller\Plugin\NavigationPlugin::class,
+        ],
+    ],
+
+    'view_helpers' => [
+        'factories' => [
+            \Yu\Core\View\Helper\LangHelper::class => InvokableFactory::class,
+            \Yu\Core\View\Helper\BreadcrumbsHelper::class => InvokableFactory::class,
+        ],
+        'aliases' => [
+            'lang' => \Yu\Core\View\Helper\LangHelper::class,
+            'breadcrumbs' => \Yu\Core\View\Helper\BreadcrumbsHelper::class,
         ],
     ],
 

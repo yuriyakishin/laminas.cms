@@ -1,0 +1,42 @@
+<?php if ($this->pageCount):
+    $path = '';
+if(isset($this->path)) {
+    $path = $this->path;
+}
+    ?>
+
+    <div class="paginator">
+        <strong>Страницы</strong>
+        <!-- Previous page link -->
+        <?php if (isset($this->previous)): ?>
+            <a href="<?= $this->url($this->route, ['page' => $this->previous, 'path' => $path]); ?>">
+                ← предыдущая
+            </a>
+        <?php else: ?>
+            ← предыдущая
+        <?php endif; ?>
+
+        <!-- Next page link -->
+        <?php if (isset($this->next)): ?>
+            <a href="<?= $this->url($this->route, ['page' => $this->next, 'path' => $path]); ?>">
+                следующая →
+            </a>
+        <?php else: ?>
+            следующая →
+        <?php endif; ?>
+    </div>
+
+    <div class="paginator mt-3">
+        <!-- Numbered page links -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <a href="<?= $this->url($this->route, ['page' => $page, 'path' => $path]); ?>">
+                    <?= $page; ?>
+                </a>
+            <?php else: ?>
+                <span class="ak"><?= $page; ?></span>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+
+<?php endif; ?>

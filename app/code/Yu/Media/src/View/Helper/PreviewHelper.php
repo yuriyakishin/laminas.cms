@@ -18,6 +18,10 @@ class PreviewHelper extends AbstractHelper implements SourceHelperInterface
      */
     private $entityManager;
 
+    /**
+     * PreviewHelper constructor.
+     * @param $entityManager
+     */
     public function __construct($entityManager)
     {
         $this->entityManager = $entityManager;
@@ -39,9 +43,19 @@ class PreviewHelper extends AbstractHelper implements SourceHelperInterface
         $criteria = [
             'path' => $this->options['path'],
             'pathId' => $this->options['pathId'],
+            'type' => 'preview',
         ];
 
         $preview = $this->entityManager->getRepository(Image::class)->findOneBy($criteria, ['sort' => 'ASC']);
+
+        if(empty($preview)) {
+            $criteria = [
+                'path' => $this->options['path'],
+                'pathId' => $this->options['pathId'],
+            ];
+            $preview = $this->entityManager->getRepository(Image::class)->findOneBy($criteria, ['sort' => 'ASC']);
+        }
+
         $img = '';
         if(!empty($preview)) {
             $img = '<img src="/orig/preview/' . $preview->getImage() . '" />';

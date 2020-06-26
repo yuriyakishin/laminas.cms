@@ -7,19 +7,38 @@ use Yu\Realty\Entity\Realty as RealtyEntity;
 
 class Realty extends AbstractHelper
 {
+    private $typeName = [
+        'sale-flat' => 'Продается квартира',
+        'sale-house' => 'Продается дом',
+    ];
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */
     private $entityManager;
 
     /**
+     * @var \Yu\Realty\Service\RealtyManager
+     */
+    private $realtyManager;
+
+    /**
      * @var \Yu\Realty\Repository\RealtyRepository
      */
     private $realtyRepository;
 
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+    /**
+     * Realty constructor.
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @param \Yu\Realty\Service\RealtyManager $realtyManager
+     */
+    public function __construct(
+        \Doctrine\ORM\EntityManager $entityManager,
+        \Yu\Realty\Service\RealtyManager $realtyManager
+    )
     {
         $this->entityManager = $entityManager;
+        $this->realtyManager = $realtyManager;
         $this->realtyRepository = $entityManager->getRepository(RealtyEntity::class);
     }
 
@@ -33,13 +52,48 @@ class Realty extends AbstractHelper
             ->select('count(r.id)')
             ->where('r.active = 1');
 
-        if($type !== null) {
-            $countSelect->where("r.type = '".$type."'");
+        if ($type !== null) {
+            $countSelect->where("r.type = '" . $type . "'");
         }
 
         $count = $countSelect->getQuery()->getSingleScalarResult();
 
-        return (string) $count;
+        return (string)$count;
+    }
+
+    /**
+     * @param null $realty
+     * @return mixed|string
+     */
+    public function getTypeName($realty = null)
+    {
+        if ($realty === null) {
+            return '';
+        }
+
+        $type = '';
+
+        if (is_array($realty)) {
+            $type = $realty['type'];
+        }
+
+        if ($realty instanceof RealtyEntity) {
+            $type = $realty->getType();
+        }
+
+        if (!empty($type)) {
+            return $this->typeName[$type];
+        } else {
+            return '';
+        }
+
+    }
+
+    public function getRealtyParams($realtyId)
+    {
+        $realty = $this->realtyRepository->find($realtyId);
+        $params = $this->realtyManager->getRealtyParams($realty);
+        return $params;
     }
 
 

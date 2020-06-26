@@ -166,7 +166,7 @@ return [
                                             ],
                                         ],
                                         'content' => [
-                                            'type' => \Yu\Admin\Form\Element\Wiziwig::class,
+                                            'type' => Element\Textarea::class,
                                             'name' => 'content',
                                             'lang' => true,
                                             'options' => [

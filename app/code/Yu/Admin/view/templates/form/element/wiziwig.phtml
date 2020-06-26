@@ -2,7 +2,9 @@
 $this->inlineScript()
 ->offsetSetFile(200, $this->basePath('/dist/modules/Yu/Admin/web/plugins/ckeditor/ckeditor.js'));
 $script = "
-    CKEDITOR.replace( '" . $element->getAttribute('name') . "' );
+    CKEDITOR.replace( '" . $element->getAttribute('name') . "', {
+                filebrowserUploadUrl: '" . $this->url('admin/upload') . "'
+            } );
 ";
 $this->inlineScript()->appendScript($script);
 ?>

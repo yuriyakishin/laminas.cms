@@ -1,0 +1,16 @@
+<?php
+if(isset($breadcrumbs) && !empty($breadcrumbs)) {?>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+    <?php
+    foreach ($breadcrumbs as $b) {
+        if(isset($b['uri']) && !empty($b['uri'])) {
+            ?><li class="breadcrumb-item"><a href="<?= $b['uri'] ?>"><?= $b['label'] ?></a></li><?php
+        } else {
+            ?><li class="breadcrumb-item active"><?= $b['label'] ?></li><?php
+        }
+    }
+    ?>
+</ol>
+<?php
+}?>

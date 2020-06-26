@@ -37,7 +37,7 @@ echo $this->form()->openTag($form);
         ?>
 
         <?php
-        if ($form->getOption('lang')) {
+        if ($form->getOption('lang') && count(\Yu\Site\ValueObject\Lang::getLangs())>1) {
             ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">

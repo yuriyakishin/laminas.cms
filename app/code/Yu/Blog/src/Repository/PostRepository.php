@@ -8,6 +8,7 @@ use Yu\Blog\Entity\Post;
 
 class PostRepository extends EntityRepository
 {
+
     /**
      * @param Post $entity
      * @return int
@@ -17,9 +18,7 @@ class PostRepository extends EntityRepository
     public function save(Post $entity)
     {
         $currentDate = new \DateTime("now");
-        if(empty($entity->getCreatedAt())) {
-            $entity->setCreatedAt($currentDate);
-        }
+        $entity->setCreatedAt($currentDate);
         $entity->setUpdatedAt($currentDate);
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
@@ -36,5 +35,22 @@ class PostRepository extends EntityRepository
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param int $ribricId
+     * @return \Doctrine\ORM\Query
+     */
+    public function queryPostsByRubric(int $ribricId)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder->select('p')
+            ->from(Post::class, 'p')
+            ->where('p.rubric_id = ?1')
+            ->andWhere('p.active = ?2')
+            ->orderBy('p.date', 'DESC')
+            ->setParameter('1', $ribricId)
+            ->setParameter('2', 1);
+        return $queryBuilder->getQuery();
     }
 }

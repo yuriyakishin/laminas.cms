@@ -67,5 +67,4 @@ class ValueOption
         $this->label = $label;
     }
 
-
 }

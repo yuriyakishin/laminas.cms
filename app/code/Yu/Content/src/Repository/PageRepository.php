@@ -33,6 +33,21 @@ class PageRepository extends EntityRepository
     }
 
     /**
+     * @param string $identifier
+     * @return Page
+     */
+    public function findPageByIdentifier(string $identifier)
+    {
+        $page = $this->getEntityManager()->getRepository(Page::class)->findOneByIdentifier($identifier);
+
+        if(empty($page)) {
+            $page = new Page();
+        }
+
+        return $page;
+    }
+
+    /**
      * @param Page $page
      * @return int
      * @throws \Doctrine\ORM\ORMException

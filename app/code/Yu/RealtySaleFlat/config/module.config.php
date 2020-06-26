@@ -11,6 +11,30 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            'sale-flat' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/sale-flat',
+                    'defaults' => [
+                        'controller' => 'Yu\RealtySaleFlat\Controller\SaleFlatController',
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'view' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/[:id]',
+                            'defaults' => [
+                                'controller' => 'Yu\RealtySaleFlat\Controller\SaleFlatController',
+                                'action' => 'view',
+                                'id' => '',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'admin' => [
                 'child_routes' => [
                     'realty-sale-flat' => [
@@ -111,6 +135,8 @@ return [
 
     'controllers' => [
         'factories' => [
+            'Yu\RealtySaleFlat\Controller\SaleFlatController' => Controller\Factory\SaleFlatControllerFactory::class,
+
             'Yu\RealtySaleFlat\Controller\Admin\SaleFlatController' => Controller\Admin\Factory\SaleFlatControllerFactory::class,
             'Yu\RealtySaleFlat\Controller\Admin\ValueOptionProject' => Controller\Admin\Factory\ValueOptionProjectControllerFactory::class,
         ],

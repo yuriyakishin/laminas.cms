@@ -1,0 +1,26 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang($post->getRubric()->getTitle()),
+        'uri' => '/'.$post->getRubric()->getIdentifier(),
+    ],
+    [
+        'label' => $this->lang()->getDataByLang($post->getTitle()),
+    ],
+]);
+?>
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1><?= $this->lang()->getDataByLang($post->getTitle()); ?></h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <p> <span class="data txt-cond"><?= $post->getDate()->format('d.m.Y') ?></span></p>
+        <img src="<?php echo $this->image()->load('post',$post->getId(),'preview')->resize(250)->get() ?>" class="img-fluid" style="float:left; margin-right:30px; margin-bottom:30px;" alt=""/>
+        <?= $this->lang()->getDataByLang($post->getContent()); ?>
+        <div class="col  text-center mt-5 mb-2"><a href="/<?= $post->getRubric()->getIdentifier() ?>" class="btn gr txt-cond">Все публикации</a></div>
+    </div>
+</div>

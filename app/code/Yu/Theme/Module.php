@@ -8,7 +8,15 @@ class Module
 {
     public function getConfig(): array
     {
-        return include __DIR__ . '/config/module.config.php';
+        $config = array();
+        $configFiles = array(
+            __DIR__ . '/config/module.config.php',
+            __DIR__ . '/config/navigation.config.php',
+        );
+        foreach($configFiles as $configFile) {
+            $config = \Laminas\Stdlib\ArrayUtils::merge($config, include $configFile);
+        }
+        return $config;
     }
 
     public function getAutoloaderConfig()

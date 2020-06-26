@@ -54,6 +54,16 @@ return [
                             ],
                         ],
                     ],
+                    'upload' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/upload',
+                            'defaults' => [
+                                'controller' => Controller\UploadController::class,
+                                'action' => 'upload',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
@@ -63,6 +73,7 @@ return [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\LoginController::class => InvokableFactory::class,
+            Controller\UploadController::class => InvokableFactory::class,
         ],
     ],
 

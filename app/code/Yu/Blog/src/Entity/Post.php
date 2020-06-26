@@ -80,6 +80,13 @@ class Post
     /**
      * @var string
      *
+     * @ORM\Column(name="anons", type="text", nullable=true)
+     */
+    private $anons;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
@@ -97,6 +104,12 @@ class Post
      * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\Yu\Blog\Entity\Rubric", inversedBy="posts")
+     * @ORM\JoinColumn(name="rubric_id", referencedColumnName="id")
+     */
+    private $rubric;
 
     /**
      * @return int
@@ -248,6 +261,22 @@ class Post
     /**
      * @return string
      */
+    public function getAnons()
+    {
+        return $this->anons;
+    }
+
+    /**
+     * @param string $anons
+     */
+    public function setAnons($anons): void
+    {
+        $this->anons = $anons;
+    }
+
+    /**
+     * @return string
+     */
     public function getContent(): string
     {
         return $this->content;
@@ -261,10 +290,11 @@ class Post
         $this->content = $content;
     }
 
+    
     /**
      * @return \DateTime|null
      */
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -272,7 +302,7 @@ class Post
     /**
      * @param \DateTime|null $createdAt
      */
-    public function setCreatedAt(?\DateTime $createdAt): void
+    public function setCreatedAt($createdAt = null)
     {
         $this->createdAt = $createdAt;
     }
@@ -280,7 +310,7 @@ class Post
     /**
      * @return \DateTime
      */
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -288,9 +318,26 @@ class Post
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt($updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRubric()
+    {
+        return $this->rubric;
+    }
+
+    /**
+     * @param Rubric $rubric
+     */
+    public function setRubric(Rubric $rubric)
+    {
+        $this->rubric = $rubric;
+        $this->rubric->addPost($this);
     }
 
 }

@@ -6,12 +6,15 @@ namespace Yu\Content;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
+use Laminas\Router\RouteInvokableFactory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
 
 return [
+
     'router' => [
         'routes' => [
+
             'admin' => [
                 'child_routes' => [
                     'page' => [
@@ -109,16 +112,29 @@ return [
         ],
     ],
 
+
+
     'controllers' => [
         'factories' => [
             Controller\Admin\PageController::class => Controller\Admin\Factory\PageControllerFactory::class,
             Controller\Admin\BlockController::class => Controller\Admin\Factory\BlockControllerFactory::class,
+            Controller\PageController::class => InvokableFactory::class,
         ],
     ],
 
     'view_manager' => [
         'template_map' => [
             'admin/page' => __DIR__ . '/../view/admin/page/index.phtml',
+            'yu/page' => __DIR__ . '/../view/frontend/page/page.phtml',
+        ],
+    ],
+
+    'view_helpers' => [
+        'factories' => [
+            \Yu\Content\View\Helper\ContentHelper::class => \Yu\Content\View\Helper\Factory\ContentHelperFactory::class,
+        ],
+        'aliases' => [
+            'content' => \Yu\Content\View\Helper\ContentHelper::class,
         ],
     ],
 

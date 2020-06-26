@@ -25,7 +25,7 @@ class DataHelper
 
         if (self::checkSerializeString($data)) {
             $unserializ = Serializer::unserialize($data);
-            if(is_array($unserializ) && !empty($unserializ[$lang])) {
+            if(is_array($unserializ) && isset($unserializ[$lang])) {
                 $data = $unserializ[$lang];
             }
         }
@@ -45,14 +45,27 @@ class DataHelper
     }
 
     /**
-     * @param string $string
-     * @return string
-     */
+ * @param string $string
+ * @return string
+ */
     public static function getDefaultLangValue($string)
     {
         if (self::checkSerializeString($string)) {
             $data = Serializer::unserialize($string);
             return $data[\Yu\Site\ValueObject\Lang::getDefaultLangCode()];
+        }
+        return $string;
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    public static function getCurrentLangValue($string)
+    {
+        if (self::checkSerializeString($string)) {
+            $data = Serializer::unserialize($string);
+            return $data[\Yu\Site\ValueObject\Lang::getCurrentLang()['code']];
         }
         return $string;
     }
