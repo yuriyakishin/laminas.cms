@@ -6,7 +6,8 @@ $this->breadcrumbs()->setBreadcrumbs([
     ],
 ]);
 
-$params = $this->realty()->getRealtyParams($realty['id']);
+$attributes = $this->realty()->getRealtyAttr($realty['id'], $realty['type']);
+
 ?>
 <!--header title page-->
 <div class="row mb-1 mb-lg-3">
@@ -40,7 +41,7 @@ $params = $this->realty()->getRealtyParams($realty['id']);
                     <?php
                     foreach ($images as $image) {
                         ?>
-                        <li class="col-6"><a href="#" class="img-ob-prev img-fluid img-hover-zoom">
+                        <li class="col-6"><a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" class="img-ob-prev img-fluid img-hover-zoom">
                                 <?php
                                 if ($image == end($images)) {
                                     ?>

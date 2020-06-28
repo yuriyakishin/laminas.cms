@@ -1,12 +1,12 @@
 <div class="container search-panel">
     <ul id="tabs" class="row nav nav-tabs no-gutters" role="tablist">
-        <li class="col-2 nav-item pr-1"><a id="buy" href="#pane-buy" class="nav-link active" v-on:click="type='sale'"
+        <li class="col-2 nav-item pr-1"><a id="sale" href="#pane-buy" class="nav-link" v-on:click="tabClick('sale')"
                                            role="tab">Купить</a></li>
-        <li class="col-2 nav-item pr-1"><a id="rent" href="#pane-rent" class="nav-link" v-on:click="type='rent'"
+        <li class="col-2 nav-item pr-1"><a id="rent" href="#pane-rent" class="nav-link" v-on:click="tabClick('rent')"
                                            role="tab">Снять</a></li>
-        <li class="col-2 nav-item pr-1"><a id="rent-day" href="#pane-rent-day" class="nav-link" v-on:click="type='apartmen'"
+        <li class="col-2 nav-item pr-1"><a id="apartmen" href="#pane-rent-day" class="nav-link" v-on:click="tabClick('apartmen')"
                                            role="tab">Посуточно</a></li>
-        <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link"  role="tab" v-on:click="type='code'">Поиск
+        <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link"  role="tab" v-on:click="tabClick('code')">Поиск
                 по коду</a></li>
     </ul>
     <div id="content" class="tab-content" role="tablist">
@@ -49,7 +49,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" v-model="price"
                                        placeholder="Цена не более, у.е.">
                             </div>
                             <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
@@ -101,7 +101,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" v-model="price"
                                        placeholder="Цена не более, у.е.">
                             </div>
                             <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
@@ -125,7 +125,7 @@
 
                         <div class="form-row d-flex">
                             <div class="col-md-2">
-                                <select class="selectpicker form-control" ref="select_realty3" title="Недвижимость" v-model="realty"
+                                <select class="selectpicker form-control" ref="select_realty3" title="Недвижимость"
                                         data-hide-disabled="true">
                                     <option value="flat">Квартира</option>
                                     <option value="house">Дом</option>
@@ -147,7 +147,7 @@
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" v-model="price"
                                        placeholder="Цена не более, у.е.">
                             </div>
                             <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>

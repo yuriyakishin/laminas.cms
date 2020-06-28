@@ -39,10 +39,14 @@ class RealtyManager
         $this->realtyConfigManager = $realtyConfigManager;
     }
 
+    /**
+     * @param Realty|null $realty
+     * @return array
+     */
     public function getRealtyParams(Realty $realty = null)
     {
         $params = [];
-        if($realty !== null) {
+        if ($realty !== null) {
             $attributes = $this->realtyConfigManager->getRealtyAttributes($realty->getType());
 
             foreach ($attributes as $attr) {
@@ -64,13 +68,39 @@ class RealtyManager
         return $params;
     }
 
+    public function getRealtyAttr(int $realtyId, string $type)
+    {
+        $attributes = [];
+        $_attributes = $this->realtyConfigManager->getRealtyAttributes($type);
+
+        foreach ($_attributes as $_attr) {
+            $repository = $this->entityManager->getRepository($this->entityValueClass[$_attr['type']]);
+            /**
+             * @var \Yu\Realty\Entity\RealtyValueInterface $entity
+             */
+            $entity = $repository->findOneBy([
+                'entityId' => $realtyId,
+                'attributeId' => $_attr['id'],
+            ]);
+
+            if (!empty($entity)) {
+                $attributes[] = array_merge($_attr, ['value' => $entity->getValue()]);
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * @param Realty $realty
+     * @param array $data
+     */
     public function saveParams(Realty $realty, array $data)
     {
         $serializer = Serializer::factory(Adapter\PhpSerialize::class);
         $attributes = $this->realtyConfigManager->getRealtyAttributes($realty->getType());
 
-        foreach($attributes as $attr)
-        {
+        foreach ($attributes as $attr) {
             $repository = $this->entityManager->getRepository($this->entityValueClass[$attr['type']]);
             /**
              * @var \Yu\Realty\Entity\RealtyValueInterface $entity
@@ -80,14 +110,14 @@ class RealtyManager
                 'attributeId' => $attr['id'],
             ]);
 
-            if(empty($entity)) {
+            if (empty($entity)) {
                 $entity = new $this->entityValueClass[$attr['type']];
             }
 
-            if(isset($data['params'][$attr['code']])) {
+            if (isset($data['params'][$attr['code']])) {
                 $value = $data['params'][$attr['code']];
 
-                if(is_array($value)) {
+                if (is_array($value)) {
                     $value = $serializer->serialize($value);
                 }
 

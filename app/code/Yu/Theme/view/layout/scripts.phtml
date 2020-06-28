@@ -1,0 +1,111 @@
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            district: 0,
+            realty: 0,
+            type: 'sale',
+            room: 0,
+            commercial: 0,
+            price: '',
+            realties: [
+                {'id': 'flat', 'value': 'Квартира'},
+                {'id': 'house', 'value': 'Дом'},
+                {'id': 'commercial', 'value': 'Помещение'},
+                {'id': 'land', 'value': 'Земля'},
+            ],
+            rooms: [
+                {'id': '1', 'value': '1-комната'},
+                {'id': '2', 'value': '2-комнаты'},
+                {'id': '3', 'value': '3-комнаты'},
+                {'id': '4', 'value': '4-комнаты'},
+                {'id': '5', 'value': '5 и более комнат'},
+            ],
+            districts: <?= $this->handbook()->getJson('district') ?>,
+            commercials: <?= $this->handbook()->getJson('commercial') ?>
+        },
+        methods: {
+            search_realty: function (event) {
+                if (this.type == 'sale') {
+                    if (this.realty == 'flat') {
+                        window.location.href = '<?= $this->url('sale-flat') ?>';
+                    }
+                }
+            },
+            refreshElement: function () {
+                $(this.$refs.select_district1).selectpicker('refresh');
+                $(this.$refs.select_district2).selectpicker('refresh');
+                $(this.$refs.select_district3).selectpicker('refresh');
+                $(this.$refs.select_realty1).selectpicker('refresh');
+                $(this.$refs.select_realty2).selectpicker('refresh');
+                $(this.$refs.select_flat1).selectpicker('refresh');
+                $(this.$refs.select_flat2).selectpicker('refresh');
+                $(this.$refs.select_flat3).selectpicker('refresh');
+            },
+            tabClick: function (tab_type) {
+                this.type = tab_type;
+                localStorage.setItem('type', tab_type);
+            }
+        },
+        updated() {
+            this.refreshElement();
+
+            localStorage.setItem('realty', this.realty);
+            localStorage.setItem('district', this.district);
+            localStorage.setItem('room', this.room);
+            localStorage.setItem('price', this.price);
+            console.log(this.realty);
+        },
+        mounted() {
+
+            this.$nextTick(function () {
+
+                var t = localStorage.getItem('type');
+                if (t == null) {
+                    this.type = 'sale';
+                    $('.nav-tabs a[id="' + this.type + '"]').tab('show');
+                } else {
+                    $('.nav-tabs a[id="' + t + '"]').tab('show');
+                }
+
+                var r = localStorage.getItem('realty');
+                if (r == null) {
+                    this.realty = 'flat';
+                } else {
+                    this.realty = r;
+                }
+
+                var d = localStorage.getItem('district');
+                if (d != null) {
+                    this.district = d;
+                }
+
+                var room = localStorage.getItem('room');
+                if (room != null) {
+                    this.room = room;
+                }
+
+                var price = localStorage.getItem('price');
+                if (price != null) {
+                    this.price = price;
+                }
+
+                this.refreshElement();
+            });
+        }
+    });
+</script>
+
+<script>
+    $('#tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+</script>

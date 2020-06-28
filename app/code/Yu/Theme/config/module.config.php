@@ -20,6 +20,7 @@ return [
             'layout/breadcrumbs' => __DIR__ . '/../view/layout/breadcrumbs.phtml',
             'layout/paginator' => __DIR__ . '/../view/layout/paginator.phtml',
             'layout/search' => __DIR__ . '/../view/layout/search.phtml',
+            'layout/scripts' => __DIR__ . '/../view/layout/scripts.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
 

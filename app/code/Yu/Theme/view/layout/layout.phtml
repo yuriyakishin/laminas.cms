@@ -144,67 +144,7 @@
     </div>
 </footer>
 <a href="#" class="scrollup">Наверх</a>
-<script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            district: 0,
-            realty: 0,
-            type: 'sale',
-            room: 0,
-            commercial: 0,
-            realties: [
-                {'id': 'flat', 'value': 'Квартира'},
-                {'id': 'house', 'value': 'Дом'},
-                {'id': 'commercial', 'value': 'Помещение'},
-                {'id': 'land', 'value': 'Земля'},
-            ],
-            rooms: [
-                {'id': '1', 'value': '1-комната'},
-                {'id': '2', 'value': '2-комнаты'},
-                {'id': '3', 'value': '3-комнаты'},
-                {'id': '4', 'value': '4-комнаты'},
-                {'id': '5', 'value': '5 и более комнат'},
-            ],
-            districts: <?= $this->handbook()->getJson('district') ?>,
-            commercials: <?= $this->handbook()->getJson('commercial') ?>
-        },
-        methods: {
-            search_realty: function (event) {
-                if(this.type==='sale') {
-                    if(this.realty==='flat') {
-                        window.location.href = '<?= $this->url('sale-flat') ?>';
-                    }
-                }
-            }
-        },
-        updated () {
-            $(this.$refs.select_district1).selectpicker('refresh');
-            $(this.$refs.select_district2).selectpicker('refresh');
-            $(this.$refs.select_district3).selectpicker('refresh');
-            $(this.$refs.select_realty1).selectpicker('refresh');
-            $(this.$refs.select_realty2).selectpicker('refresh');
-            $(this.$refs.select_realty3).selectpicker('refresh');
-            $(this.$refs.select_flat1).selectpicker('refresh');
-            $(this.$refs.select_flat2).selectpicker('refresh');
-            $(this.$refs.select_flat3).selectpicker('refresh');
-        }
-    });
-</script>
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/popper.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="js/menu.js"></script>
-<script type="text/javascript" src="js/wow.min.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
-
-<script>
-    $('#tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
-</script>
+<?= $this->render('layout/scripts') ?>
 <?php
 echo $this->inlineScript();
 ?>

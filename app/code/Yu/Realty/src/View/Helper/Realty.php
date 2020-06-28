@@ -96,5 +96,11 @@ class Realty extends AbstractHelper
         return $params;
     }
 
+    public function getRealtyAttr($realtyId, $type)
+    {
+        $attr = $this->realtyManager->getRealtyAttr($realtyId, $type);
+        return $attr;
+    }
+
 
 }
