@@ -10,6 +10,10 @@ return [
             'realty-sale-land' => [
                 'columns' => [
                     [
+                        'label' => 'Код',
+                        'key' => 'code',
+                    ],
+                    [
                         'label' => '',
                         'key' => 'image',
                         'source' => [
@@ -18,10 +22,6 @@ return [
                                 return array('path' => 'realty', 'pathId' => $data['id']);
                             }
                         ],
-                    ],
-                    [
-                        'label' => 'Код',
-                        'key' => 'code',
                     ],
                     [
                         'label' => 'Район',

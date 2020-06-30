@@ -10,7 +10,11 @@ return [
             'realty-sale-house' => [
                 'columns' => [
                     [
-                        'label' => '',
+                        'label' => 'Код',
+                        'key' => 'code',
+                    ],
+                    [
+                        'label' => 'Фото',
                         'key' => 'image',
                         'source' => [
                             'view_helper' => \Yu\Media\View\Helper\PreviewHelper::class,
@@ -20,15 +24,8 @@ return [
                         ],
                     ],
                     [
-                        'label' => 'Код',
-                        'key' => 'code',
-                    ],
-                    [
                         'label' => 'Кол. комнат',
                         'key' => 'rooms',
-                        'target_class' => \Yu\Realty\Entity\RealtyValueInt::class,
-                        'findBy' => 'entityId',
-                        'property' => 'entityId',
                     ],
                     [
                         'label' => 'Район',

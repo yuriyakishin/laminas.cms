@@ -22,11 +22,11 @@
                 {'id': 'land', 'value': 'Земля'},
             ],
             rooms: [
-                {'id': '1', 'value': '1-комната'},
-                {'id': '2', 'value': '2-комнаты'},
-                {'id': '3', 'value': '3-комнаты'},
-                {'id': '4', 'value': '4-комнаты'},
-                {'id': '5', 'value': '5 и более комнат'},
+                {'id': '1', 'value': '1ком.'},
+                {'id': '2', 'value': '2ком.'},
+                {'id': '3', 'value': '3ком.'},
+                {'id': '4', 'value': '4ком.'},
+                {'id': '5', 'value': '5 и более'},
             ],
             districts: <?= $this->handbook()->getJson('district') ?>,
             commercials: <?= $this->handbook()->getJson('commercial') ?>
@@ -35,7 +35,12 @@
             search_realty: function (event) {
                 if (this.type == 'sale') {
                     if (this.realty == 'flat') {
-                        window.location.href = '<?= $this->url('sale-flat') ?>';
+                        var params = {
+                            room: this.room,
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->url('sale-flat') ?>?' + $.param(params);
                     }
                 }
             },
@@ -89,7 +94,7 @@
 
                 var room = localStorage.getItem('room');
                 if (room != null) {
-                    this.room = room;
+                    this.room = room.split(',');
                 }
 
                 var price = localStorage.getItem('price');

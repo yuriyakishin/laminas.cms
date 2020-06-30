@@ -27,7 +27,28 @@ class SaleFlatRepository implements RealtyRepositoryInterface
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param array|null $criteria
+     * @return mixed
+     */
     public function findRealty(array $criteria = null)
+    {
+        $queryBuilder = $this->getQueryBuilder();
+
+        if(!empty($criteria)) {
+            foreach ($criteria as $c) {
+                $queryBuilder->andWhere($c['where']);
+                $queryBuilder->setParameter($c['param']['key'], $c['param']['value']);
+            }
+        }
+
+        $realty = $queryBuilder->getQuery()->getResult();
+        //echo $queryBuilder->getQuery()->getSQL(); die;
+        //var_dump($realty);die;
+        return $realty;
+    }
+
+    public function getQueryBuilder()
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
@@ -36,6 +57,7 @@ class SaleFlatRepository implements RealtyRepositoryInterface
             ->addSelect('r.active as active')
             ->addSelect('r.code as code')
             ->addSelect('r.type as type')
+            ->addSelect('r.agentId as agent_id')
             ->addSelect('m.address as address')
             ->addSelect('m.lat as lat')
             ->addSelect('m.lng as lng')
@@ -56,16 +78,6 @@ class SaleFlatRepository implements RealtyRepositoryInterface
             ->leftJoin(Currency::class, 'c', Join::WITH, 'c.id=p.currencyId')
             ->where('r.type=\'sale-flat\'');
 
-        if(!empty($criteria)) {
-            foreach ($criteria as $c) {
-                $queryBuilder->andWhere($c['where']);
-                $queryBuilder->setParameter($c['param']['key'], $c['param']['value']);
-            }
-        }
-
-        $realty = $queryBuilder->getQuery()->getResult();
-        //echo $queryBuilder->getQuery()->getSQL(); die;
-        //var_dump($realty);die;
-        return $realty;
+        return $queryBuilder;
     }
 }

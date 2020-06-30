@@ -9,8 +9,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.uiColor = '#AADC6E';
 	// %REMOVE_START%
 	config.plugins =
-		'about,' +
-		'a11yhelp,' +
 		'basicstyles,' +
 		'bidi,' +
 		'blockquote,' +
@@ -25,20 +23,14 @@ CKEDITOR.editorConfig = function( config ) {
 		'enterkey,' +
 		'entities,' +
 		'filebrowser,' +
-		'find,' +
-		'flash,' +
 		'floatingspace,' +
 		'font,' +
 		'format,' +
-		'forms,' +
 		'horizontalrule,' +
 		'htmlwriter,' +
 		'image,' +
 		'iframe,' +
-		'indentlist,' +
-		'indentblock,' +
 		'justify,' +
-		'language,' +
 		'link,' +
 		'list,' +
 		'liststyle,' +
@@ -51,7 +43,6 @@ CKEDITOR.editorConfig = function( config ) {
 		'pastefromword,' +
 		'pastetext,' +
 		'preview,' +
-		'print,' +
 		'removeformat,' +
 		'resize,' +
 		'save,' +
@@ -62,7 +53,6 @@ CKEDITOR.editorConfig = function( config ) {
 		'sourcearea,' +
 		'specialchar,' +
 		'stylescombo,' +
-		'tab,' +
 		'table,' +
 		'tableselection,' +
 		'tabletools,' +
@@ -70,6 +60,7 @@ CKEDITOR.editorConfig = function( config ) {
 		'toolbar,' +
 		'undo,' +
 		'uploadimage,' +
+		'youtube,' +
 		'wysiwygarea';
 	// %REMOVE_END%
 };

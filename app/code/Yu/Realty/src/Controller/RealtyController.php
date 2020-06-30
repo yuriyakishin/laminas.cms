@@ -39,6 +39,11 @@ class RealtyController extends AbstractActionController
     private $options;
 
     /**
+     * @var \Yu\Realty\Api\SearchCriteriaBuilderInterface
+     */
+    private $searchCriteriaBuilder;
+
+    /**
      * RealtyController constructor.
      * @param RealtyManager $realtyManager
      * @param RealtyRepositoryInterface $repository
@@ -48,17 +53,22 @@ class RealtyController extends AbstractActionController
         \Yu\Realty\Service\RealtyManager $realtyManager,
         \Yu\Realty\Service\RealtyConfigManager $realtyConfigManager,
         \Yu\Realty\Repository\RealtyRepositoryInterface $repository,
+        \Yu\Realty\Api\SearchCriteriaBuilderInterface $searchCriteriaBuilder,
         array $data = []
     )
     {
         $this->realtyManager = $realtyManager;
         $this->repository = $repository;
         $this->options = $realtyConfigManager->getRealtyAdminOptions();
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
     }
 
     public function indexAction()
     {
-        $realty = $this->repository->findRealty();
+        $params = $this->params()->fromQuery();
+        $queryBuilder = $this->repository->getQueryBuilder();
+        $realty = $this->searchCriteriaBuilder->build($queryBuilder, $params)->getQuery()->getResult();
+
 
         $view = new ViewModel([
             'realtyArray' => $realty

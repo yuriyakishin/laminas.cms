@@ -77,6 +77,26 @@ return [
                                                 'class' => 'custom-control-input',
                                             ],
                                         ],
+                                        'floor' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'floor',
+                                            'options' => [
+                                                'label' => 'Этаж',
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                            ],
+                                        ],
+                                        'floors' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'floors',
+                                            'options' => [
+                                                'label' => 'Этажность',
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                            ],
+                                        ],
                                         'area_all' => [
                                             'type' => Element\Text::class,
                                             'name' => 'area_all',

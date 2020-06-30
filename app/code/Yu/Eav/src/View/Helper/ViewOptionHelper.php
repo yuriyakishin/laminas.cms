@@ -61,4 +61,18 @@ class ViewOptionHelper extends AbstractHelper implements SourceHelperInterface
 
         return $entities;
     }
+
+    public function getValue($id)
+    {
+        $criteria = [
+            'id' => $id,
+        ];
+
+        $entity = $this->entityManager->getRepository(EavValueOption::class)->findOneBy($criteria);
+        $str = '';
+        if(!empty($entity)) {
+            $str = $entity->getValue();
+        }
+        return $str;
+    }
 }

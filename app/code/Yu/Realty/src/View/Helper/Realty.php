@@ -4,12 +4,13 @@ namespace Yu\Realty\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
 use Yu\Realty\Entity\Realty as RealtyEntity;
+use Yu\Realty\Entity\Agent;
 
 class Realty extends AbstractHelper
 {
     private $typeName = [
-        'sale-flat' => 'Продается квартира',
-        'sale-house' => 'Продается дом',
+        'sale-flat' => ['Продается квартира'],
+        'sale-house' => ['Продается дом'],
     ];
 
     /**
@@ -65,7 +66,7 @@ class Realty extends AbstractHelper
      * @param null $realty
      * @return mixed|string
      */
-    public function getTypeName($realty = null)
+    public function getTypeName($realty = null, $ofset = 0)
     {
         if ($realty === null) {
             return '';
@@ -82,7 +83,7 @@ class Realty extends AbstractHelper
         }
 
         if (!empty($type)) {
-            return $this->typeName[$type];
+            return $this->typeName[$type][$ofset];
         } else {
             return '';
         }
@@ -100,6 +101,12 @@ class Realty extends AbstractHelper
     {
         $attr = $this->realtyManager->getRealtyAttr($realtyId, $type);
         return $attr;
+    }
+
+    public function getAgent(int $agentId)
+    {
+        $agent = $this->entityManager->getRepository(Agent::class)->find($agentId);
+        return $agent;
     }
 
 

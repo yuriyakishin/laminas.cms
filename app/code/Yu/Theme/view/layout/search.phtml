@@ -31,14 +31,11 @@
                             </div>
                             <div class="col-md-2">
                                 <select class="selectpicker form-control" ref="select_district1"  title="Район" data-hide-disabled="true" v-model="district">
-                                    <option value="0" selected>Район</option>
                                     <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2" v-show="realty==='flat' || realty==='house'">
-                                <select class="selectpicker form-control" ref="select_flat1" title="Комнат" v-model="room"
-                                        data-hide-disabled="true">
-                                    <option value="0" selected>Комнат</option>
+                                <select class="selectpicker form-control" ref="select_flat1" title="Комнат" v-model="room" multiple data-hide-disabled="true">
                                     <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
@@ -82,15 +79,13 @@
                             <div class="col-md-2">
 
                                 <select class="selectpicker form-control" ref="select_district2" title="Район" data-hide-disabled="true" v-model="district">
-                                    <option value="0" selected>Район</option>
                                     <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
                                 </select>
 
                             </div>
                             <div class="col-md-2" v-show="realty==='flat' || realty==='house'">
-                                <select class="selectpicker form-control" ref="select_flat2" title="Комнат" v-model="room"
+                                <select class="selectpicker form-control" ref="select_flat2" title="Комнат" v-model="room" multiple
                                         data-hide-disabled="true">
-                                    <option value="0" selected>Комнат</option>
                                     <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
@@ -134,15 +129,13 @@
                             <div class="col-md-2">
 
                                 <select class="selectpicker form-control" ref="select_district3" title="Район" data-hide-disabled="true" v-model="district">
-                                    <option value="0" selected>Район</option>
                                     <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
                                 </select>
 
                             </div>
                             <div class="col-md-2">
-                                <select class="selectpicker form-control" ref="select_flat3" title="Комнат" v-model="room"
+                                <select class="selectpicker form-control" ref="select_flat3" title="Комнат" v-model="room" multiple
                                         data-hide-disabled="true">
-                                    <option value="0" selected>Комнат</option>
                                     <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>

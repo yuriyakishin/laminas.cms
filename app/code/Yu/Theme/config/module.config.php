@@ -29,7 +29,8 @@ return [
             'yu/blog/rubric' => __DIR__ . '/../view/templates/blog/rubric.phtml',
             'yu/blog/post' => __DIR__ . '/../view/templates/blog/post.phtml',
 
-            'realty/map' => __DIR__ . '/../view/templates/realty/map.phtml',
+            'realty/map/catalog' => __DIR__ . '/../view/templates/realty/map/map-catalog.phtml',
+            'realty/map/view' => __DIR__ . '/../view/templates/realty/map/map-view.phtml',
             'realty/catalog' => __DIR__ . '/../view/templates/realty/catalog.phtml',
             'realty/view' => __DIR__ . '/../view/templates/realty/view.phtml',
             'realty/item' => __DIR__ . '/../view/templates/realty/item.phtml',
