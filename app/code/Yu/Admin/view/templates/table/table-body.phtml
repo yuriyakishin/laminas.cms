@@ -1,0 +1,28 @@
+<tbody>
+<?php
+foreach ($rowsData as $data) {
+    ?>
+    <tr id="tr-<?= $this->table()->retrieveValue($data, 'id') ?>">
+        <?php
+        foreach ($table->getColumns() as $collumn) {
+            ?>
+            <td><?= (string)$this->table()->retrieveValue($data, $collumn['key'], $collumn) ?></td>
+            <?php
+        }
+        ?>
+        <td>
+            <a class="btn btn-primary btn-flat btn-sm" href="<?= $this->url($table->getRoute() . '/edit', ['id' => $this->table()->retrieveValue($data, 'id')]) ?>"><i class="fa fa-edit bg"></i>
+            </a>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-flat btn-sm button-delete" data-id="<?= $this->table()->retrieveValue($data, 'id')?>"
+                    href="<?= $this->url($table->getRoute() . '/delete', ['id' => $this->table()->retrieveValue($data, 'id')]) ?>">
+                <i class="fas fa-trash">
+                </i>
+            </button>
+        </td>
+    </tr>
+    <?php
+}
+?>
+</tbody>

@@ -17,6 +17,7 @@ class TableHelperFactory implements FactoryInterface
     {
         $config = $container->get('Config');
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-        return new $requestedName($config, $entityManager);
+        $tableManager = $container->get('admin.table.manager');
+        return new $requestedName($config, $entityManager, $tableManager);
     }
 }

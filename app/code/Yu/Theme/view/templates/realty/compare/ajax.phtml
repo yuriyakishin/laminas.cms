@@ -1,0 +1,66 @@
+<?php
+/** @var \Yu\Realty\View\Helper\RealtyHelper $realtyHelper */
+$realtyHelper = $this->realty();
+
+foreach ($this->ids as $id) {
+    $realty = $realtyHelper->getRealtyItem($id);
+    if (empty($realty)) {
+        continue;
+    }
+    $params = $realtyHelper->getRealtyParams($realty['id']);
+    $preview = $this->media()->getPreview('realty', $realty['id']);
+    $images = $this->media()->getImages('realty', $realty['id']);
+    ?>
+    <div class="col">
+        <div class="card  block-compare h-100">
+            <div class="card-body">
+                <h2 class="card-title"><a
+                            href="<?= $this->urlWithLang($this->url($realty['type'] . '/view', ['id' => $realty['id']])) ?>"><?= $realtyHelper->getLabel($realty['type'], 'view', $realty['label_1']) ?>
+                        , <?= $this->lang($realty['address']) ?></a></h2>
+                <div class="price-ob txt-cond"><?= $this->partial('realty/price', ['realty' => $realty]) ?></div>
+                <div class="row gallery-ob no-gutters">
+                    <div class="col-12 col-lg-8 pr-0 pr-lg-2 mb-1"><a href="<?php echo $this->image()->setImageEntity($preview)->full()->get() ?>" class="big-img img-hover-zoom" data-fancybox="gallery">
+                            <div class="code txt-cond">код <?= $realty['code'] ?></div>
+                            <img src="<?php echo $this->image()->setImageEntity($preview)->resize(410, 250)->get() ?>"
+                                 alt="" class="img-fluid"/></a></div>
+                    <div class="col-12 col-lg-4 right-block-gallrty">
+                        <ul class="row">
+                            <?php
+                            $i = 1;
+                            foreach ($images as $image) {
+                                if($i>6) {
+                                    break;
+                                }
+                                ?>
+                                <li class="col-6"><a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" class="img-ob-prev img-fluid img-hover-zoom" data-fancybox="gallery"><img
+                                                src="<?php echo $this->image()->setImageEntity($image)->resize(300, 225)->get() ?>" alt=""/></a></li>
+                                <?php
+                                $i++;
+                            }
+                            ?>
+                            <li class="col-6"><a href="#" class="img-ob-prev img-fluid img-hover-zoom">
+                                    <div class="col-photo"><?= count($images) ?></div>
+                                    <img src="<?php echo $this->image()->load('realty', $realty['id'])->resize(300, 225)->get() ?>" alt=""/></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ocn-chart">
+                    <?php
+                    if (!empty($params['anons'])) {
+                        echo $this->lang($params['anons']);
+                    } ?>
+                </div>
+                <div class="list-chart">
+                    <?php
+                    if (!empty($params['about'])) {
+                        echo strip_tags($this->lang($params['about']));
+                    } ?>
+                </div>
+            </div>
+            <div class="card-footer text-center"><a href="#" type="submit" class="btn red form" data-toggle="modal"
+                                                    data-target="#order">Подать заявку</a></div>
+        </div>
+    </div>
+    <?php
+}
+?>

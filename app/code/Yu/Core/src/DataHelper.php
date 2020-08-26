@@ -20,7 +20,7 @@ class DataHelper
     public static function unserialize($data, $lang = null)
     {
         if($lang === null) {
-            $lang = Lang::getMainLang()['code'];
+            $lang = Lang::getCurrentLang()['code'];
         }
 
         if (self::checkSerializeString($data)) {
@@ -65,7 +65,11 @@ class DataHelper
     {
         if (self::checkSerializeString($string)) {
             $data = Serializer::unserialize($string);
-            return $data[\Yu\Site\ValueObject\Lang::getCurrentLang()['code']];
+            $value = $data[\Yu\Site\ValueObject\Lang::getCurrentLang()['code']];
+            if(empty($value)) {
+                $value = self::getDefaultLangValue($string);
+            }
+            return $value;
         }
         return $string;
     }

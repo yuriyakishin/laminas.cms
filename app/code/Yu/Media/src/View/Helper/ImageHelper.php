@@ -54,6 +54,11 @@ class ImageHelper extends AbstractHelper
     private $imageName = '';
 
     /**
+     * @var bool
+     */
+    private $emptyImageFlag = false;
+
+    /**
      * ImageHelper constructor.
      * @param \Doctrine\ORM\EntityManager $entityManager
      * @param ImageManager $imageManager
@@ -86,7 +91,7 @@ class ImageHelper extends AbstractHelper
      */
     public function resize($width = null, $height = null)
     {
-        if(!empty($width) || !empty($height)) {
+        if (!empty($width) || !empty($height)) {
             $this->flagFull = false;
             $this->width = $width;
             $this->height = $height;
@@ -96,7 +101,7 @@ class ImageHelper extends AbstractHelper
 
     public function crop($width, $height)
     {
-        if(!empty($width) || !empty($height)) {
+        if (!empty($width) || !empty($height)) {
             $this->flagFull = false;
             $this->width = $width;
             $this->height = $height;
@@ -135,7 +140,7 @@ class ImageHelper extends AbstractHelper
 
         $imageEntity = $this->getPreview($path, $pathId);
         $this->imageEntity = $imageEntity;
-        if($imageEntity) {
+        if ($imageEntity) {
             $this->imageOrig = $imageEntity->getImage();
             $this->dirOrig = $imageEntity->getImageDir();
             $this->imageName = $imageEntity->getImageName();
@@ -153,7 +158,7 @@ class ImageHelper extends AbstractHelper
     public function setImageEntity($imageEntity)
     {
         $this->imageEntity = $imageEntity;
-        $this->imageOrig = $imageEntity->getImage() ;
+        $this->imageOrig = $imageEntity->getImage();
         $this->dirOrig = $imageEntity->getImageDir();
         $this->imageName = $imageEntity->getImageName();
 
@@ -170,7 +175,7 @@ class ImageHelper extends AbstractHelper
         $count = count($arr);
         $this->imageName = $arr[$count - 1];
         $this->imageOrig = $image;
-        $this->dirOrig = str_replace($this->imageName,$image,'');
+        $this->dirOrig = str_replace($this->imageName, $image, '');
 
         return $this;
     }
@@ -181,7 +186,8 @@ class ImageHelper extends AbstractHelper
      */
     public function setEmptyImage()
     {
-        $this->setImage('not-found.jpg');
+        $this->setImage('images/not-found.jpg');
+        $this->emptyImageFlag = true;
 
         return $this;
     }
@@ -196,7 +202,7 @@ class ImageHelper extends AbstractHelper
 
         $preview = $this->entityManager->getRepository(Image::class)->findOneBy($criteria, ['sort' => 'ASC']);
 
-        if(empty($preview)) {
+        if (empty($preview)) {
             $criteria = [
                 'path' => $path,
                 'pathId' => $pathId,
@@ -209,46 +215,41 @@ class ImageHelper extends AbstractHelper
 
     public function get()
     {
-        if(empty($this->imageOrig)) {
-            return '';
+        if (empty($this->imageOrig)) {
+            return null;
         }
 
-        if($this->flagFull)
-        {
+        if ($this->flagFull) {
             return '/orig/' . $this->imageOrig;
         }
 
         $width = $this->width ? $this->width : 0;
         $height = $this->height ? $this->height : 0;
 
-        $pubDir = '/pub/images/' . (string) $width . 'x'. (string) $height . '/' . $this->dirOrig;
+        $pubDir = '/pub/images/' . (string)$width . 'x' . (string)$height . '/' . $this->dirOrig;
 
-        $pubDirAbsolutely = $_SERVER['DOCUMENT_ROOT'].''.$pubDir;
-        $pubImage = $pubDir.'/'.$this->imageName;
-        $pubImageAbsolutely = $pubDirAbsolutely.'/'.$this->imageName;
+        $pubDirAbsolutely = $_SERVER['DOCUMENT_ROOT'] . '' . $pubDir;
+        $pubImage = $pubDir . '/' . $this->imageName;
+        $pubImageAbsolutely = $pubDirAbsolutely . '/' . $this->imageName;
 
-        $originalImageAbsolutely = $_SERVER['DOCUMENT_ROOT'].'/orig/'.$this->imageOrig;
+        $originalImageAbsolutely = $_SERVER['DOCUMENT_ROOT'] . '/orig/' . $this->imageOrig;
 
-        if(!is_dir($pubDirAbsolutely))
-        {
-            mkdir($pubDirAbsolutely,0777,true);
+        if (!is_dir($pubDirAbsolutely)) {
+            mkdir($pubDirAbsolutely, 0777, true);
         }
 
-        if(!is_file($pubImageAbsolutely) && is_file($originalImageAbsolutely))
-        {
+        if (!is_file($pubImageAbsolutely) && is_file($originalImageAbsolutely)) {
             $image = $this->imageManager->open($originalImageAbsolutely);
 
             // маштабируем по ширине
-            if($width>0 && $height==0)
-            {
+            if ($width > 0 && $height == 0) {
                 $widthOriginal = $image->width();
                 $heightOriginal = $image->height();
                 $height = ($width * $heightOriginal) / $widthOriginal;
             }
 
             // маштабируем по высоте
-            if($width==0 && $height>0)
-            {
+            if ($width == 0 && $height > 0) {
                 $widthOriginal = $image->width();
                 $heightOriginal = $image->height();
                 $width = ($height * $widthOriginal) / $heightOriginal;
@@ -259,9 +260,11 @@ class ImageHelper extends AbstractHelper
         }
 
         //
-        if(is_file($pubImageAbsolutely)) {
+        if (is_file($pubImageAbsolutely)) {
             return $pubImage;
         }
+
+
 
         return '';
     }

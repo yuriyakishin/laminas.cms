@@ -5,7 +5,7 @@
 <!--vitrina-->
 <div class="container-fluid vitrina">
     <div class="row">
-        <div class="item col-sm-12 col-lg-8  wow fadeInLeft" data-wow-delay="0.1s"><a href="#">
+        <div class="item col-sm-12 col-lg-8  wow fadeInLeft" data-wow-delay="0.1s"><a href="<?= $this->urlWithLang($this->url('rent-flat')) ?>">
                 <div class="header txt-cond">
                     <h4><?= $this->translate('Снять квартиру в Мариуполе') ?></h4>
                     <span><?= $this->realty()->getCount('rent-flat'); ?></span> <?= $this->translate('предложений') ?>
@@ -13,7 +13,7 @@
                 <div class="img-hover-zoom"><img src="i/in_kvartira_arend.jpg" class="img-fluid pik"
                                                  alt="<?= $this->translate('Снять квартиру в Мариуполе') ?>"/></div>
             </a></div>
-        <div class="item col-sm-6 col-lg-4  wow fadeInRight" data-wow-delay="0.1s"><a href="#">
+        <div class="item col-sm-6 col-lg-4  wow fadeInRight" data-wow-delay="0.1s"><a href="<?= $this->urlWithLang($this->url('sale-flat')) ?>">
                 <div class="header txt-cond">
                     <h4><?= $this->translate('Купить квартиру в Мариуполе') ?></h4>
                     <span><?= $this->realty()->getCount('sale-flat'); ?></span> <?= $this->translate('предложений') ?>
@@ -21,7 +21,7 @@
                 <div class="img-hover-zoom"><img src="i/in_kvartira.jpg" class="img-fluid"
                                                  alt="<?= $this->translate('Купить квартиру в Мариуполе') ?>"/></div>
             </a></div>
-        <div class="item col-sm-6 col-lg-4  wow fadeInLeft" data-wow-delay="0.2s"><a href="#">
+        <div class="item col-sm-6 col-lg-4  wow fadeInLeft" data-wow-delay="0.2s"><a href="<?= $this->urlWithLang($this->url('sale-house')) ?>">
                 <div class="header txt-cond">
                     <h4><?= $this->translate('Купить дом в Мариуполе') ?></h4>
                     <span><?= $this->realty()->getCount('sale-house'); ?></span> <?= $this->translate('предложений') ?>
@@ -29,7 +29,7 @@
                 <div class="img-hover-zoom"><img src="i/in_dom.jpg" class="img-fluid" alt="<?= $this->translate('Купить дом в Мариуполе') ?>"/>
                 </div>
             </a></div>
-        <div class="item col-sm-6 col-lg-4  wow fadeIn" data-wow-delay="0.3s"><a href="#">
+        <div class="item col-sm-6 col-lg-4  wow fadeIn" data-wow-delay="0.3s"><a href="<?= $this->urlWithLang($this->url('rent-house')) ?>">
                 <div class="header txt-cond">
                     <h4><?= $this->translate('Снять дом в Мариуполе')?></h4>
                     <span><?= $this->realty()->getCount('rent-house'); ?></span> <?= $this->translate('предложений') ?>
@@ -37,7 +37,7 @@
                 <div class="img-hover-zoom"><img src="i/in_dom_arend.jpg" class="img-fluid"
                                                  alt="<?= $this->translate('Снять дом в Мариуполе')?>"/></div>
             </a></div>
-        <div class="item col-sm-6 col-lg-4 wow fadeInRight" data-wow-delay="0.2s"><a href="#">
+        <div class="item col-sm-6 col-lg-4 wow fadeInRight" data-wow-delay="0.2s"><a href="<?= $this->urlWithLang($this->url('rent-apartment')) ?>">
                 <div class="header txt-cond">
                     <h4><?= $this->translate('Снять квартиру посуточно в Мариуполе')?></h4>
                     <span><?= $this->realty()->getCount('rent-apartment'); ?></span> <?= $this->translate('предложений') ?>
@@ -49,165 +49,28 @@
 </div>
 <!--//vitrina-->
 <!--block hot-->
-<div class="container hot-index">
-    <div class="d-flex header-hot align-items-center"><span class="txt-cond">Горячие предложения</span><span
-                class="dec w-100"></span></div>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 cards-ob">
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Продается квартира</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_kv1.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 16893</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Кальмиусский, Мариуполь</p>
-                    </div>
-                </a></div>
+<?php
+$realtyHot = $this->realty()->getRealtyHot(null,['id' => 'DESC'],8);
+if(count($realtyHot)) {
+    ?>
+    <div class="container hot-index">
+        <div class="d-flex header-hot align-items-center"><span class="txt-cond">Горячие предложения</span><span
+                    class="dec w-100"></span></div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 cards-ob">
+            <?php
+            foreach ($realtyHot as $itemHot) {
+                $item = $this->realty()->getRealtyItem($itemHot->getId(), $itemHot->getType());
+                if($item !== null) {
+                    echo $this->partial('realty/item', ['realty' => $item]);
+                }
+            }
+            ?>
         </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Сдается квартира посуточно</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_kv2.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 16893</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Центральный, Мариуполь</p>
-                    </div>
-                </a></div>
-        </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Продается дом</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_dom1.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 16893</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Кальмиусский, Мариуполь, ПГТ Талаковка</p>
-                    </div>
-                </a></div>
-        </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Сдается квартира</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_kv2.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 1689356</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Примоский, Мариуполь</p>
-                    </div>
-                </a></div>
-        </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Продается квартира</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_kv1.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 16893</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Кальмиусский, Мариуполь</p>
-                    </div>
-                </a></div>
-        </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Сдается квартира посуточно</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_kv2.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 16893</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Центральный, Мариуполь</p>
-                    </div>
-                </a></div>
-        </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Продается дом</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_dom1.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 16893</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Кальмиусский, Мариуполь, ПГТ Талаковка</p>
-                    </div>
-                </a></div>
-        </div>
-        <div class="col item wow fadeIn">
-            <div class="card"><a href="#">
-                    <div class="card-header">
-                        <h5>Сдается квартира</h5>
-                    </div>
-                    <div class="img-prev"><img src="i/prev_ob_kv2.jpg" class="img-fluid" alt=""/>
-                        <div class="price-code"><span class="price">22000 у.е</span> <span
-                                    class="cod">код 1689356</span></div>
-                        <i class="add-compare fas fa-balance-scale" title="Добавить в сравнение" role="button"
-                           data-toggle="modal" data-target="#compare-yes"></i></div>
-                    <div class="card-body">
-                        <div class="d-flex chart-ob ">
-                            <div class="mkv">220 м.кв.</div>
-                            <div class="room ml-auto">2 комнаты</div>
-                        </div>
-                        <p class="adres">Примоский, Мариуполь</p>
-                    </div>
-                </a></div>
-        </div>
+        <div class="text-center"><a href="<?= $this->urlWithLang($this->url('hot')) ?>" class="btn red"><?= $this->lang('Показать все предложения')?></a></div>
     </div>
-    <div class="text-center"><a href="#" class="btn red">Показать все предложения</a></div>
-</div>
+    <?php
+}
+?>
 <!--//block hot-->
 <!--mashtab buy-->
 <div class="company-buy">
@@ -216,7 +79,7 @@
             <div class="row">
                 <div class="col-12">
                     <h3>РК Масштаб - купит - снимет - обменяет</h3>
-                    <a href="#">Все объявления</a></div>
+                    <a href="<?= $this->urlWithLang($this->url('board')) ?>">Все объявления</a></div>
             </div>
         </div>
     </div>
@@ -224,39 +87,58 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
             <div class="col item wow fadeInLeft" data-wow-delay="0.2s">
                 <div class="card ">
-                    <h6>Куплю 1 к.кв.</h6>
-                    <p>Cрочно! Купим 1 к.кв. в Жовтневом районе. Рассматриваем район от 17 до 23 ЖМР. Обязательное
-                        требование: хорошее состояние, ремонт сан/узла. </p>
-                    <p class="contact"><strong>т. 097-165-87-18</strong><br/>
-                        <a href="#" mailto:"inna-april@bk.ru">inna-april@bk.ru</a></p>
+                    <?php
+                    $board = $this->board()->getBoard(['board.typeId' => 7],null,1);
+                    foreach ($board as $b) {
+                        ?>
+                        <p><?= $b['message'] ?></p>
+                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
+                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="col item wow fadeInLeft" data-wow-delay="0.1s">
                 <div class="card ">
-                    <h6>Куплю 1 к.кв.</h6>
-                    <p>Cрочно! Купим 1 к.кв. в Жовтневом районе. Рассматриваем район от 17 до 23 ЖМР. Cрочно! Купим
-                        1 к.кв. в Жовтневом районе. Рассматриваем район от 17 до 23 ЖМР. Обязательное требование:
-                        хорошее состояние, ремонт сан/узла. </p>
-                    <p class="contact"><strong>т. 097-165-87-18</strong><br/>
-                        <a href="#" mailto:"inna-april@bk.ru">inna-april@bk.ru</a></p>
+                    <?php
+                    $board = $this->board()->getBoard(['board.typeId' => 8],null,1);
+                    foreach ($board as $b) {
+                        ?>
+                        <p><?= $b['message'] ?></p>
+                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
+                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="col item d-none d-md-block wow fadeInRight" data-wow-delay="0.1s">
                 <div class="card ">
-                    <h6>Куплю 1 к.кв.</h6>
-                    <p>Cрочно! Купим 1 к.кв. в Жовтневом районе. Рассматриваем район от 17 до 23 ЖМР. Обязательное
-                        требование: хорошее состояние, ремонт сан/узла. </p>
-                    <p class="contact"><strong>т. 097-165-87-18</strong><br/>
-                        <a href="#" mailto:"inna-april@bk.ru">inna-april@bk.ru</a></p>
+                    <?php
+                    $board = $this->board()->getBoard(['board.typeId' => 9],null,1);
+                    foreach ($board as $b) {
+                        ?>
+                        <p><?= $b['message'] ?></p>
+                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
+                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="col item d-none d-lg-block wow fadeInRight" ata-wow-delay="0.2s">
                 <div class="card">
-                    <h6>Куплю 1 к.кв.</h6>
-                    <p>Cрочно! Купим 1 к.кв. в Жовтневом районе. Рассматриваем район от 17 до 23 ЖМР. Обязательное
-                        требование: хорошее состояние, ремонт сан/узла. </p>
-                    <p class="contact"><strong>т. 097-165-87-18</strong><br/>
-                        <a href="#" mailto:"inna-april@bk.ru">inna-april@bk.ru</a></p>
+                    <?php
+                    $board = $this->board()->getBoard(['board.typeId' => 10],null,1);
+                    foreach ($board as $b) {
+                        ?>
+                        <p><?= $b['message'] ?></p>
+                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
+                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
         </div>

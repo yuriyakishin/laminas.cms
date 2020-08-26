@@ -4,9 +4,10 @@ namespace Yu\Realty\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Yu\Realty\Entity\Realty;
+use Yu\Realty\Repository\AbstractRealtyValueRepository;
 use Yu\Realty\Entity\RealtyValueInt as RealtyValue;
 
-class RealtyValueIntRepository extends EntityRepository implements RealtyValueRepositoryInterface
+class RealtyValueIntRepository extends AbstractRealtyValueRepository implements RealtyValueRepositoryInterface
 {
     /**
      * @param RealtyValue $entity

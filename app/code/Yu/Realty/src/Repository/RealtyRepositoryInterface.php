@@ -9,4 +9,9 @@ interface RealtyRepositoryInterface
      * @return mixed
      */
     public function findRealty(array $criteria = null);
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilder();
 }

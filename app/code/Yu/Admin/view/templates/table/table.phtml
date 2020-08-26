@@ -21,6 +21,7 @@ $(function () {
       'responsive': true,
       'autoWidth': false,
       'pagingType': 'full_numbers',
+       stateSave: true,
       'language': {
                 'url': '//cdn.datatables.net/plug-ins/1.10.20/i18n/Russian.json'
             }
@@ -76,34 +77,7 @@ $this->inlineScript()->offsetSetScript(140, $script);
             <th></th>
         </tr>
         </thead>
-        <tbody>
-        <?php
-        foreach ($this->rowsData as $data) {
-            ?>
-            <tr id="tr-<?= $this->table()->retrieveValue($data, 'id') ?>">
-                <?php
-                foreach ($table->getColumns() as $collumn) {
-                    ?>
-                    <td><?= (string)$this->table()->retrieveValue($data, $collumn['key'], $collumn) ?></td>
-                    <?php
-                }
-                ?>
-                <td>
-                    <a class="btn btn-primary btn-flat btn-sm" href="<?= $this->url($table->getRoute() . '/edit', ['id' => $this->table()->retrieveValue($data, 'id')]) ?>"><i class="fa fa-edit bg"></i>
-                    </a>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger btn-flat btn-sm button-delete" data-id="<?= $this->table()->retrieveValue($data, 'id')?>"
-                       href="<?= $this->url($table->getRoute() . '/delete', ['id' => $this->table()->retrieveValue($data, 'id')]) ?>">
-                        <i class="fas fa-trash">
-                        </i>
-                    </button>
-                </td>
-            </tr>
-            <?php
-        }
-        ?>
-        </tbody>
+        <?php echo $this->partial('admin/table-body',['table' => $table, 'rowsData' => $this->rowsData]) ?>
         <tfoot>
         <tr>
             <?php

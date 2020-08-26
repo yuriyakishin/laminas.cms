@@ -132,7 +132,7 @@ return [
                                             'name' => 'project',
                                             'options' => [
                                                 'label' => 'Проект дома',
-                                                'required' => false,
+                                                'required' => true,
                                                 'object_manager' => '',
                                                 'target_class' => \Yu\Eav\Entity\EavValueOption::class,
                                                 'property' => 'title',
@@ -152,7 +152,7 @@ return [
                                                 ],
                                             ],
                                             'attributes' => [
-                                                'required' => false,
+                                                'required' => true,
                                                 'class' => 'custom-control-input',
                                             ],
                                         ],

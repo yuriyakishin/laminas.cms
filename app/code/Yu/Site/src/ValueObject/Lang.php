@@ -41,6 +41,14 @@ class Lang
     /**
      * @return array
      */
+    public static function getDefaultLang()
+    {
+        return static::$LANG[0];
+    }
+
+    /**
+     * @return array
+     */
     public static function getDefaultLangCode()
     {
         return static::$LANG[0]['code'];
@@ -60,5 +68,8 @@ class Lang
         return self::$currentLang;
     }
 
-
+    public static function setCurrentLang(array $lang)
+    {
+        self::$currentLang = $lang;
+    }
 }

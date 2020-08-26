@@ -18,6 +18,7 @@ class ImageController extends AbstractAdminController
         $data = array();
         foreach($images as $image)
         {
+            $this->imageManager()->makePreview($image);
             $data[] = [
                 'id' => $image->getId(),
                 'img' => '<img src="/orig/preview/'.$image->getImage().'" class="file-preview-image" />',

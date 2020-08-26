@@ -11,6 +11,31 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            'sale-land' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/sale-land',
+                    'defaults' => [
+                        'controller' => 'Yu\RealtySaleLand\Controller\SaleLandController',
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'view' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/[:id]',
+                            'defaults' => [
+                                'controller' => 'Yu\RealtySaleLand\Controller\SaleLandController',
+                                'action' => 'view',
+                                'id' => '',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
             'admin' => [
                 'child_routes' => [
                     'realty-sale-land' => [
@@ -65,6 +90,7 @@ return [
 
     'controllers' => [
         'factories' => [
+            'Yu\RealtySaleLand\Controller\SaleLandController' => Controller\Factory\SaleLandControllerFactory::class,
             'Yu\RealtySaleLand\Controller\Admin\SaleLandController' => Controller\Admin\Factory\SaleLandControllerFactory::class,
         ],
     ],
@@ -118,6 +144,17 @@ return [
                     'label' => 'About',
                     'type' => 'text',
                 ],
+            ],
+
+            'labels' => [
+                'catalog' => 'Продажа земли',
+                'view' => 'Продается земля',
+                'item' => 'Продается земля',
+            ],
+
+            'repository' => [
+                'realty-repository' => \Yu\RealtySaleLand\Repository\SaleLandRepository::class,
+                'criterial-bilder' => \Yu\RealtySaleLand\Repository\SearchCriteriaBuilder::class,
             ],
         ],
     ],

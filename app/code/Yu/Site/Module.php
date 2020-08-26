@@ -6,6 +6,8 @@ namespace Yu\Site;
 
 use Laminas\Mvc\MvcEvent;
 use Laminas\ModuleManager\ModuleManager;
+use Locale;
+use Yu\Site\ValueObject\Lang;
 
 class Module
 {
@@ -19,6 +21,25 @@ class Module
         // Регистрируем метод-обработчик.
         $sharedEventManager->attach("*", MvcEvent::EVENT_ROUTE,
             [$this, 'onRouteLocale'], 100);
+
+        //
+
+        if (php_sapi_name() == "cli") {
+            return;
+        }
+        /** @var \Laminas\Uri\Http $uri */
+        $uri = $_SERVER['REQUEST_URI'];
+        $pathArray = explode('/', $uri);
+        if(!empty($pathArray) && count($pathArray) > 1 && $pathArray[1] !== 'admin') {
+            foreach (Lang::getLangs() as $lang) {
+                if($lang['code'] === $pathArray[1]) {
+                    Lang::setCurrentLang($lang);
+                    break;
+                }
+            }
+        }
+        $locale = Lang::getCurrentLang()['i18n'];
+        Locale::setDefault($locale);
     }
 
     public function onRouteLocale(MvcEvent $event)
@@ -36,8 +57,19 @@ class Module
             $path = $uri->getPath();
             $pathArray = explode('/', $path);
             if(!empty($pathArray) && count($pathArray) > 1 && $pathArray[1] !== 'admin') {
-                //$uri->setPath('/');
-                //$request->setUri($uri);
+                foreach (Lang::getLangs() as $lang) {
+                    if($lang['code'] === $pathArray[1]) {
+                        unset( $pathArray[1]);
+                        $uriNew = implode('/',$pathArray);
+                        if(empty($uriNew)) {
+                            $uriNew = '/';
+                        }
+                        $uri->setPath($uriNew);
+                        $request->setUri($uri);
+                        Locale::setDefault($lang['i18n']);
+                        break;
+                    }
+                }
             }
         }
     }

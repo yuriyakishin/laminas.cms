@@ -11,6 +11,31 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            'sale-commercial' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/sale-commercial',
+                    'defaults' => [
+                        'controller' => 'Yu\RealtySaleCommercial\Controller\SaleCommercialController',
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'view' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/[:id]',
+                            'defaults' => [
+                                'controller' => 'Yu\RealtySaleCommercial\Controller\SaleCommercialController',
+                                'action' => 'view',
+                                'id' => '',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
             'admin' => [
                 'child_routes' => [
                     'realty-sale-commercial' => [
@@ -111,6 +136,8 @@ return [
 
     'controllers' => [
         'factories' => [
+            'Yu\RealtySaleCommercial\Controller\SaleCommercialController' => Controller\Factory\SaleCommercialControllerFactory::class,
+
             'Yu\RealtySaleCommercial\Controller\Admin\SaleCommercialController' => Controller\Admin\Factory\SaleCommercialControllerFactory::class,
             'Yu\RealtySaleCommercial\Controller\Admin\ValueOptionCommercial' => Controller\Admin\Factory\ValueOptionCommercialControllerFactory::class,
         ],
@@ -178,6 +205,18 @@ return [
                     'type' => 'text',
                 ],
             ],
+
+            'labels' => [
+                'catalog' => 'Продажа коммерческой недвижимости',
+                'view' => 'Продается %s',
+                'item' => 'Продается %s',
+            ],
+
+            'repository' => [
+                'realty-repository' => Repository\SaleCommercialRepository::class,
+                'criterial-bilder' => Repository\SearchCriteriaBuilder::class,
+            ],
+
         ],
     ],
 

@@ -1,15 +1,22 @@
-<?php if ($this->pageCount):
+<?php
+if ($this->pageCount):
     $path = '';
-if(isset($this->path)) {
-    $path = $this->path;
-}
+    if (isset($this->path)) {
+        $path = $this->path;
+    }
+    $_params = [];
+    foreach ($this->params as $key => $value) {
+        if ($key != 'page') {
+            $_params[$key] = $value;
+        }
+    }
     ?>
 
     <div class="paginator">
         <strong>Страницы</strong>
         <!-- Previous page link -->
         <?php if (isset($this->previous)): ?>
-            <a href="<?= $this->url($this->route, ['page' => $this->previous, 'path' => $path]); ?>">
+            <a href="<?= $this->url($this->route, array_merge(['page' => $this->previous], $_params), ['query' => array_merge(['page' => $this->previous], $_params)]); ?>">
                 ← предыдущая
             </a>
         <?php else: ?>
@@ -18,7 +25,7 @@ if(isset($this->path)) {
 
         <!-- Next page link -->
         <?php if (isset($this->next)): ?>
-            <a href="<?= $this->url($this->route, ['page' => $this->next, 'path' => $path]); ?>">
+            <a href="<?= $this->url($this->route, array_merge(['page' => $this->next], $_params), ['query' => array_merge(['page' => $this->next], $_params)]); ?>">
                 следующая →
             </a>
         <?php else: ?>
@@ -30,7 +37,7 @@ if(isset($this->path)) {
         <!-- Numbered page links -->
         <?php foreach ($this->pagesInRange as $page): ?>
             <?php if ($page != $this->current): ?>
-                <a href="<?= $this->url($this->route, ['page' => $page, 'path' => $path]); ?>">
+                <a href="<?= $this->url($this->route, array_merge(['page' => $page], $_params), ['query' => array_merge(['page' => $page], $_params)]); ?>">
                     <?= $page; ?>
                 </a>
             <?php else: ?>

@@ -3,6 +3,7 @@ namespace Yu\Core\View\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
 use Yu\Core\DataHelper;
+use Yu\Site\ValueObject\Lang;
 
 class LangHelper extends AbstractHelper
 {
@@ -37,6 +38,11 @@ class LangHelper extends AbstractHelper
             return $unserializ;
         }
         return $data;
+    }
+
+    public function getCurrentLangCode()
+    {
+        return Lang::getCurrentLang()['code'];
     }
 
     public function __toString()

@@ -1,0 +1,42 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang('Отзывы'),
+    ],
+]);
+?>
+<!--body content page-->
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <?php
+        foreach($paginator as $p) {
+            ?>
+            <blockquote>
+                <div class="reviews d-flex">
+                    <?= $this->lang()->getDataByLang($p->getContent()) ?>
+                </div>
+                <div class="autor d-flex justify-content-between">
+                    <p><?= $this->lang()->getDataByLang($p->getName()) ?></p>
+                    <?php
+                    $images = $this->media()->getImages('review', $p->getId());
+                    foreach ($images as $image) {
+                        ?>
+                        <a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" title="Фото" data-fancybox="gallery-<?= $p->getId() ?>"><i class="link-photo"><i class="far fa-image"></i></i></a>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </blockquote>
+            <?php
+        }
+        ?>
+    </div>
+</div>
+<!--//body content page-->
+<!--paginator-->
+<div class="row mt-5">
+    <div class="col text-center">
+        <?= $this->paginationControl($paginator, 'Elastic', 'layout/paginator', ['route' => 'review','params' => []]) ?>
+    </div>
+</div>
+<!--//paginator-->

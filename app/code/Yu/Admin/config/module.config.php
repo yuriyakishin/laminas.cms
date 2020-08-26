@@ -81,11 +81,13 @@ return [
         'factories' => [
             \Yu\Admin\Controller\Plugin\AuthAdminPlugin::class => \Yu\Admin\Controller\Plugin\Factory\AuthAdminPluginFactory::class,
             \Yu\Admin\Controller\Plugin\TableManagerPlugin::class => \Yu\Admin\Controller\Plugin\Factory\TableManagerPluginFactory::class,
+            \Yu\Admin\Controller\Plugin\TableDataPlugin::class => \Yu\Admin\Controller\Plugin\Factory\TableDataPluginFactory::class,
             \Yu\Admin\Controller\Plugin\FormManagerPlugin::class => \Yu\Admin\Controller\Plugin\Factory\FormManagerPluginFactory::class,
         ],
         'aliases' => [
             'authAdmin' => \Yu\Admin\Controller\Plugin\AuthAdminPlugin::class,
             'tableManager' => \Yu\Admin\Controller\Plugin\TableManagerPlugin::class,
+            'tableData' => \Yu\Admin\Controller\Plugin\TableDataPlugin::class,
             'formManager' => \Yu\Admin\Controller\Plugin\FormManagerPlugin::class,
         ],
     ],
@@ -127,6 +129,9 @@ return [
             'admin/form/element' => __DIR__ . '/../view/templates/form/element.phtml',
             'admin/form/element/wiziwig' => __DIR__ . '/../view/templates/form/element/wiziwig.phtml',
             'admin/table' => __DIR__ . '/../view/templates/table/table.phtml',
+            'admin/table-ajax' => __DIR__ . '/../view/templates/table/table-ajax.phtml',
+            'admin/table-ajax-data' => __DIR__ . '/../view/templates/table/table-ajax-data.phtml',
+            'admin/table-body' => __DIR__ . '/../view/templates/table/table-body.phtml',
 
             'admin/index' => __DIR__ . '/../view/templates/index/index.phtml',
             'admin/login/index' => __DIR__ . '/../view/templates/login/index.phtml',

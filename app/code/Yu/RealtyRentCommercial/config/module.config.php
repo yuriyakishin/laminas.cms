@@ -11,6 +11,30 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            'rent-commercial' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/rent-commercial',
+                    'defaults' => [
+                        'controller' => 'Yu\RealtyRentCommercial\Controller\RentCommercialController',
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'view' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/[:id]',
+                            'defaults' => [
+                                'controller' => 'Yu\RealtyRentCommercial\Controller\RentCommercialController',
+                                'action' => 'view',
+                                'id' => '',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'admin' => [
                 'child_routes' => [
                     'realty-rent-commercial' => [
@@ -65,6 +89,7 @@ return [
 
     'controllers' => [
         'factories' => [
+            'Yu\RealtyRentCommercial\Controller\RentCommercialController' => Controller\Factory\RentCommercialControllerFactory::class,
             'Yu\RealtyRentCommercial\Controller\Admin\RentCommercialController' => Controller\Admin\Factory\RentCommercialControllerFactory::class,
         ],
     ],
@@ -124,6 +149,17 @@ return [
                     'label' => 'About',
                     'type' => 'text',
                 ],
+            ],
+
+            'labels' => [
+                'catalog' => 'Аренда коммерческой недвижимости',
+                'view' => 'Сдается %s',
+                'item' => 'Сдается %s',
+            ],
+
+            'repository' => [
+                'realty-repository' => Repository\RentCommercialRepository::class,
+                'criterial-bilder' => Repository\SearchCriteriaBuilder::class,
             ],
         ],
     ],

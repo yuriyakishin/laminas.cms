@@ -122,7 +122,7 @@ class BlogRoute implements RouteInterface
 
         $url = '/' . $params['path'];
         if(isset($params['page'])) {
-            $url = $url . '?page=' . $params['page'];
+            //$url = $url . '?page=' . $params['page'];
         }
 
         $this->assembledParams[] = 'page';

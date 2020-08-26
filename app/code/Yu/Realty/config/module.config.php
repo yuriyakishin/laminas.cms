@@ -12,6 +12,51 @@ use Laminas\View\View;
 return [
     'router' => [
         'routes' => [
+
+            'hot' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/hot',
+                    'defaults' => [
+                        'controller' => Controller\HotController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+
+            'compare' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/compare',
+                    'defaults' => [
+                        'controller' => Controller\CompareController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+
+            'compare-ajax' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/compare/ajax',
+                    'defaults' => [
+                        'controller' => Controller\CompareController::class,
+                        'action' => 'ajax',
+                    ],
+                ],
+            ],
+
+            'realty-search-by-code' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/realty-search-by-code',
+                    'defaults' => [
+                        'controller' => Controller\SearchController::class,
+                        'action' => 'searchByCode',
+                    ],
+                ],
+            ],
+
             'admin' => [
                 'child_routes' => [
                     'agent' => [
@@ -66,6 +111,9 @@ return [
 
     'controllers' => [
         'factories' => [
+            Controller\HotController::class => Controller\Factory\HotControllerFactory::class,
+            Controller\CompareController::class => InvokableFactory::class,
+            Controller\SearchController::class => Controller\Factory\SearchControllerFactory::class,
             Controller\Admin\AgentController::class => Controller\Admin\Factory\AgentControllerFactory::class,
         ],
     ],
@@ -80,16 +128,17 @@ return [
         ],
         'aliases' => [
             'realty.manager' => \Yu\Realty\Service\RealtyManager::class,
+            'realtyManager' => \Yu\Realty\Service\RealtyManager::class,
             'realty.config.manager' => \Yu\Realty\Service\RealtyConfigManager::class,
         ]
     ],
 
     'view_helpers' => [
         'factories' => [
-            \Yu\Realty\View\Helper\Realty::class => \Yu\Realty\View\Helper\Factory\RealtyFactory::class,
+            \Yu\Realty\View\Helper\RealtyHelper::class => \Yu\Realty\View\Helper\Factory\RealtyHelperFactory::class,
         ],
         'aliases' => [
-            'realty' => \Yu\Realty\View\Helper\Realty::class,
+            'realty' => \Yu\Realty\View\Helper\RealtyHelper::class,
         ],
     ],
 

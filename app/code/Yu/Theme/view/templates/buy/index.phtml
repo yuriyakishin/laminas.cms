@@ -1,0 +1,35 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang('Купим / снимем'),
+    ],
+]);
+
+$categories = $this->handbook()->get('catalog-category');
+?>
+<!--buy-->
+<div class="row">
+    <?php
+    foreach ($categories as $category) {
+        ?>
+        <div class="col-lg-4">
+            <ul class="block-buy-arend">
+                <div class="title txt-cond"><?= $this->lang()->getDataByLang($category->getValue()) ?></div>
+                <?php
+                $rows = $this->catalogHelper()->getCatalog(['category.value' => $category->getId(), 'catalog.active' => 1]);
+                foreach ($rows as $row) {
+                    ?>
+                    <li>
+                        <h6><?= $this->lang()->getDataByLang($row['name']) ?></h6>
+                        <?= $this->lang()->getDataByLang($row['content']) ?>
+                    </li>
+                    <?php
+                }
+                ?>
+            </ul>
+        </div>
+        <?php
+    }
+    ?>
+</div>
+<!--//buy-->

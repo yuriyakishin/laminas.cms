@@ -1,6 +1,6 @@
 <?php
 
-namespace Yu\RealtySaleFlat\Repository;
+namespace Yu\RealtyRentHouse\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Yu\Realty\Api\SearchCriteriaBuilderInterface;

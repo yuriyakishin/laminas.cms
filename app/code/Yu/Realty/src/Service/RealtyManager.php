@@ -68,6 +68,11 @@ class RealtyManager
         return $params;
     }
 
+    /**
+     * @param int $realtyId
+     * @param string $type
+     * @return array
+     */
     public function getRealtyAttr(int $realtyId, string $type)
     {
         $attributes = [];
@@ -89,6 +94,42 @@ class RealtyManager
         }
 
         return $attributes;
+    }
+
+    /**
+     * @param int $limit
+     * @param int|null $offset
+     * @return mixed
+     */
+    public function getRealtyHot(array $criterial = null, array $orderBy = null, int $limit = null, int $offset = null)
+    {
+        $realtyHot = $this->entityManager->getRepository(Realty::class)->findBy(['main' => 1], $orderBy, $limit, $offset);
+        return $realtyHot;
+    }
+
+    /**
+     * @param int $realtyId
+     * @param string|null $type
+     * @return mixed|null
+     */
+    public function getRealtyItem(int $realtyId, string $type = null)
+    {
+        if ($type === null) {
+            $realty = $this->entityManager->getRepository(Realty::class)->find($realtyId);
+            $type = $realty->getType();
+        }
+
+        $config = $this->realtyConfigManager->getRealtyConfig($type);
+        if (isset($config["repository"]["realty-repository"]) && isset($config["repository"]["criterial-bilder"])) {
+            $repository = new $config["repository"]["realty-repository"]($this->entityManager);
+            $criterialBilder = new $config["repository"]["criterial-bilder"];
+
+            $queryBuilder = $repository->getQueryBuilder();
+            $realtyItem = $criterialBilder->build($queryBuilder, ['id' => $realtyId])->getQuery()->getResult();
+            return $realtyItem[0];
+        }
+
+        return null;
     }
 
     /**

@@ -18,13 +18,16 @@ class PreviewHelper extends AbstractHelper implements SourceHelperInterface
      */
     private $entityManager;
 
+    private $imageManager;
+
     /**
      * PreviewHelper constructor.
      * @param $entityManager
      */
-    public function __construct($entityManager)
+    public function __construct($entityManager,$imageManager)
     {
         $this->entityManager = $entityManager;
+        $this->imageManager = $imageManager;
     }
 
     /**
@@ -58,6 +61,8 @@ class PreviewHelper extends AbstractHelper implements SourceHelperInterface
 
         $img = '';
         if(!empty($preview)) {
+
+            $this->imageManager->makePreview($preview);
             $img = '<img src="/orig/preview/' . $preview->getImage() . '" />';
         }
         return $img;

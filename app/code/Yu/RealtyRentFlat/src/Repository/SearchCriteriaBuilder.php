@@ -1,6 +1,6 @@
 <?php
 
-namespace Yu\RealtySaleFlat\Repository;
+namespace Yu\RealtyRentFlat\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Yu\Realty\Api\SearchCriteriaBuilderInterface;
@@ -13,6 +13,10 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
      */
     public function build(QueryBuilder $queryBuilder, array $params)
     {
+        if(!empty($params['id'])) {
+            $queryBuilder->andWhere('r.id=:id')->setParameter('id',$params['id']);
+        }
+
         if(!empty($params['district'])) {
             $queryBuilder->andWhere('d.value=:district')->setParameter('district',$params['district']);
         }

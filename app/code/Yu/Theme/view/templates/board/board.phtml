@@ -1,0 +1,74 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang('Доска объявлений'),
+    ],
+]);
+?>
+<!--header-board-->
+<div class="row header-board">
+    <div class="col-12 col-lg-8 form-searsh-board">
+        <form method="get" id="form_board" action="<?= $this->urlWithLang($this->url('board')) ?>">
+            <div class="row">
+                <div class="col-sm-5">
+                    <select name="type" class="selectpicker form-control" id="number2" title="Категория"
+                            data-hide-disabled="true">
+                        <option value="0">Категория</option>
+                        <?php
+                        $types = $this->board()->getTypes();
+                        foreach ($types as $type) {
+                            ?>
+                            <option value="<?= $type->getId() ?>"<?php if ($typeId == $type->getId()) echo ' selected'; ?>><?= $type->getName() ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select name="city" class="selectpicker form-control" id="number2" title="Выберите город"
+                            data-hide-disabled="true">
+                        <option value="0">Город</option>
+                        <?php
+                        $cities = $this->board()->getCities();
+                        foreach ($cities as $city) {
+                            ?>
+                            <option value="<?= $city->getId() ?>"<?php if ($cityId == $city->getId()) echo ' selected'; ?>><?= $city->getName() ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-sm-2"><a href="javascript: document.getElementById('form_board').submit()"
+                                         class="btn red form">Найти</a></div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12  col-lg-4"><a href="<?= $this->urlWithLang($this->url('board/form')) ?>" class="btn gr float-none float-lg-right ">Добавить объявление</a></div>
+</div>
+<!--//header-board-->
+<!--body-board-->
+<ul class="list-unstyled board-body mt-3 mt-md-5">
+    <?php
+    foreach ($paginator as $p) {
+        ?>
+        <li class="col-12 item d-sm-inline-flex d-md-flex">
+            <div class="data"><span><?= date('d.m', $p['date']) ?></span>
+                <p><?= date('Y', $p['date']) ?><br/>
+                    <?= date('H:i', $p['date']) ?></p>
+            </div>
+            <div class="txt-ob">
+                <?= nl2br($p['message']) ?>
+                <p class="contact"> <?= $p['city'] ?>. Тел.: <?= $p['phone'] ?> <?= $p['person'] ?></p>
+            </div>
+        </li>
+        <?php
+    }
+    ?>
+</ul>
+<!--paginator-->
+<div class="row mt-5">
+    <div class="col text-center">
+        <?= $this->paginationControl($paginator, 'Elastic', 'layout/paginator', ['route' => 'board', 'params' => ['type' => $typeId, 'city' => $cityId]]) ?>
+    </div>
+</div>
+<!--//paginator-->

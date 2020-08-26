@@ -15,6 +15,8 @@ class TableManagerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $config = $container->get('Config');
-        return new $requestedName($config);
+        $entityManager = $container->get('doctrine.entitymanager.orm_default');
+        $renderer = $container->get(\Laminas\View\Renderer\PhpRenderer::class);
+        return new $requestedName($config, $entityManager,$renderer);
     }
 }

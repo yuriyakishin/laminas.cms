@@ -11,6 +11,30 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
+            'sale-house' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/sale-house',
+                    'defaults' => [
+                        'controller' => 'Yu\RealtySaleHouse\Controller\SaleHouseController',
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'view' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/[:id]',
+                            'defaults' => [
+                                'controller' => 'Yu\RealtySaleHouse\Controller\SaleHouseController',
+                                'action' => 'view',
+                                'id' => '',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'admin' => [
                 'child_routes' => [
                     'realty-sale-house' => [
@@ -65,6 +89,7 @@ return [
 
     'controllers' => [
         'factories' => [
+            'Yu\RealtySaleHouse\Controller\SaleHouseController' => Controller\Factory\SaleHouseControllerFactory::class,
             'Yu\RealtySaleHouse\Controller\Admin\SaleHouseController' => Controller\Admin\Factory\SaleHouseControllerFactory::class,
         ],
     ],
@@ -85,52 +110,63 @@ return [
                 'district' => [
                     'id' => 100,
                     'code' => 'district',
-                    'label' => 'District',
+                    'label' => 'Район',
                     'type' => 'int',
                 ],
                 'rooms' => [
                     'id' => 101,
                     'code' => 'rooms',
-                    'label' => 'Rooms',
+                    'label' => 'Количество комнат',
                     'type' => 'int',
                 ],
                 'area' => [
                     'id' => 202,
                     'code' => 'area',
-                    'label' => 'Area house',
+                    'label' => 'Площадь дома',
                     'type' => 'text',
                 ],
                 'area_land' => [
                     'id' => 203,
                     'code' => 'area_land',
-                    'label' => 'Area land',
+                    'label' => 'Площадь земли',
                     'type' => 'text',
                 ],
 
                 'comm' => [
                     'id' => 205,
                     'code' => 'comm',
-                    'label' => 'Communications',
+                    'label' => 'Коммуникации',
                     'type' => 'text',
                 ],
                 'status' => [
                     'id' => 106,
                     'code' => 'status',
-                    'label' => 'Status',
+                    'label' => 'Юридический статус',
                     'type' => 'text',
                 ],
                 'anons' => [
                     'id' => 107,
                     'code' => 'anons',
-                    'label' => 'Anons',
+                    'label' => 'Анонс',
                     'type' => 'text',
                 ],
                 'about' => [
                     'id' => 108,
                     'code' => 'about',
-                    'label' => 'About',
+                    'label' => 'Описание',
                     'type' => 'text',
                 ],
+            ],
+
+            'labels' => [
+                'catalog' => 'Продажа домов',
+                'view' => 'Продается %s-комнатный дом',
+                'item' => 'Продается дом',
+            ],
+
+            'repository' => [
+                'realty-repository' => \Yu\RealtySaleHouse\Repository\SaleHouseRepository::class,
+                'criterial-bilder' => \Yu\RealtySaleHouse\Repository\SearchCriteriaBuilder::class,
             ],
         ],
     ],

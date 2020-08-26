@@ -24,7 +24,7 @@ return [
                     ],
                     [
                         'label' => 'Отзывы о кампании',
-                        'uri' => '/reviews',
+                        'uri' => '/review',
                         'order' => 200,
                     ],
                     [

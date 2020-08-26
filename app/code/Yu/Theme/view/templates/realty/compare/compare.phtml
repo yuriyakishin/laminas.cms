@@ -1,0 +1,44 @@
+<?php
+/** @var \Yu\Realty\View\Helper\Realty $realtyHelper */
+$realtyHelper = $this->realty();
+
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang('Сравнение'),
+    ],
+]);
+
+$urlCompare = $this->urlLang($this->url('compare-ajax'));
+$script = <<<EOF
+    $(document).ready(function () {
+        if(localStorage.getItem('compare') != null) {
+            var ids = localStorage.getItem('compare');
+            $.ajax({
+                url: '$urlCompare',
+                data: { ids: ids }
+            }).done(function(data) {
+                $('#compare-block').html(data);
+            });
+        }
+    });
+EOF;
+
+$this->inlineScript()->offsetSetScript(450, $script);
+?>
+<!--header title page-->
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+        <div class="header-page">
+            <h1>Сравнение</h1>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-5 col-lg-4 text-center">
+        <div class="info-search txt-cond">выбрано обектов - <span class="compare-amount">0</span></div>
+    </div>
+</div>
+<!--//header title page-->
+<!--compare-->
+<div id="compare-block" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 compare">
+
+</div>
+<!--//compare-->

@@ -21,6 +21,7 @@ return [
             'layout/paginator' => __DIR__ . '/../view/layout/paginator.phtml',
             'layout/search' => __DIR__ . '/../view/layout/search.phtml',
             'layout/scripts' => __DIR__ . '/../view/layout/scripts.phtml',
+            'layout/not-found-realty' => __DIR__ . '/../view/layout/not-found-realty.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
 
@@ -29,12 +30,24 @@ return [
             'yu/blog/rubric' => __DIR__ . '/../view/templates/blog/rubric.phtml',
             'yu/blog/post' => __DIR__ . '/../view/templates/blog/post.phtml',
 
+            'yu/board' => __DIR__ . '/../view/templates/board/board.phtml',
+            'yu/board/form' => __DIR__ . '/../view/templates/board/form.phtml',
+            'yu/board/send' => __DIR__ . '/../view/templates/board/send.phtml',
+
+            'yu/buy' => __DIR__ . '/../view/templates/buy/index.phtml',
+
+            'yu/review' => __DIR__ . '/../view/templates/review/index.phtml',
+
             'realty/map/catalog' => __DIR__ . '/../view/templates/realty/map/map-catalog.phtml',
             'realty/map/view' => __DIR__ . '/../view/templates/realty/map/map-view.phtml',
             'realty/catalog' => __DIR__ . '/../view/templates/realty/catalog.phtml',
             'realty/view' => __DIR__ . '/../view/templates/realty/view.phtml',
             'realty/item' => __DIR__ . '/../view/templates/realty/item.phtml',
+            'realty/hot' => __DIR__ . '/../view/templates/realty/hot.phtml',
+            'realty/compare' => __DIR__ . '/../view/templates/realty/compare/compare.phtml',
+            'realty/compare/ajax' => __DIR__ . '/../view/templates/realty/compare/ajax.phtml',
             'realty/price' => __DIR__ . '/../view/templates/realty/price.phtml',
+            'realty/not-found' => __DIR__ . '/../view/templates/realty/not-found.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
@@ -42,7 +55,6 @@ return [
     ],
 
     'translator' => [
-        'locale' => 'ru_RU',
         'translation_file_patterns' => [
             [
                 'type'     => 'phparray',

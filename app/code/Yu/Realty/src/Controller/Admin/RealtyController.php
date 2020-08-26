@@ -4,13 +4,17 @@ namespace Yu\Realty\Controller\Admin;
 
 use Yu\Admin\Controller\AbstractAdminController;
 use Laminas\View\Model\ViewModel;
+use Yu\Price\Entity\Price;
 use Yu\Realty\Service\RealtyConfigManager;
 use Yu\Realty\Service\RealtyManager;
 use Yu\Seo\Entity\Meta;
 use Yu\Realty\Entity\Realty;
 use Yu\Geo\Entity\Marker;
 use Yu\Realty\Repository\RealtyRepositoryInterface;
-
+use Yu\Eav\Entity\EavValueText;
+use Yu\Eav\Entity\EavValueInt;
+use Yu\Realty\Entity\RealtyValueInt;
+use Yu\Realty\Entity\RealtyValueText;
 
 class RealtyController extends AbstractAdminController
 {
@@ -121,6 +125,8 @@ class RealtyController extends AbstractAdminController
 
             $form->setData($data);
 
+            $id = (int)$data['realty']['id'] ?? 0;
+
             if ($form->isValid()) {
                 try {
                     $id = (int)$data['realty']['id'] ?? 0;
@@ -181,8 +187,12 @@ class RealtyController extends AbstractAdminController
                     }
                 } catch (\Exception $e) {
                     $this->flashMessenger()->addErrorMessage("Ошибка записи в базу данных: " . $e->getMessage());
-                    return $this->redirect()->toRoute($this->options['route'] . '/edit',['id' => $id]);
+                    return $this->redirect()->toRoute($this->options['route'] . '/edit', ['id' => $id]);
                 }
+            } else {
+                $error = json_encode($form->getMessages());
+                $this->flashMessenger()->addErrorMessage("Ошибка валидации данных: " . $error);
+                return $this->redirect()->toRoute($this->options['route'] . '/edit', ['id' => $id]);
             }
         }
         return $this->redirect()->toRoute($this->options['route']);
@@ -197,6 +207,11 @@ class RealtyController extends AbstractAdminController
 
             $meta = $this->entityManager()->getRepository(Meta::class)->findMeta('realty', $id);
             $this->entityManager()->getRepository(Meta::class)->remove($meta);
+
+            $this->entityManager()->getRepository(RealtyValueInt::class)->removeByEntityId($id);
+            $this->entityManager()->getRepository(RealtyValueText::class)->removeByEntityId($id);
+
+            $this->entityManager()->getRepository(Price::class)->removeBy(['pathId' => $id, 'path' => 'realty']);
         }
         $this->layout()->setTerminal(true);
 

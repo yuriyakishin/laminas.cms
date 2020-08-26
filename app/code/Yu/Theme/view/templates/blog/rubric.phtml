@@ -15,7 +15,7 @@ $this->breadcrumbs()->setBreadcrumbs([
                 ?>
                 <li>
                     <h2>
-                        <a href="/<?= $rubric->getIdentifier() ?>/<?= $post->getIdentifier() ?>"><?= $this->lang()->getDataByLang($post->getTitle()); ?></a>
+                        <a href="<?= $this->urlWithLang('/'.$rubric->getIdentifier().'/'.$post->getIdentifier()) ?>"><?= $this->lang()->getDataByLang($post->getTitle()); ?></a>
                     </h2>
                     <span class="data txt-cond"><?= $post->getDate()->format('d.m.Y') ?></span>
                     <p><?= $this->lang()->getDataByLang($post->getAnons()); ?></p>
@@ -28,7 +28,8 @@ $this->breadcrumbs()->setBreadcrumbs([
         <!--paginator-->
         <div class="row mt-5">
             <div class="col text-center">
-                <?= $this->paginationControl($posts,'Sliding','layout/paginator',['route' => 'blog', 'path' => $rubric->getIdentifier()]) ?>
+                <?php /* $this->paginationControl($posts,'Sliding','layout/paginator',['route' => 'blog', 'path' => $rubric->getIdentifier()])*/ ?>
+                <?= $this->paginationControl($posts, 'Elastic', 'layout/paginator', ['route' => 'blog', 'params' => ['path' => $rubric->getIdentifier()]]) ?>
             </div>
         </div>
         <!--//paginator-->

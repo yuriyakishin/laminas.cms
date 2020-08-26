@@ -1,0 +1,33 @@
+<?php
+/** @var \Yu\Realty\View\Helper\Realty $realtyHelper */
+$realtyHelper = $this->realty();
+
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang('Горячие предложения'),
+    ],
+]);
+?>
+    <div class="row mb-1 mb-lg-3">
+        <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+            <div class="header-page">
+                <h1><?= $this->lang('Горячие предложения') ?></h1>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-5 col-lg-4 text-center">
+            <div class="info-search txt-cond">найдено обектов - <?= count($realtyHot) ?></div>
+        </div>
+    </div>
+    <!--//header title page-->
+    <!--catalog-->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 cards-ob">
+        <?php
+        foreach ($realtyHot as $itemHot) {
+            $item = $this->realty()->getRealtyItem($itemHot->getId(), $itemHot->getType());
+            if($item !== null) {
+                echo $this->partial('realty/item', ['realty' => $item]);
+            }
+        }
+        ?>
+    </div>
+    <!--//catalog-->

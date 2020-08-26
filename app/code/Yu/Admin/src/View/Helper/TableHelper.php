@@ -30,18 +30,25 @@ class TableHelper extends AbstractHelper
     private $entityManager;
 
     /**
+     * @var \Yu\Admin\Service\Table\TableManager
+     */
+    private $tableManager;
+
+    /**
      * Table constructor.
      * @param array $config
      */
     public function __construct(
         array $config,
-        $entityManager
+        $entityManager,
+        $tableManager
     )
     {
         if (isset($config['admin']['table_manager'])) {
             $this->config = $config['admin']['table_manager'];
         }
         $this->entityManager = $entityManager;
+        $this->tableManager = $tableManager;
     }
 
     /**
@@ -74,6 +81,8 @@ class TableHelper extends AbstractHelper
 
     public function retrieveValue($data, $key, $collumn = null)
     {
+        return $this->tableManager->retrieveValue($data, $key, $collumn);
+
         $value = '';
         // Извлекаем значение из $data по ключу $key
         if (is_object($data)) {
@@ -118,7 +127,7 @@ class TableHelper extends AbstractHelper
             $value = $filter->filter($value);
         }
 
-        if($key == 'active') {
+        if($key == 'active' || $key == 'main') {
             return $value ? 'Да' : 'Нет';
         }
 

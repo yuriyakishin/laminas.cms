@@ -174,6 +174,7 @@ return [
                     'code' => 'class',
                     'label' => 'Класс аренды',
                     'type' => 'int',
+                    'options' => true,
                 ],
                 'anons' => [
                     'id' => 107,
@@ -187,6 +188,17 @@ return [
                     'label' => 'Описание',
                     'type' => 'text',
                 ],
+            ],
+
+            'labels' => [
+                'catalog' => 'Аренда квартир',
+                'view' => 'Сдается %s-комнатная квартира',
+                'item' => 'Сдается квартира',
+            ],
+
+            'repository' => [
+                'realty-repository' => Repository\RentFlatRepository::class,
+                'criterial-bilder' => Repository\SearchCriteriaBuilder::class,
             ],
         ],
     ],

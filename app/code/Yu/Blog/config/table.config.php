@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yu\Content;
+namespace Yu\Blog;
 
 return [
     'admin' => [

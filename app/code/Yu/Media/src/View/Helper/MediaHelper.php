@@ -29,7 +29,7 @@ class MediaHelper extends AbstractHelper
      */
     public function getImages(string $path, int $pathId, array $data = null)
     {
-        $images = $this->entityManager->getRepository(Image::class)->findBy(['path' => $path, 'pathId' => $pathId, 'type' => ''],['sort' => 'ASC']);
+        $images = $this->entityManager->getRepository(Image::class)->findBy(['path' => $path, 'pathId' => $pathId],['sort' => 'ASC']);
         return $images;
     }
 

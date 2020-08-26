@@ -31,10 +31,13 @@ return [
         'factories' => [
             \Yu\Core\View\Helper\LangHelper::class => InvokableFactory::class,
             \Yu\Core\View\Helper\BreadcrumbsHelper::class => InvokableFactory::class,
+            \Yu\Core\View\Helper\UrlWithLang::class => \Yu\Core\View\Helper\Factory\UrlWithLangFactory::class,
         ],
         'aliases' => [
             'lang' => \Yu\Core\View\Helper\LangHelper::class,
             'breadcrumbs' => \Yu\Core\View\Helper\BreadcrumbsHelper::class,
+            'urlWithLang' => \Yu\Core\View\Helper\UrlWithLang::class,
+            'urlLang' => \Yu\Core\View\Helper\UrlWithLang::class,
         ],
     ],
 

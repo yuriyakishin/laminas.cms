@@ -1,10 +1,11 @@
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/popper.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="js/menu.js"></script>
-<script type="text/javascript" src="js/wow.min.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" src="/js/wow.min.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/scripts.js"></script>
 <script>
     var app = new Vue({
         el: '#app',
@@ -14,12 +15,18 @@
             type: 'sale',
             room: 0,
             commercial: 0,
+            code: '',
             price: '',
-            realties: [
+            realties_sale: [
                 {'id': 'flat', 'value': 'Квартира'},
                 {'id': 'house', 'value': 'Дом'},
                 {'id': 'commercial', 'value': 'Помещение'},
                 {'id': 'land', 'value': 'Земля'},
+            ],
+            realties_rent: [
+                {'id': 'flat', 'value': 'Квартира'},
+                {'id': 'house', 'value': 'Дом'},
+                {'id': 'commercial', 'value': 'Помещение'},
             ],
             rooms: [
                 {'id': '1', 'value': '1ком.'},
@@ -29,7 +36,8 @@
                 {'id': '5', 'value': '5 и более'},
             ],
             districts: <?= $this->handbook()->getJson('district') ?>,
-            commercials: <?= $this->handbook()->getJson('commercial') ?>
+            commercials: <?= $this->handbook()->getJson('commercial') ?>,
+            compare: []
         },
         methods: {
             search_realty: function (event) {
@@ -40,8 +48,73 @@
                             district: this.district,
                             price: this.price
                         };
-                        window.location.href = '<?= $this->url('sale-flat') ?>?' + $.param(params);
+                        window.location.href = '<?= $this->urlWithLang($this->url('sale-flat')) ?>?' + $.param(params);
                     }
+                    if (this.realty == 'house') {
+                        var params = {
+                            room: this.room,
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->urlWithLang($this->url('sale-house')) ?>?' + $.param(params);
+                    }
+                    if (this.realty == 'commercial') {
+                        var params = {
+                            commercial: this.commercial,
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->urlWithLang($this->url('sale-commercial')) ?>?' + $.param(params);
+                    }
+                    if (this.realty == 'land') {
+                        var params = {
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->urlWithLang($this->url('sale-land')) ?>?' + $.param(params);
+                    }
+                };
+                if (this.type == 'rent') {
+                    if (this.realty == 'flat') {
+                        var params = {
+                            room: this.room,
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->urlWithLang($this->url('rent-flat')) ?>?' + $.param(params);
+                    }
+                    if (this.realty == 'house') {
+                        var params = {
+                            room: this.room,
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->urlWithLang($this->url('rent-house')) ?>?' + $.param(params);
+                    }
+                    if (this.realty == 'commercial') {
+                        var params = {
+                            commercial: this.commercial,
+                            district: this.district,
+                            price: this.price
+                        };
+                        window.location.href = '<?= $this->urlWithLang($this->url('rent-commercial')) ?>?' + $.param(params);
+                    }
+                }
+
+                if (this.type == 'apartmen') {
+                    var params = {
+                        district: this.district,
+                        room: this.room,
+                        price: this.price
+                    };
+                    window.location.href = '<?= $this->urlWithLang($this->url('rent-apartment')) ?>?' + $.param(params);
+                }
+
+                if (this.type == 'code') {
+                    var params = {
+                        code: this.code
+                    };
+                    window.location.href = '<?= $this->urlWithLang($this->url('realty-search-by-code')) ?>?' + $.param(params);
                 }
             },
             refreshElement: function () {
@@ -53,11 +126,17 @@
                 $(this.$refs.select_flat1).selectpicker('refresh');
                 $(this.$refs.select_flat2).selectpicker('refresh');
                 $(this.$refs.select_flat3).selectpicker('refresh');
+                $(this.$refs.select_commercial1).selectpicker('refresh');
+                $(this.$refs.select_commercia2).selectpicker('refresh');
             },
             tabClick: function (tab_type) {
                 this.type = tab_type;
                 localStorage.setItem('type', tab_type);
-            }
+            },
+            addCompare: function(id) {
+                this.compare.push(id);
+                //localStorage.setItem('compare', this.compare);
+            },
         },
         updated() {
             this.refreshElement();
@@ -66,7 +145,8 @@
             localStorage.setItem('district', this.district);
             localStorage.setItem('room', this.room);
             localStorage.setItem('price', this.price);
-            console.log(this.realty);
+            localStorage.setItem('code', this.code);
+            localStorage.setItem('commercial', this.commercial);
         },
         mounted() {
 
@@ -77,6 +157,7 @@
                     this.type = 'sale';
                     $('.nav-tabs a[id="' + this.type + '"]').tab('show');
                 } else {
+                    this.type = t;
                     $('.nav-tabs a[id="' + t + '"]').tab('show');
                 }
 
@@ -102,6 +183,16 @@
                     this.price = price;
                 }
 
+                var code = localStorage.getItem('code');
+                if (code != null) {
+                    this.code = code;
+                }
+
+                var commercial = localStorage.getItem('commercial');
+                if (commercial != null) {
+                    this.commercial = commercial;
+                }
+
                 this.refreshElement();
             });
         }
@@ -109,8 +200,44 @@
 </script>
 
 <script>
-    $('#tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
+    $(document).ready(function () {
+        var compare = [];
+
+        if(localStorage.getItem('compare') != null) {
+            compare = localStorage.getItem('compare').split(',').map(Number);
+        };
+
+        if(compare.length>0) {
+            $('.compare-amount').text(compare.length);
+            $.each(compare,function(index,value){
+                $('[data-compare-id="' + value + '"]').addClass('selected');
+            });
+        };
+
+        $('.compare-button').click(function (e) {
+            var el = $(this);
+            var id = el.data('compare-id');
+            var index = compare.indexOf(id);
+
+            if(index == -1) {
+                el.addClass('selected');
+                compare.push(el.data('compare-id'));
+            } else {
+                el.removeClass('selected');
+                compare.splice(index, 1);
+            }
+            $('.compare-amount').text(compare.length);
+            if(compare.length>0) {
+                localStorage.setItem('compare', compare);
+            } else {
+                localStorage.removeItem('compare');
+            }
+            return false;
+        });
+
+        $('#tabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
     });
 </script>

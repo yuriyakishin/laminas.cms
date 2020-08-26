@@ -137,6 +137,17 @@ return [
                     'type' => 'text',
                 ],
             ],
+
+            'labels' => [
+                'catalog' => 'Аренда домов',
+                'view' => 'Сдается %s-комнатный дом',
+                'item' => 'Сдается дом',
+            ],
+
+            'repository' => [
+                'realty-repository' => Repository\RentHouseRepository::class,
+                'criterial-bilder' => Repository\SearchCriteriaBuilder::class,
+            ],
         ],
     ],
 

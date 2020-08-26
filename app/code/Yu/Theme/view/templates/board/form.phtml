@@ -1,0 +1,92 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang('Доска объявлений'),
+        'uri' => $this->urlWithLang($this->url('board')),
+    ],
+    [
+        'label' => $this->lang()->getDataByLang('Добавить объявление'),
+    ],
+]);
+?>
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1><?= $this->lang('Добавить объявление') ?></h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <div class="row">
+            <div class="col-12 coment-board">
+                <p class="alert-form">Объявления рекламного характера либо с низкой полезностью для аудитории данного
+                    ресурса
+                    удаляется без уведомления автора. Удаляются без предупреждения объявления в тексте, которого
+                    используются
+                    словосочетания «без посредников», «посредников просьбе не беспокоить» либо любое другое принижающее
+                    значение
+                    посреднической деятельности.</p>
+                <p><strong style="color:#A70033">ВНИМАНИЕ!</strong> Доска объявлений сервера агентства недвижимости
+                    «Масштаб»
+                    предназначена для размещения объявлений по теме <strong style="color:#A70033">НЕДВИЖИМОСТЬ</strong>.
+                    Объявления
+                    не соответствующие тематике будут удалены.</p>
+                <form id="form-board" action="<?= $this->urlWithLang($this->url('board/send')) ?>" method="post">
+                    <?php
+
+                    ?>
+                    <div class="row form-board">
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <select class="selectpicker form-control" id="board-type" name="board-type" title="Категория"
+                                        data-hide-disabled="true" required="required">
+                                    <option value="">Категория</option>
+                                    <?php
+                                    $types = $this->board()->getTypes();
+                                    foreach ($types as $type) {
+                                        ?>
+                                        <option value="<?= $type->getId() ?>"><?= $type->getName() ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <select class="selectpicker form-control  mb-2" id="board-city" name="board-city" title="Выберите город"
+                                        data-hide-disabled="true" required="required">
+                                    <option value="">Город</option>
+                                    <?php
+                                    $cities = $this->board()->getCities();
+                                    foreach ($cities as $city) {
+                                        ?>
+                                        <option value="<?= $city->getId() ?>"><?= $city->getName() ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                    <textarea class="form-control" id="board-message" name="board-message" placeholder="Текст объявления"
+                              style="height:120px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <input type="text" class="form-control required mb-4" id="board-name" name="board-name" placeholder="Имя" required="required">
+                            </div>
+                            <div class="form-group ">
+                                <input type="text" class="form-control required mb-4" id="board-phone" name="board-phone" placeholder="Телефон" required="required">
+                            </div>
+                            <div class="form-group ">
+                                <input type="text" class="form-control" id="board-email" name="board-email" placeholder="E-mail">
+                            </div>
+                        </div>
+                        <div class="col-12 text-center pt-2 pb-3"><a id="board-submit" type="submit" class="btn form m-auto">Отправить</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

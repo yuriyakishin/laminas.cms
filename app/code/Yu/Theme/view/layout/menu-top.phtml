@@ -1,21 +1,26 @@
 <ul class="mobile-sub wsmenu-list">
     <li class="rightmenu">
-        <div class="lang"><a href="#" class="active">RU</a><a href="#">UA</a><a href="#">EN</a>
+        <div class="lang">
+            <a href="/"<?php if($this->lang()->getCurrentLangCode() == 'ru') echo ' class="active"'?>>RU</a>
+            <a href="/ua"<?php if($this->lang()->getCurrentLangCode() == 'ua') echo ' class="active"'?>>UA</a>
+            <a href="/en"<?php if($this->lang()->getCurrentLangCode() == 'en') echo ' class="active"'?>>EN</a>
         </div>
     </li>
     <?php
     foreach ($this->container as $menu1) {
         /** @var \Laminas\Navigation\Page\Uri $menu1 */
         ?>
-        <li><a href="<?= $menu1->getHref() ?>"<?php if($menu1->isActive()) { echo ' class="active"'; }; ?>><?= $menu1->getLabel() ?><?php
+        <li><a href="<?= $this->urlWithLang($menu1->getHref()); ?>"<?php if($menu1->isActive()) { echo ' class="active"'; }; ?>><?= $this->translate($menu1->getLabel()) ?><?php
                 if ($menu1->hasPages()) {
                     echo '<span class="arrow fas fa-angle-down"></span>';
                 }
                 ?></a><?php
             if ($menu1->hasPages()) { ?>
                 <ul class="wsmenu-submenu"><?php
-                foreach ($menu1 as $menu2) { ?>
-                    <li><a href="<?= $menu2->getHref() ?>"<?php if($menu2->isActive()) { echo ' class="active"'; }; ?>><?= $menu2->getLabel() ?></a></li>
+                foreach ($menu1 as $menu2) {
+                    /** @var \Laminas\Navigation\Page\Uri $menu2 */
+                    ?>
+                    <li><a href="<?= $this->urlWithLang($menu2->getHref()); ?>"<?php if($menu2->isActive()) { echo ' class="active"'; }; ?>><?= $this->translate($menu2->getLabel()) ?></a></li>
                     <?php
                 }
                 ?>

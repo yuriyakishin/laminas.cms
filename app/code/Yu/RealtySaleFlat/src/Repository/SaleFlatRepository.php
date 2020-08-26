@@ -48,6 +48,9 @@ class SaleFlatRepository implements RealtyRepositoryInterface
         return $realty;
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getQueryBuilder()
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
@@ -58,10 +61,12 @@ class SaleFlatRepository implements RealtyRepositoryInterface
             ->addSelect('r.code as code')
             ->addSelect('r.type as type')
             ->addSelect('r.agentId as agent_id')
+            ->addSelect('r.main as main')
             ->addSelect('m.address as address')
             ->addSelect('m.lat as lat')
             ->addSelect('m.lng as lng')
             ->addSelect('i1.value as rooms')
+            ->addSelect('i1.value as label_1')
             ->addSelect('i2.value as project')
             ->addSelect('i3.value as area')
             ->addSelect('d.value as district')

@@ -203,6 +203,7 @@ return [
                     'code' => 'project',
                     'label' => 'Проект дома',
                     'type' => 'int',
+                    'options' => true,
                 ],
                 'status' => [
                     'id' => 106,
@@ -222,6 +223,17 @@ return [
                     'label' => 'Описание',
                     'type' => 'text',
                 ],
+            ],
+
+            'labels' => [
+                'catalog' => 'Продажа квартир',
+                'view' => 'Продается %s-комнатная квартира',
+                'item' => 'Продается квартира',
+            ],
+
+            'repository' => [
+                'realty-repository' => \Yu\RealtySaleFlat\Repository\SaleFlatRepository::class,
+                'criterial-bilder' => \Yu\RealtySaleFlat\Repository\SearchCriteriaBuilder::class,
             ],
         ],
     ],

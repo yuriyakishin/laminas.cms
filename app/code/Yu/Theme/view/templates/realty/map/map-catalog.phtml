@@ -1,5 +1,5 @@
 <?php
-if(!empty($realtyArray)) {
+if (!empty($realtyArray)) {
     $markers = [];
     $count = 0;
     $lat = 0;
@@ -9,21 +9,27 @@ if(!empty($realtyArray)) {
             $info = '<div class="img-prev"><img src="' . $this->image()->load('realty', $realty['id'])->resize(480, 347)->get() . '" class="img-fluid" />
                 <div class="price-code"><span class="price">' . $this->partial('realty/price', ['realty' => $realty]) . '</span> <span class="cod">код ' . $realty['code'] . '</span>
                 </div></div>';
+            $label = '•';
+            if(isset($realty['label_1']) /*in_array($realty['type'], ['sale-flar', 'rent-flat', 'sale-house', 'rent-house', 'rent-apartment'])*/) {
+                $label = $realty['label_1'];
+            }
             $markers[] = [
                 'lat' => $realty['lat'],
                 'lng' => $realty['lng'],
-                'label' => $realty['rooms'],
-                'info' => $info,
+                'label' => $label,
+                //'info' => $info,
             ];
             $lat = $lat + $realty['lat'];
             $lng = $lng + $realty['lng'];
             $count++;
         }
     }
-    $lat = $lat / $count;
-    $lng = $lng / $count;
-    $markersJson = \Laminas\Json\Encoder::encode($markers);
-    $script = <<<EOF
+
+    if ($count) {
+        $lat = $lat / $count;
+        $lng = $lng / $count;
+        $markersJson = \Laminas\Json\Encoder::encode($markers);
+        $script = <<<EOF
 
     var map;
     
@@ -36,7 +42,7 @@ if(!empty($realtyArray)) {
 
         map = new google.maps.Map(document.getElementById('googleMap'), {
             center: {lat: lat, lng: lng},
-            zoom: 14,
+            zoom: 13,
             zoomControl: true,
             mapTypeControl: true,
             scaleControl: true,
@@ -67,7 +73,7 @@ if(!empty($realtyArray)) {
     initMap();
 EOF;
 
-    if ($count) {
+
         $this->inlineScript()->offsetSetScript(100, $script);
         ?>
         <div class="row mb-5">

@@ -70,6 +70,10 @@ return [
                         'label' => 'Активность',
                         'key' => 'active',
                     ],
+                    [
+                        'label' => 'На главной',
+                        'key' => 'main',
+                    ],
                 ],
                 'options' => [
                     'route' => 'admin/realty-sale-flat',

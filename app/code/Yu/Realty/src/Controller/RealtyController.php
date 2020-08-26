@@ -4,6 +4,9 @@ namespace Yu\Realty\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use Laminas\Paginator\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrinePaginatorAdapter;
 use Yu\Realty\Service\RealtyConfigManager;
 use Yu\Realty\Service\RealtyManager;
 use Yu\Seo\Entity\Meta;
@@ -65,22 +68,52 @@ class RealtyController extends AbstractActionController
 
     public function indexAction()
     {
+        $page = $this->getRequest()->getQuery('page', 0);
+        $params = $this->params()->fromQuery();
+        $queryBuilder = $this->repository->getQueryBuilder();
+        $query = $this->searchCriteriaBuilder->build($queryBuilder, $params)->getQuery();
+
+        // Создаем пагинатор.
+        $ormPaginator = new ORMPaginator($query, false);
+        $ormPaginator->setUseOutputWalkers(false);
+        $adapter = new DoctrinePaginatorAdapter($ormPaginator);
+        $paginator = new Paginator($adapter);
+
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(20);
+
+
+        $view = new ViewModel([
+            'realtyArray' => $paginator,
+            'options' => $this->options,
+            'params' => $params,
+        ]);
+        $view->setTemplate('realty/catalog');
+        return $view;
+    }
+
+    /*
+    public function indexAction()
+    {
         $params = $this->params()->fromQuery();
         $queryBuilder = $this->repository->getQueryBuilder();
         $realty = $this->searchCriteriaBuilder->build($queryBuilder, $params)->getQuery()->getResult();
 
 
         $view = new ViewModel([
-            'realtyArray' => $realty
+            'realtyArray' => $realty,
+            'options' => $this->options,
         ]);
         $view->setTemplate('realty/catalog');
         return $view;
-    }
+    }*/
 
     public function viewAction()
     {
         $id = $this->params('id');
-        $realty = $this->repository->findRealty([['where' => 'r.id=:id', 'param' => ['key' => ':id', 'value' => $id]]]);
+        //$realty = $this->repository->findRealty([['where' => 'r.id=:id', 'param' => ['key' => ':id', 'value' => $id]]]);
+        $queryBuilder = $this->repository->getQueryBuilder();
+        $realty = $this->searchCriteriaBuilder->build($queryBuilder, ['id' => $id])->getQuery()->getResult();
 
         $view = new ViewModel([
             'realty' => $realty[0]

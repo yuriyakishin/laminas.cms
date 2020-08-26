@@ -1,13 +1,16 @@
 <?php
-$this->breadcrumbs()->setBreadcrumbs([
-    [
-        'label' => 'Продажа квартир',
-        'uri' => '/sale-flat'
-    ],
-]);
-
 /** @var \Yu\Realty\View\Helper\Realty $realtyHelper */
 $realtyHelper = $this->realty();
+
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $realtyHelper->getLabel($realty['type'], 'catalog'),
+        'uri' => $this->urlWithLang('/' . $realty['type']),
+    ],
+    [
+        'label' => $realtyHelper->getLabel($realty['type'], 'item', $realty['label_1']),
+    ],
+]);
 
 $attributes = $realtyHelper->getRealtyAttr($realty['id'], $realty['type']);
 $params = $realtyHelper->getRealtyParams($realty['id']);
@@ -18,13 +21,14 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
 <div class="row mb-1 mb-lg-3">
     <div class="col-12 col-sm-6 col-md-7 col-lg-8">
         <div class="d-flex header-page">
-            <h1>Продажа 1-комнатная квартира, <?= $this->lang($realty['address']) ?></h1>
+            <h1><?= $realtyHelper->getLabel($realty['type'], 'view', $realty['label_1']) ?>
+                , <?= $this->lang($realty['address']) ?></h1>
         </div>
     </div>
     <div class="col-12 col-sm-6 col-md-5 col-lg-4">
         <div class="d-flex justify-content-between">
             <div class="price-ob txt-cond"><?= $realty['price'] ?> <?= $realty['currency_unit'] ?></div>
-            <a href="#" class="compare-btn" title="Добавить в Сравнение"><i class="fas fa-balance-scale"></i></a></div>
+            <a href="javascript: void(0)" class="compare-btn compare-button" title="Добавить в Сравнение" data-compare-id="<?= $realty['id'] ?>"><i class="fas fa-balance-scale"></i></a></div>
     </div>
 </div>
 <!--//header title page-->
@@ -37,7 +41,7 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
             $preview = $this->media()->getPreview('realty', $realty['id']);
             $imagesCount = count($images);
             ?>
-            <div class="col-12 col-lg-8 pr-0 pr-lg-2 mb-4"><a href="#" class="big-img img-hover-zoom">
+            <div class="col-12 col-lg-8 pr-0 pr-lg-2 mb-4"><a href="<?php echo $this->image()->setImageEntity($preview)->full()->get() ?>" class="big-img img-hover-zoom" data-fancybox="gallery">
                     <div class="code txt-cond">код <?= $realty['code'] ?></div>
                     <img src="<?php echo $this->image()->setImageEntity($preview)->resize(600)->get() ?>" alt=""
                          class="img-fluid"/></a></div>
@@ -46,7 +50,8 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
                     <?php
                     foreach ($images as $image) {
                         ?>
-                        <li class="col-6"><a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" class="img-ob-prev img-fluid img-hover-zoom">
+                        <li class="col-6"><a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" data-fancybox="gallery"
+                                             class="img-ob-prev img-fluid img-hover-zoom">
                                 <?php
                                 if ($image == end($images)) {
                                     ?>
@@ -69,24 +74,26 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
                 <div class="ocn-chart">
                     <p>
                         <?php
-                        foreach ($attributes as $attr)
-                        {
-                            if(in_array($attr['code'], ['anons','about'])) {
+                        foreach ($attributes as $attr) {
+                            if (in_array($attr['code'], ['anons', 'about'])) {
                                 continue;
                             }
                             $value = '';
-                            if(isset($attr['options'])) {
+                            if (isset($attr['options'])) {
                                 $value = $this->viewOption()->getValue($attr['value']);
                             } else {
                                 $value = $attr['value'];
                             }
 
                             echo $attr['label'] . ' - ' . $this->lang($value) . '. ';
-                        }?>
+                        } ?>
                     </p>
                 </div>
                 <div class="list-chart">
-                    <?= $this->lang($params['about']) ?>
+                    <?php
+                    if (!empty($params['about'])) {
+                        echo $this->lang($params['about']);
+                    } ?>
                 </div>
             </div>
         </div>
@@ -127,20 +134,26 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
                 </div>
             </form>
         </div>
-        <div class="phon-contact"> или позвоните нам по телефону
-            <p class="txt-cond">
-                <?php
-                $phones = $agent->getPhone1();
-                $phones = $this->lang($phones);
-                $phonesArray = explode(',',$phones);
-                foreach ($phonesArray as $phone) {
-                    ?>
-                    <a href="tel:<?= $phone ?>"><?= $phone ?></a>
+        <?php
+        if ($agent) {
+            ?>
+            <div class="phon-contact"> или позвоните нам по телефону
+                <p class="txt-cond">
                     <?php
-                }
-                ?>
-            </p>
-        </div>
+                    $phones = $agent->getPhone1();
+                    $phones = $this->lang($phones);
+                    $phonesArray = explode(',', $phones);
+                    foreach ($phonesArray as $phone) {
+                        ?>
+                        <a href="tel:<?= $phone ?>"><?= $phone ?></a>
+                        <?php
+                    }
+                    ?>
+                </p>
+            </div>
+            <?php
+        }
+        ?>
         <!--//form-order-ob-->
     </div>
     <div class="col  text-center mt-2 mb-2"><a href="#" class="btn gr txt-cond">Вернуться к результатам поиска</a></div>
