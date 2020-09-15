@@ -1,0 +1,7 @@
+<div class="poll-block">
+    <div class="poll-top">
+        <h5><?= $this->lang('Опрос') ?></h5>
+        <a href="<?= $this->urlLang($this->url('poll')) ?>"><?= $this->lang('Проведенные опросы') ?></a>
+    </div>
+    <?= $this->poll()->renderCurrentPull(); ?>
+</div>

@@ -27,6 +27,10 @@ class DataHelper
             $unserializ = Serializer::unserialize($data);
             if(is_array($unserializ) && isset($unserializ[$lang])) {
                 $data = $unserializ[$lang];
+
+                if(empty($data)) {
+                    $data = $unserializ[Lang::getDefaultLangCode()];
+                }
             }
         }
         return $data;

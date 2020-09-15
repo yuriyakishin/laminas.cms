@@ -16,12 +16,17 @@ class PageController extends AbstractActionController
 
         $page = $repository->findOneByIdentifier($identifier);
 
-        $view = new ViewModel(['page' => $page,
-            'metaKeys' => [
-                'path' => 'page',
-                'entityId' => $page->getId()
-            ]]);
-        $view->setTemplate('yu/page');
+        $view = new ViewModel([
+            'page' => $page,
+            'path' => 'page',
+            'entityId' => $page->getId()]);
+
+        $config = $this->config()->get();
+        if (isset($config['view_manager']['template_map']['yu/page/' . $identifier])) {
+            $view->setTemplate('yu/page/' . $identifier);
+        } else {
+            $view->setTemplate('yu/page');
+        }
         return $view;
     }
 }

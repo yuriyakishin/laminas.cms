@@ -18,22 +18,22 @@
             code: '',
             price: '',
             realties_sale: [
-                {'id': 'flat', 'value': 'Квартира'},
-                {'id': 'house', 'value': 'Дом'},
-                {'id': 'commercial', 'value': 'Помещение'},
-                {'id': 'land', 'value': 'Земля'},
+                {'id': 'flat', 'value': '<?= $this->translate("Квартира")?>'},
+                {'id': 'house', 'value': '<?= $this->translate("Дом")?>'},
+                {'id': 'commercial', 'value': '<?= $this->translate("Помещение")?>'},
+                {'id': 'land', 'value': '<?= $this->translate("Земля")?>'},
             ],
             realties_rent: [
-                {'id': 'flat', 'value': 'Квартира'},
-                {'id': 'house', 'value': 'Дом'},
-                {'id': 'commercial', 'value': 'Помещение'},
+                {'id': 'flat', 'value': '<?= $this->translate("Квартира")?>'},
+                {'id': 'house', 'value': '<?= $this->translate("Дом")?>'},
+                {'id': 'commercial', 'value': '<?= $this->translate("Помещение")?>'},
             ],
             rooms: [
-                {'id': '1', 'value': '1ком.'},
-                {'id': '2', 'value': '2ком.'},
-                {'id': '3', 'value': '3ком.'},
-                {'id': '4', 'value': '4ком.'},
-                {'id': '5', 'value': '5 и более'},
+                {'id': '1', 'value': '1<?= $this->translate("ком.")?>'},
+                {'id': '2', 'value': '2<?= $this->translate("ком.")?>'},
+                {'id': '3', 'value': '3<?= $this->translate("ком.")?>'},
+                {'id': '4', 'value': '4<?= $this->translate("ком.")?>'},
+                {'id': '5', 'value': '5 <?= $this->translate("и более")?>'},
             ],
             districts: <?= $this->handbook()->getJson('district') ?>,
             commercials: <?= $this->handbook()->getJson('commercial') ?>,
@@ -73,7 +73,8 @@
                         };
                         window.location.href = '<?= $this->urlWithLang($this->url('sale-land')) ?>?' + $.param(params);
                     }
-                };
+                }
+                ;
                 if (this.type == 'rent') {
                     if (this.realty == 'flat') {
                         var params = {
@@ -133,7 +134,7 @@
                 this.type = tab_type;
                 localStorage.setItem('type', tab_type);
             },
-            addCompare: function(id) {
+            addCompare: function (id) {
                 this.compare.push(id);
                 //localStorage.setItem('compare', this.compare);
             },
@@ -201,15 +202,22 @@
 
 <script>
     $(document).ready(function () {
+
+        $('[data-fancybox="gallery"]').fancybox({
+            thumbs: {
+                autoStart: true
+            }
+        });
+
         var compare = [];
 
-        if(localStorage.getItem('compare') != null) {
+        if (localStorage.getItem('compare') != null) {
             compare = localStorage.getItem('compare').split(',').map(Number);
         };
 
-        if(compare.length>0) {
+        if (compare.length > 0) {
             $('.compare-amount').text(compare.length);
-            $.each(compare,function(index,value){
+            $.each(compare, function (index, value) {
                 $('[data-compare-id="' + value + '"]').addClass('selected');
             });
         };
@@ -219,7 +227,7 @@
             var id = el.data('compare-id');
             var index = compare.indexOf(id);
 
-            if(index == -1) {
+            if (index == -1) {
                 el.addClass('selected');
                 compare.push(el.data('compare-id'));
             } else {
@@ -227,7 +235,7 @@
                 compare.splice(index, 1);
             }
             $('.compare-amount').text(compare.length);
-            if(compare.length>0) {
+            if (compare.length > 0) {
                 localStorage.setItem('compare', compare);
             } else {
                 localStorage.removeItem('compare');

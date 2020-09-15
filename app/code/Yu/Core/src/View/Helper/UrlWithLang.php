@@ -19,7 +19,11 @@ class UrlWithLang extends \Laminas\View\Helper\AbstractHelper
             $currentLang = Lang::getCurrentLang();
             $defaultLang = Lang::getDefaultLang();
             if($currentLang !== $defaultLang) {
-                $url = '/' . $currentLang['code'] . $url;
+                if($url == '/') {
+                    $url = '/' . $currentLang['code'];
+                } else {
+                    $url = '/' . $currentLang['code'] . $url;
+                }
             }
         }
         return $url;

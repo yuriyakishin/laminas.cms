@@ -65,8 +65,9 @@ class SaleLandRepository implements RealtyRepositoryInterface
             ->addSelect('m.lat as lat')
             ->addSelect('m.lng as lng')
             ->addSelect('d.value as district')
-            ->addSelect('i2.value as area')
-            ->addSelect('i2.value as label_1')
+            ->addSelect('ar.value as area')
+            ->addSelect('ar.value as label_1')
+            ->addSelect('buil.value as building')
             ->addSelect('p.value as price')
             ->addSelect('p.currencyId as currency')
             ->addSelect('c.unit as currency_unit')
@@ -74,7 +75,8 @@ class SaleLandRepository implements RealtyRepositoryInterface
             ->where('r.type=\'sale-land\'')
             ->leftJoin(Marker::class, 'm', Join::WITH, 'r.id=m.pathId and m.path=\'realty\'')
             ->leftJoin(RealtyValueInt::class, 'd', Join::WITH, 'r.id=d.entityId and d.attributeId=100')
-            ->leftJoin(RealtyValueText::class, 'i2', Join::WITH, 'r.id=i2.entityId and i2.attributeId=401')
+            ->leftJoin(RealtyValueText::class, 'ar', Join::WITH, 'r.id=ar.entityId and ar.attributeId=401')
+            ->leftJoin(RealtyValueText::class, 'buil', Join::WITH, 'r.id=buil.entityId and buil.attributeId=402')
             ->leftJoin(Price::class, 'p', Join::WITH, 'r.id=p.pathId')
             ->leftJoin(Currency::class, 'c', Join::WITH, 'c.id=p.currencyId');
 

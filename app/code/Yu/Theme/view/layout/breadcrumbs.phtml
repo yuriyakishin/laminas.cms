@@ -1,7 +1,7 @@
 <?php
 if(isset($breadcrumbs) && !empty($breadcrumbs)) {?>
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?=$this->urlWithLang('/')?>">Главная</a></li>
+    <li class="breadcrumb-item"><a href="<?=$this->urlWithLang('/')?>"><?= $this->translate('Главная')?></a></li>
     <?php
     foreach ($breadcrumbs as $b) {
         if(isset($b['uri']) && !empty($b['uri'])) {

@@ -25,6 +25,21 @@ class BlockRepository extends EntityRepository
     }
 
     /**
+     * @param string $identifier
+     * @return |null
+     */
+    public function findBlockByIdentifier(string $identifier)
+    {
+        $entity = $this->getEntityManager()->getRepository(Block::class)->findOneByIdentifier($identifier);
+
+        if(empty($entity)) {
+            return null;
+        }
+
+        return $entity;
+    }
+
+    /**
      * @return array|object[]
      */
     public function findAllBlocks()

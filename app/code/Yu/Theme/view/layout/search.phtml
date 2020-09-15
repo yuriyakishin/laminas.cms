@@ -1,13 +1,12 @@
 <div class="container search-panel">
     <ul id="tabs" class="row nav nav-tabs no-gutters" role="tablist">
         <li class="col-2 nav-item pr-1"><a id="sale" href="#pane-buy" class="nav-link" v-on:click="tabClick('sale')"
-                                           role="tab">Купить</a></li>
+                                           role="tab"><?= $this->translate('Купить') ?></a></li>
         <li class="col-2 nav-item pr-1"><a id="rent" href="#pane-rent" class="nav-link" v-on:click="tabClick('rent')"
-                                           role="tab">Снять</a></li>
+                                           role="tab"><?= $this->translate('Снять') ?></a></li>
         <li class="col-2 nav-item pr-1"><a id="apartmen" href="#pane-rent-day" class="nav-link" v-on:click="tabClick('apartmen')"
-                                           role="tab">Посуточно</a></li>
-        <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link"  role="tab" v-on:click="tabClick('code')">Поиск
-                по коду</a></li>
+                                           role="tab"><?= $this->translate('Посуточно') ?></a></li>
+        <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link"  role="tab" v-on:click="tabClick('code')"><?= $this->translate('Поиск по коду') ?></a></li>
     </ul>
     <div id="content" class="tab-content" role="tablist">
         <!--panel-item-->
@@ -16,7 +15,7 @@
                                                                              href="#collapse-buy"
                                                                              aria-expanded="true"
                                                                              aria-controls="collapse-buy">
-                    Купить </a></div>
+<?= $this->translate('Купить')?> </a></div>
             <div id="collapse-buy" class="collapse show" data-parent="#content" role="tabpanel"
                  aria-labelledby="heading-buy">
                 <div class="card-body">
@@ -24,23 +23,23 @@
                         <div class="form-row d-flex">
                             <div class="col-md-2">
 
-                                <select class="selectpicker form-control" ref="select_realty1" title="Недвижимость" data-hide-disabled="true" v-model="realty">
+                                <select class="selectpicker form-control" ref="select_realty1" title="<?= $this->translate('Недвижимость')?>" data-hide-disabled="true" v-model="realty">
                                     <option v-for="option in realties_sale" :value="option.id">{{ option.value }}</option>
                                 </select>
 
                             </div>
                             <div class="col-md-2">
-                                <select class="selectpicker form-control" ref="select_district1"  title="Район" data-hide-disabled="true" v-model="district">
+                                <select class="selectpicker form-control" ref="select_district1"  title="<?= $this->translate('Район')?>" data-hide-disabled="true" v-model="district">
                                     <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2" v-show="realty==='flat' || realty==='house'">
-                                <select class="selectpicker form-control" ref="select_flat1" title="Комнат" v-model="room" multiple data-hide-disabled="true">
+                                <select class="selectpicker form-control" ref="select_flat1" title="<?= $this->translate('Комнат')?>" v-model="room" multiple data-hide-disabled="true">
                                     <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2" v-show="realty==='commercial'">
-                                <select class="selectpicker form-control" ref="select_commercial1"  title="Помещение" data-hide-disabled="true" v-model="commercial">
+                                <select class="selectpicker form-control" ref="select_commercial1"  title="<?= $this->translate('Помещение')?>" data-hide-disabled="true" v-model="commercial">
                                     <option v-for="option in commercials" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
@@ -48,7 +47,7 @@
                                 <input type="text" class="form-control" v-model="price"
                                        placeholder="Цена не более, дол.">
                             </div>
-                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty"><?= $this->translate('ИСКАТЬ')?></button>
                         </div>
 
                 </div>
@@ -62,7 +61,7 @@
                                                                               href="#collapse-rent"
                                                                               aria-expanded="false"
                                                                               aria-controls="collapse-rent">
-                    Снять </a></div>
+<?= $this->translate('Снять')?> </a></div>
             <div id="collapse-rent" class="collapse" data-parent="#content" role="tabpanel"
                  aria-labelledby="heading-rent">
                 <div class="card-body">
@@ -70,34 +69,34 @@
                         <div class="form-row d-flex">
                             <div class="col-md-2">
 
-                                <select class="selectpicker form-control" ref="select_realty2" title="Недвижимость" data-hide-disabled="true" v-model="realty">
+                                <select class="selectpicker form-control" ref="select_realty2" title="<?= $this->translate('Недвижимость')?>" data-hide-disabled="true" v-model="realty">
                                     <option v-for="option in realties_rent" :value="option.id">{{ option.value }}</option>
                                 </select>
 
                             </div>
                             <div class="col-md-2">
 
-                                <select class="selectpicker form-control" ref="select_district2" title="Район" data-hide-disabled="true" v-model="district">
+                                <select class="selectpicker form-control" ref="select_district2" title="<?= $this->translate('Район')?>" data-hide-disabled="true" v-model="district">
                                     <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
                                 </select>
 
                             </div>
                             <div class="col-md-2" v-show="realty==='flat' || realty==='house'">
-                                <select class="selectpicker form-control" ref="select_flat2" title="Комнат" v-model="room" multiple
+                                <select class="selectpicker form-control" ref="select_flat2" title="<?= $this->translate('Комнат')?>" v-model="room" multiple
                                         data-hide-disabled="true">
                                     <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2" v-show="realty==='commercial'">
-                                <select class="selectpicker form-control" ref="select_commercia2"  title="Помещение" data-hide-disabled="true" v-model="commercial">
+                                <select class="selectpicker form-control" ref="select_commercia2"  title="<?= $this->translate('Помещение')?>" data-hide-disabled="true" v-model="commercial">
                                     <option v-for="option in commercials" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <input type="text" class="form-control" v-model="price"
-                                       placeholder="Цена не более, грн.">
+                                       placeholder="<?= $this->translate('Цена не более, грн.')?>">
                             </div>
-                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty"><?= $this->translate('ИСКАТЬ')?></button>
                         </div>
 
                 </div>
@@ -111,7 +110,7 @@
                                                                                   href="#collapse-rent-day"
                                                                                   aria-expanded="false"
                                                                                   aria-controls="collapse-rent-day">
-                    Посуточно </a></div>
+<?= $this->translate('Посуточно')?> </a></div>
             <div id="collapse-rent-day" class="collapse" role="tabpanel" data-parent="#content"
                  aria-labelledby="heading-rent-day">
                 <div class="card-body">
@@ -128,22 +127,22 @@
                             */?>
                             <div class="col-md-2">
 
-                                <select class="selectpicker form-control" ref="select_district3" title="Район" data-hide-disabled="true" v-model="district">
+                                <select class="selectpicker form-control" ref="select_district3" title="<?= $this->translate('Район')?>" data-hide-disabled="true" v-model="district">
                                     <option v-for="option in districts" :value="option.id">{{ option.value }}</option>
                                 </select>
 
                             </div>
                             <div class="col-md-2">
-                                <select class="selectpicker form-control" ref="select_flat3" title="Комнат" v-model="room" multiple
+                                <select class="selectpicker form-control" ref="select_flat3" title="<?= $this->translate('Комнат')?>" v-model="room" multiple
                                         data-hide-disabled="true">
                                     <option v-for="option in rooms" :value="option.id">{{ option.value }}</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <input type="text" class="form-control" v-model="price"
-                                       placeholder="Цена не более, грн.">
+                                       placeholder="<?= $this->translate('Цена не более, грн.')?>">
                             </div>
-                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty"><?= $this->translate('ИСКАТЬ')?></button>
                         </div>
 
                 </div>
@@ -157,16 +156,16 @@
                                                                                   href="#collapse-code"
                                                                                   aria-expanded="false"
                                                                                   aria-controls="collapse-code">
-                    Поиск по коду </a></div>
+<?= $this->translate('Поиск по коду')?> </a></div>
             <div id="collapse-code" class="collapse" role="tabpanel" data-parent="#content"
                  aria-labelledby="heading-code">
                 <div class="card-body">
 
                         <div class="form-row d-flex">
                             <div class="col-md-8">
-                                <input type="text" class="form-control" placeholder="Код объекта" v-model="code">
+                                <input type="text" class="form-control" placeholder="<?= $this->translate('Код объекта')?>" v-model="code">
                             </div>
-                            <button type="button" class="btn search txt-cond" v-on:click="search_realty">ИСКАТЬ</button>
+                            <button type="button" class="btn search txt-cond" v-on:click="search_realty"><?= $this->translate('ИСКАТЬ')?></button>
                         </div>
 
                 </div>

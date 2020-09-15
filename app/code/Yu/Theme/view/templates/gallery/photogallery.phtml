@@ -1,0 +1,42 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang($gallery->getTitle()),
+    ],
+]);
+?>
+<!--header title page-->
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1><?= $this->lang()->getDataByLang($gallery->getTitle()) ?></h1>
+        </div>
+    </div>
+</div>
+<!--//header title page-->
+<!--body content page-->
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <div class="row photogallery text-center">
+            <?php
+            foreach($paginator as $image) {
+                ?>
+                <div class="item col-6 col-sm-4 col-md-4 col-lg-3">
+                    <a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" data-fancybox="gallery">
+                        <img src="<?php echo $this->image()->setImageEntity($image)->resize(300)->get() ?>" class="img-fluid" alt="<?= htmlspecialchars($image->getComment()) ?>"/>
+                        <p><?= $image->getComment() ?></p>
+                    </a></div>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<!--//body content page-->
+<!--paginator-->
+<div class="row mt-5">
+    <div class="col text-center">
+        <?= $this->paginationControl($paginator, 'Elastic', 'layout/paginator', ['route' => $options["identifier"], 'params' => []]) ?>
+    </div>
+</div>
+<!--//paginator-->

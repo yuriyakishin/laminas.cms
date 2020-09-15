@@ -4,11 +4,11 @@ $realtyHelper = $this->realty();
 
 $this->breadcrumbs()->setBreadcrumbs([
     [
-        'label' => $realtyHelper->getLabel($realty['type'], 'catalog'),
-        'uri' => $this->urlWithLang('/' . $realty['type']),
+        'label' => $this->translate($realtyHelper->getLabel($realty['type'], 'catalog')),
+        'uri' => $this->url($realty['type']),
     ],
     [
-        'label' => $realtyHelper->getLabel($realty['type'], 'item', $realty['label_1']),
+        'label' => $this->translate($realtyHelper->getLabel($realty['type'], 'item', $realty['label_1'])),
     ],
 ]);
 
@@ -28,7 +28,8 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
     <div class="col-12 col-sm-6 col-md-5 col-lg-4">
         <div class="d-flex justify-content-between">
             <div class="price-ob txt-cond"><?= $realty['price'] ?> <?= $realty['currency_unit'] ?></div>
-            <a href="javascript: void(0)" class="compare-btn compare-button" title="Добавить в Сравнение" data-compare-id="<?= $realty['id'] ?>"><i class="fas fa-balance-scale"></i></a></div>
+            <a href="javascript: void(0)" class="compare-btn compare-button" title="<?= $this->translate('Добавить в сравнение')?>"
+               data-compare-id="<?= $realty['id'] ?>"><i class="fas fa-balance-scale"></i></a></div>
     </div>
 </div>
 <!--//header title page-->
@@ -41,8 +42,10 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
             $preview = $this->media()->getPreview('realty', $realty['id']);
             $imagesCount = count($images);
             ?>
-            <div class="col-12 col-lg-8 pr-0 pr-lg-2 mb-4"><a href="<?php echo $this->image()->setImageEntity($preview)->full()->get() ?>" class="big-img img-hover-zoom" data-fancybox="gallery">
-                    <div class="code txt-cond">код <?= $realty['code'] ?></div>
+            <div class="col-12 col-lg-8 pr-0 pr-lg-2 mb-4"><a
+                        href="<?php echo $this->image()->setImageEntity($preview)->full()->get() ?>"
+                        class="big-img img-hover-zoom" data-fancybox="gallery">
+                    <div class="code txt-cond"><?= $this->translate('код')?> <?= $realty['code'] ?></div>
                     <img src="<?php echo $this->image()->setImageEntity($preview)->resize(600)->get() ?>" alt=""
                          class="img-fluid"/></a></div>
             <div class="col-12 col-lg-4 right-block-gallrty">
@@ -50,7 +53,8 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
                     <?php
                     foreach ($images as $image) {
                         ?>
-                        <li class="col-6"><a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" data-fancybox="gallery"
+                        <li class="col-6"><a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>"
+                                             data-fancybox="gallery"
                                              class="img-ob-prev img-fluid img-hover-zoom">
                                 <?php
                                 if ($image == end($images)) {
@@ -100,7 +104,9 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
         <!--//chart object-->
 
         <!--stat page-->
+        <?php /*
         <div class="stat-page">Просмотров: за месяц - 14, всего - 2894</div>
+ */ ?>
         <div class="stat mb-4">
             <!--<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
             <div class="yashare-auto-init" data-yasharel10n="ru" data-yasharetype="button" data-yasharequickservices="yaru,vkontakte,facebook,twitter,odnoklassniki,moimir,lj"><span class="b-share"><a class="b-share__handle" id="ya-share-0.10742703485857086-1585231724340" data-hdirection="" data-vdirection=""><span class="b-share-form-button b-share-form-button_share"><i class="b-share-form-button__before"></i><i class="b-share-form-button__icon"></i>Поделиться…<i class="b-share-form-button__after"></i></span></a><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link b-share-btn__vkontakte" href="https://share.yandex.net/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fmashtab.com%2Fsale%2Fhouse%2Fone%2Fid%2F2188&amp;title=%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0%20%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%20%D0%B2%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D0%B5%20-%20%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8F%20-%20%D0%9A%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1" data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link b-share-btn__facebook" href="https://share.yandex.net/go.xml?service=facebook&amp;url=http%3A%2F%2Fmashtab.com%2Fsale%2Fhouse%2Fone%2Fid%2F2188&amp;title=%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0%20%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%20%D0%B2%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D0%B5%20-%20%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8F%20-%20%D0%9A%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1" data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link b-share-btn__twitter" href="https://share.yandex.net/go.xml?service=twitter&amp;url=http%3A%2F%2Fmashtab.com%2Fsale%2Fhouse%2Fone%2Fid%2F2188&amp;title=%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0%20%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%20%D0%B2%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D0%B5%20-%20%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8F%20-%20%D0%9A%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1" data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link b-share-btn__odnoklassniki" href="https://share.yandex.net/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fmashtab.com%2Fsale%2Fhouse%2Fone%2Fid%2F2188&amp;title=%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0%20%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%20%D0%B2%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D0%B5%20-%20%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8F%20-%20%D0%9A%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1" data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span></a><a rel="nofollow" target="_blank" title="Мой Мир" class="b-share__handle b-share__link b-share-btn__moimir" href="https://share.yandex.net/go.xml?service=moimir&amp;url=http%3A%2F%2Fmashtab.com%2Fsale%2Fhouse%2Fone%2Fid%2F2188&amp;title=%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0%20%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%20%D0%B2%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D0%B5%20-%20%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8F%20-%20%D0%9A%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1" data-service="moimir"><span class="b-share-icon b-share-icon_moimir"></span></a><a rel="nofollow" target="_blank" title="LiveJournal" class="b-share__handle b-share__link b-share-btn__lj" href="https://share.yandex.net/go.xml?service=lj&amp;url=http%3A%2F%2Fmashtab.com%2Fsale%2Fhouse%2Fone%2Fid%2F2188&amp;title=%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0%20%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%20%D0%B2%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D0%B5%20-%20%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%9C%D0%B0%D1%80%D0%B8%D1%83%D0%BF%D0%BE%D0%BB%D1%8F%20-%20%D0%9A%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%9C%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1" data-service="lj"><span class="b-share-icon b-share-icon_lj"></span></a></span></div>
@@ -114,30 +120,33 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
         <!--//map-ob-->
         <!--form-order-ob-->
         <div class="form-order-ob">
-            <form action="">
-                <h4>Консультация по объекту</h4>
+            <form name="form-realty-order" action="">
+                <input type="hidden" name="type" value="realty-order">
+                <input type="hidden" name="code" value="<?= $realty['code'] ?>">
+                <h4><?= $this->translate('Консультация по объекту')?></h4>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="Ваше имя">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="<?= $this->translate('Ваше имя')?>">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="phon" placeholder="Телефон">
+                    <input type="text" name="phone" class="form-control" id="phon" placeholder="<?= $this->translate('Телефон')?>">
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="E-mail">
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="text"
-                              placeholder="Продажа 1-комнатная квартира, Центральный р-н, Мариуполь, ул. 50 лет СССР,  17 ЖМР,  рынок"
+                    <textarea class="form-control" id="text" name="message"
+                              placeholder="<?= $this->lang($params['anons']) ?>"
                               style="height:7rem;"></textarea>
                 </div>
-                <div class="form-group text-center"><a href="#" type="submit" class="btn red form m-auto">Отправить</a>
+                <div class="form-group text-center"><a href="javascript:void(0)" type="submit"
+                                                       class="btn red form m-auto feedback-send"><?= $this->translate('Отправить')?></a>
                 </div>
             </form>
         </div>
         <?php
         if ($agent) {
             ?>
-            <div class="phon-contact"> или позвоните нам по телефону
+            <div class="phon-contact"> <?= $this->translate('или позвоните нам по телефону')?>
                 <p class="txt-cond">
                     <?php
                     $phones = $agent->getPhone1();
@@ -156,5 +165,5 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
         ?>
         <!--//form-order-ob-->
     </div>
-    <div class="col  text-center mt-2 mb-2"><a href="#" class="btn gr txt-cond">Вернуться к результатам поиска</a></div>
+    <div class="col  text-center mt-2 mb-2"><a href="<?= $this->urlLang($this->url($realty['type'])) ?>" class="btn gr txt-cond"><?= $this->translate('Вернуться к результатам поиска') ?></a></div>
 </div>

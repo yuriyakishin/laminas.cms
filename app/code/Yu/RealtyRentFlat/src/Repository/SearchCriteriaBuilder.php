@@ -21,18 +21,25 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
             $queryBuilder->andWhere('d.value=:district')->setParameter('district',$params['district']);
         }
 
+        if(!empty($params['agent_id'])) {
+            $queryBuilder->andWhere('r.agentId=:agent_id')->setParameter('agent_id',$params['agent_id']);
+        }
+
         if(!empty($params['room'])) {
             $room = [];
-            foreach ($params['room'] as $r)
-            {
-                if(!empty($r)) {
-                    if($r == 5) {
-                        $r = [5,6,7,8,9,10,11,12];
-                        $room = array_merge($room, $r);
-                    } else {
-                        $room[] = $r;
+            if(is_array($params['room'])) {
+                foreach ($params['room'] as $r) {
+                    if (!empty($r)) {
+                        if ($r == 5) {
+                            $r = [5, 6, 7, 8, 9, 10, 11, 12];
+                            $room = array_merge($room, $r);
+                        } else {
+                            $room[] = $r;
+                        }
                     }
                 }
+            } else {
+                $room[] = $params['room'];
             }
             if(!empty($room)) {
                 $queryBuilder->andWhere($queryBuilder->expr()->in('i1.value', $room));

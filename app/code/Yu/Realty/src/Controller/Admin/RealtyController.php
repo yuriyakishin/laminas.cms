@@ -4,6 +4,7 @@ namespace Yu\Realty\Controller\Admin;
 
 use Yu\Admin\Controller\AbstractAdminController;
 use Laminas\View\Model\ViewModel;
+use Laminas\Http\Cookies;
 use Yu\Price\Entity\Price;
 use Yu\Realty\Service\RealtyConfigManager;
 use Yu\Realty\Service\RealtyManager;
@@ -44,6 +45,11 @@ class RealtyController extends AbstractAdminController
     private $options;
 
     /**
+     * @var \Yu\Realty\Api\SearchCriteriaBuilderInterface
+     */
+    private $searchCriteriaBuilder;
+
+    /**
      * RealtyController constructor.
      * @param RealtyManager $realtyManager
      * @param RealtyRepositoryInterface $repository
@@ -53,22 +59,38 @@ class RealtyController extends AbstractAdminController
         \Yu\Realty\Service\RealtyManager $realtyManager,
         \Yu\Realty\Service\RealtyConfigManager $realtyConfigManager,
         \Yu\Realty\Repository\RealtyRepositoryInterface $repository,
+        \Yu\Realty\Api\SearchCriteriaBuilderInterface $searchCriteriaBuilder,
         array $data = []
     )
     {
         $this->realtyManager = $realtyManager;
         $this->repository = $repository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->options = $realtyConfigManager->getRealtyAdminOptions();
     }
 
     public function indexAction()
     {
-        $entities = $this->repository->findRealty();
+        $params = $this->params()->fromQuery();
+        $queryBuilder = $this->repository->getQueryBuilder();
+        $query = $this->searchCriteriaBuilder->build($queryBuilder, $params)->getQuery();
+        $rows = $query->getResult();
+
+        //$entities = $this->repository->findRealty();
 
         /**
          * @var \Yu\Admin\Model\TableModel $table
          */
         $table = $this->tableManager()->createTable($this->options['table']);
+        if($table->getFilter()) {
+            if(!empty($params)) {
+                $table->getFilter()->setData($params);
+                setcookie('admin-filter-' . $this->options['type'],json_encode($params));
+            } elseif (isset($_COOKIE['admin-filter-' . $this->options['type']])) {
+                $params = json_decode($_COOKIE['admin-filter-' . $this->options['type']],true);
+                $table->getFilter()->setData($params);
+            }
+        }
         if (isset($this->options['table_options'])) {
             $table->setOptions($this->options['table_options']);
         }
@@ -77,7 +99,7 @@ class RealtyController extends AbstractAdminController
         $view = new ViewModel();
         $view->setTemplate('admin/table');
         $view->setVariable('table', $table);
-        $view->setVariable('rowsData', $entities);
+        $view->setVariable('rowsData', $rows);
         return $view;
     }
 

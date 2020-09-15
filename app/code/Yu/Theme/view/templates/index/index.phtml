@@ -1,3 +1,10 @@
+<?php
+/*
+$this->headTitle($this->lang($this->seo()->getTitle($metaKeys)));
+$this->headMeta($this->lang($this->seo()->getDescription($metaKeys)),'description');
+$this->headMeta($this->lang($this->seo()->getKeywords($metaKeys)),'keywords');
+*/
+?>
 <div class="container">
     <h1 class="index"><span><?= $this->translate('Недвижимость Мариуполя') ?></span> &mdash;
 <?= $this->translate('продажа') ?>, <?= $this->translate('аренда') ?>, <?= $this->translate('посуточно') ?></h1>
@@ -54,7 +61,7 @@ $realtyHot = $this->realty()->getRealtyHot(null,['id' => 'DESC'],8);
 if(count($realtyHot)) {
     ?>
     <div class="container hot-index">
-        <div class="d-flex header-hot align-items-center"><span class="txt-cond">Горячие предложения</span><span
+        <div class="d-flex header-hot align-items-center"><span class="txt-cond"><?= $this->translate('Горячие предложения')?></span><span
                     class="dec w-100"></span></div>
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 cards-ob">
             <?php
@@ -66,7 +73,7 @@ if(count($realtyHot)) {
             }
             ?>
         </div>
-        <div class="text-center"><a href="<?= $this->urlWithLang($this->url('hot')) ?>" class="btn red"><?= $this->lang('Показать все предложения')?></a></div>
+        <div class="text-center"><a href="<?= $this->urlWithLang($this->url('hot')) ?>" class="btn red"><?= $this->translate('Показать все предложения')?></a></div>
     </div>
     <?php
 }
@@ -78,69 +85,30 @@ if(count($realtyHot)) {
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h3>РК Масштаб - купит - снимет - обменяет</h3>
-                    <a href="<?= $this->urlWithLang($this->url('board')) ?>">Все объявления</a></div>
+                    <h3><?= $this->translate('РК Масштаб - купит - снимет - обменяет')?></h3>
+                    <a href="<?= $this->urlWithLang($this->url('buy')) ?>"><?= $this->translate('Все объявления')?></a></div>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
-            <div class="col item wow fadeInLeft" data-wow-delay="0.2s">
-                <div class="card ">
-                    <?php
-                    $board = $this->board()->getBoard(['board.typeId' => 7],null,1);
-                    foreach ($board as $b) {
-                        ?>
-                        <p><?= $b['message'] ?></p>
-                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
+            <?php
+            $i = 1;
+            $buy = $this->catalogHelper()->getCatalog(['catalog.active' => 1],['catalog.sort' => 'DESC'], 4);
+            foreach($buy as $b) {
+                ?>
+                <div class="col item wow <?php if(in_array($i,[1,2])) { echo 'fadeInLeft'; } else { echo 'fadeInRight'; } ?>" data-wow-delay="<?php if(in_array($i,[2,3])) { echo '0.1s'; } else { echo '0.2s'; } ?>">
+                    <div class="card ">
+                        <h6><?= $this->lang()->getDataByLang($b['name']) ?></h6>
+                        <?= $this->lang()->getDataByLang($b['content']) ?>
+                        <p class="contact"><strong>т. <?= $b['phone']?></strong><br/>
                             <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
-                        <?php
-                    }
-                    ?>
+                    </div>
                 </div>
-            </div>
-            <div class="col item wow fadeInLeft" data-wow-delay="0.1s">
-                <div class="card ">
-                    <?php
-                    $board = $this->board()->getBoard(['board.typeId' => 8],null,1);
-                    foreach ($board as $b) {
-                        ?>
-                        <p><?= $b['message'] ?></p>
-                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
-                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
-                        <?php
-                    }
-                    ?>
-                </div>
-            </div>
-            <div class="col item d-none d-md-block wow fadeInRight" data-wow-delay="0.1s">
-                <div class="card ">
-                    <?php
-                    $board = $this->board()->getBoard(['board.typeId' => 9],null,1);
-                    foreach ($board as $b) {
-                        ?>
-                        <p><?= $b['message'] ?></p>
-                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
-                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
-                        <?php
-                    }
-                    ?>
-                </div>
-            </div>
-            <div class="col item d-none d-lg-block wow fadeInRight" ata-wow-delay="0.2s">
-                <div class="card">
-                    <?php
-                    $board = $this->board()->getBoard(['board.typeId' => 10],null,1);
-                    foreach ($board as $b) {
-                        ?>
-                        <p><?= $b['message'] ?></p>
-                        <p class="contact"><strong><?= $b['phone'] ?></strong><br/>
-                            <a href="mailto:<?= $b['email'] ?>"><?= $b['email'] ?></a></p>
-                        <?php
-                    }
-                    ?>
-                </div>
-            </div>
+                <?php
+                $i++;
+            }
+            ?>
         </div>
     </div>
 </div>
@@ -148,117 +116,34 @@ if(count($realtyHot)) {
 <!--info company-->
 <div class="container info-index">
     <div class="row">
-        <div class="col-md-5 col-lg-4">
-            <!--//poll vopros-->
-            <div class="poll-block">
-                <div class="poll-top">
-                    <h5>Опрос</h5>
-                    <a href="arhiv-poll.html">Проведенные опросы</a></div>
-                <div class="poll-container">
-                    <form action="">
-                        <div class="question">Какой комнаты не хватает в вашей квартире?</div>
-                        <div class="poll-body">
-                            <div class="form-check">
-                                <label class="form-check-label radio" for="q1">
-                                    <input class="form-check-input radio" type="radio" name="poll" id="q1"
-                                           value="q1" checked>
-                                    <div class="radio__text">Вариант ответа не длинный</div>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label radio" for="q2">
-                                    <input class="form-check-input radio" type="radio" name="poll" id="q2"
-                                           value="q2" checked>
-                                    <div class="radio__text">Вариант ответа довольно длинный на две-три строки или
-                                        даже больше при необходимости
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label radio" for="q3">
-                                    <input class="form-check-input radio" type="radio" name="poll" id="q3"
-                                           value="q3" checked>
-                                    <div class="radio__text">Коротко</div>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="poll-footer"><a href="#" class="btn form">Отправить</a></div>
-                    </form>
-                </div>
-            </div>
-            <!--//poll vopros-->
-            <!--poll rezultat
-            <br/>
-            <div class="poll-block">
-                <div class="poll-container">
-                    <div class="question">Какой комнаты не хватает в вашей квартире?</div>
-                    <div class="poll-body">
-                        <div class="poll-progress">
-                            <div class="poll-procent">0%</div>
-                            <div>Вариант ответа не длинный
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="poll-progress">
-                            <div class="poll-procent">100%</div>
-                            <div>Вариант ответа довольно длинный на две-три строки или даже больше при необходимости
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="poll-progress">
-                            <div class="poll-procent">10%</div>
-                            <div>Вариант ответа довольно длинный на две-три строки или даже больше при необходимости
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="poll-footer">Голосов 234</div>
-                </div>
-            </div>
-            //poll rezultat-->
+        <div class="col-md-5 col-lg-4 poll-block-main">
+            <?= $this->partial('yu/poll/block/block'); ?>
         </div>
         <div class="col-md-7 col-lg-8 pl-lg-5 pl-sm-4">
-            <h2>Риэлторская компания Масштаб &mdash; вся недвижимость Мариуполя</h2>
-            <p>- 21 августа 2017 г. предприятию исполнится 17 лет. За этот сравнительно небольшой период времени мы
-                зарекомендовали себя как успешное агентство недвижимости.</p>
-            <p>- Удобное расположение, нашего собственного, офиса дает возможность быть ближе к нашим клиентам. </p>
-            <p>- Наша собственная уникальная база данных содержит информацию об объектах недвижимости, собранную за
-                значительный отрезок времени.</p>
-            <p>- У нас больший кредит доверия среди населения города, 98% мариупольцев знают РК "Масштаб".</p>
-            <p>- Непосредственный руководитель вышел из среды риэлторов и является собственником компании, что
-                способствует увеличению ее рабочего потенциала и боеготовности.</p>
-            <p>- В 2006 году РК «Масштаб» была признана лауреатом национального рейтинга Союза специалистов
-                недвижимого имущества и вошла в двадцатку лучших в стране риэлторских компаний, а в 2007 году
-                получила награду «Лучшая риэлторская кампания».</p>
+            <?= $this->lang($this->page->getContent()) ?>
         </div>
     </div>
 </div>
 <!--//info company-->
 <!--section work-->
 <div class="container work">
-    <h4>Как мы работаем</h4>
+    <h4><?= $this->translate('Как мы работаем')?></h4>
     <div class="row d-flex justify-content-center">
         <div class="line d-none d-md-block"></div>
-        <div class="col"><i class="far fa-edit pl-2"></i> <span class="txt-cond">Заказ</span>
-            <p>Закажите звонок или оставьте заявку</p>
+        <div class="col"><i class="far fa-edit pl-2"></i> <span class="txt-cond"><?= $this->translate('Заказ')?></span>
+            <p><?= $this->translate('Закажите звонок или оставьте заявку')?></p>
         </div>
-        <div class="col"><i class="fas fa-user-tie"></i> <span class="txt-cond">Консультация</span>
-            <p>Наш специалист свяжется с Вами</p>
+        <div class="col"><i class="fas fa-user-tie"></i> <span class="txt-cond"><?= $this->translate('Консультация')?></span>
+            <p><?= $this->translate('Наш специалист свяжется с Вами')?></p>
         </div>
-        <div class="col"><i class="far fa-eye"></i> <span class="txt-cond">Осмотр</span>
-            <p>Осмотр подходящей недвижимости</p>
+        <div class="col"><i class="far fa-eye"></i> <span class="txt-cond"><?= $this->translate('Осмотр')?></span>
+            <p><?= $this->translate('Осмотр подходящей недвижимости')?></p>
         </div>
-        <div class="col"><i class="far fa-file-alt"></i> <span class="txt-cond">Договор</span>
-            <p>Подготовка документации</p>
+        <div class="col"><i class="far fa-file-alt"></i> <span class="txt-cond"><?= $this->translate('Договор')?></span>
+            <p><?= $this->translate('Подготовка документации')?></p>
         </div>
-        <div class="col"><i class="fas fa-key"></i> <span class="txt-cond">Результат</span>
-            <p>Получение ожидаемого результата</p>
+        <div class="col"><i class="fas fa-key"></i> <span class="txt-cond"><?= $this->translate('Результат')?></span>
+            <p><?= $this->translate('Получение ожидаемого результата')?></p>
         </div>
     </div>
 </div>

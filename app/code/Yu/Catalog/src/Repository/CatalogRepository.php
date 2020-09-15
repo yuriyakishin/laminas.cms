@@ -33,11 +33,9 @@ class CatalogRepository extends EntityRepository
             ->addSelect('catalog.content as content')
             ->addSelect('catalog.active as active')
             ->addSelect('catalog.sort as sort')
-
             ->addSelect('category.value as category_id')
             ->addSelect('p.value as phone')
             ->addSelect('e.value as email')
-
             ->from(Catalog::class, 'catalog')
             ->leftJoin(EavValueInt::class, 'category', Join::WITH, 'catalog.id=category.entityId and category.attributeId=901')
             ->leftJoin(EavValueText::class, 'p', Join::WITH, 'catalog.id=p.entityId and p.attributeId=902')
@@ -52,17 +50,19 @@ class CatalogRepository extends EntityRepository
         if ($criteria !== null) {
             $i = 1;
             foreach ($criteria as $key => $val) {
-                $queryBuilder->andWhere($key.' = '.'?'.$i);
+                $queryBuilder->andWhere($key . ' = ' . '?' . $i);
                 $queryBuilder->setParameter($i, $val);
                 $i++;
             }
         }
 
         if ($orderBy !== null) {
-            $queryBuilder->addOrderBy($orderBy);
+            foreach ($orderBy as $key => $value) {
+                $queryBuilder->addOrderBy($key, $value);
+            }
         }
 
-        if($limit !== null) {
+        if ($limit !== null) {
             $queryBuilder->setMaxResults($limit);
         }
 

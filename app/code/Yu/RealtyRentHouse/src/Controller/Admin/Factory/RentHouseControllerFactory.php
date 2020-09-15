@@ -6,6 +6,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Yu\Realty\Controller\Admin\RealtyController;
 use Yu\RealtyRentHouse\Repository\RentHouseRepository;
+use Yu\RealtyRentHouse\Repository\SearchCriteriaBuilder;
 
 class RentHouseControllerFactory implements FactoryInterface
 {
@@ -20,6 +21,6 @@ class RentHouseControllerFactory implements FactoryInterface
         $realtyConfigManager = $container->get('realty.config.manager');
         $realtyConfigManager->setRealtyType('rent-house');
 
-        return new RealtyController($realtyManager, $realtyConfigManager, $repository);
+        return new RealtyController($realtyManager, $realtyConfigManager, $repository, new SearchCriteriaBuilder());
     }
 }

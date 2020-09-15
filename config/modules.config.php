@@ -6,6 +6,7 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
+    'Laminas\Mail',
     'Laminas\Mvc\I18n',
     'Laminas\Serializer',
     'Laminas\I18n',
@@ -48,6 +49,8 @@ return [
     'Yu\Board',
     'Yu\Review',
     'Yu\Poll',
+    'Yu\Gallery',
+    'Yu\Feedback',
     'Yu\Theme',
     //'Laminas\DeveloperTools',
 ];

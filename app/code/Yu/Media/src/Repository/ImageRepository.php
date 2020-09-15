@@ -69,4 +69,19 @@ class ImageRepository extends EntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilder()
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        $queryBuilder
+            ->addSelect('i.id as id')
+            ->addSelect('i.image as image')
+            ->from(Image::class, 'i');
+
+        return $queryBuilder;
+    }
 }

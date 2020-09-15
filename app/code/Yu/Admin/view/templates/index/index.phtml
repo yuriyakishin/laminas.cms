@@ -1,0 +1,137 @@
+<?php
+$this->headLink()
+    ->appendStylesheet('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+?>
+<div class="card-body">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('sale-flat') ?></h3>
+                            <p>Продажа квартир</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-building"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-sale-flat') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('sale-house') ?></h3>
+                            <p>Продажа домов</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-university"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-sale-house') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('sale-commercial') ?></h3>
+                            <p>Продажа коммерческой</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-archive"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-sale-commercial') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('sale-land') ?></h3>
+                            <p>Продажа земли</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-tree"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-sale-land') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('rent-flat') ?></h3>
+                            <p>Аренда квартир</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-building"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-rent-flat') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('rent-house') ?></h3>
+                            <p>Аренда домов</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-university"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-rent-house') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('rent-commercial') ?></h3>
+                            <p>Аренда коммерческой</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-archive"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-rent-commercial') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-light">
+                        <div class="inner">
+                            <h3><?= $this->realty()->getCount('rent-apartment') ?></h3>
+                            <p>Посуточно</p>
+                        </div>
+                        <div class="icon">
+                            <i class="nav-icon fas fa-hourglass"></i>
+                        </div>
+                        <a href="<?= $this->url('admin/realty-rent-apartment') ?>" class="small-box-footer">Перейти <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+        </div>
+    </section>
+</div>

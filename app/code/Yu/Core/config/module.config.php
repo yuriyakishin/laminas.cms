@@ -15,6 +15,10 @@ return [
                 $entitymanager = $container->get('doctrine.entitymanager.orm_default');
                 return new \Yu\Core\Controller\Plugin\EntityManagerPlugin($entitymanager);
             },
+            \Yu\Core\Controller\Plugin\ConfigPlugin::class => function ($container) {
+                $config = $container->get('Config');
+                return new \Yu\Core\Controller\Plugin\ConfigPlugin($config);
+            },
             \Yu\Core\Controller\Plugin\NavigationPlugin::class => function ($container) {
                 $navigation = $container->get('Laminas\Navigation\Pages');
                 return new \Yu\Core\Controller\Plugin\NavigationPlugin($navigation);
@@ -24,6 +28,7 @@ return [
             'entityManager' => \Yu\Core\Controller\Plugin\EntityManagerPlugin::class,
             'getEntityManager' => \Yu\Core\Controller\Plugin\EntityManagerPlugin::class,
             'navigation' => \Yu\Core\Controller\Plugin\NavigationPlugin::class,
+            'config' => \Yu\Core\Controller\Plugin\ConfigPlugin::class,
         ],
     ],
 

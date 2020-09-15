@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs()->setBreadcrumbs([
     [
-        'label' => $this->lang()->getDataByLang('Доска объявлений'),
+        'label' => $this->translate('Доска объявлений'),
         'uri' => $this->urlWithLang($this->url('board')),
     ],
     [
-        'label' => $this->lang()->getDataByLang('Добавить объявление'),
+        'label' => $this->translate('Добавить объявление'),
     ],
 ]);
 ?>
 <div class="row mb-1 mb-lg-3">
     <div class="col-12">
         <div class="header-page">
-            <h1><?= $this->lang('Добавить объявление') ?></h1>
+            <h1><?= $this->translate('Добавить объявление') ?></h1>
         </div>
     </div>
 </div>

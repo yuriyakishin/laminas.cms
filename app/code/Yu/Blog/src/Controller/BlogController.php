@@ -33,10 +33,8 @@ class BlogController extends AbstractActionController
         $view = new ViewModel([
             'rubric' => $rubric,
             'posts' => $paginator,
-            'metaKeys' => [
-                'path' => 'page',
-                'entityId' => $rubric->getId()
-            ]]);
+            'path' => 'page',
+            'entity_id' => $rubric->getId()]);
         $view->setTemplate('yu/blog/rubric');
         return $view;
     }
@@ -49,13 +47,7 @@ class BlogController extends AbstractActionController
 
         $post = $repository->findOneByIdentifier($identifier);
 
-        $this->layout()->setVariables([
-            'metaKeys' => [
-                'path' => 'post',
-                'entityId' => $post->getId()
-            ]]);
-
-        $view = new ViewModel(['post' => $post]);
+        $view = new ViewModel(['post' => $post, 'path' => 'post', 'entityId' => $post->getId()]);
         $view->setTemplate('yu/blog/post');
         return $view;
     }

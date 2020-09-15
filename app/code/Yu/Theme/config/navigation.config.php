@@ -14,7 +14,7 @@ return [
             ],
             'company' => [
                 'label' => 'О компании',
-                'uri' => '#',
+                'uri' => 'javascript: void(0)',
                 'order' => 200,
                 'pages' => [
                     [
@@ -23,13 +23,13 @@ return [
                         'order' => 100,
                     ],
                     [
-                        'label' => 'Отзывы о кампании',
-                        'uri' => '/review',
+                        'label' => 'Сертификаты и награды',
+                        'uri' => '/about/awards',
                         'order' => 200,
                     ],
                     [
                         'label' => 'Отзывы о кампании',
-                        'uri' => '/reviews',
+                        'uri' => '/review',
                         'order' => 200,
                     ],
                     [
@@ -47,7 +47,7 @@ return [
 
             'service' => [
                 'label' => 'Услуги',
-                'uri' => '#',
+                'uri' => 'javascript: void(0)',
                 'order' => 300,
                 'pages' => [
                     [
@@ -107,7 +107,7 @@ return [
                     ],
                     [
                         'label' => 'Опросы',
-                        'uri' => '/reviews',
+                        'uri' => '/poll',
                         'order' => 600,
                     ],
                 ],
@@ -121,7 +121,7 @@ return [
 
             'cnt' => [
                 'label' => 'Контакты',
-                'uri' => '/cnt',
+                'uri' => '/contacts',
                 'order' => 800,
             ],
         ],

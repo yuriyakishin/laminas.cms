@@ -30571,6 +30571,9 @@ a.text-muted:hover {
   color: #ff0000;
   font-size: 1em;
 }
+.current-lang-label {
+  color: #840000;
+}
 
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */

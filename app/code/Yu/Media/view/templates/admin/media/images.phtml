@@ -60,7 +60,7 @@ $(document).ready(function(){
         });
         
         $('#table-body-images').on('click', '.button-image-delete', function() {
-            if(1/*confirm('Удалить?')*/) {
+            if(confirm('Удалить?')) {
                 var id = $(this).data('id');
                 $.ajax({
                     url: '/admin/image/delete',

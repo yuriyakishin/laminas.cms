@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs()->setBreadcrumbs([
     [
-        'label' => $this->lang()->getDataByLang('Купим / снимем'),
+        'label' => $this->translate('Купим / снимем'),
     ],
 ]);
 
@@ -10,10 +10,11 @@ $categories = $this->handbook()->get('catalog-category');
 <!--buy-->
 <div class="row">
     <?php
+    $bgColor = false;
     foreach ($categories as $category) {
         ?>
         <div class="col-lg-4">
-            <ul class="block-buy-arend">
+            <ul class="block-buy-arend"<?php if($bgColor) { echo ' style="background-color:#F1F1F1"';} ?>>
                 <div class="title txt-cond"><?= $this->lang()->getDataByLang($category->getValue()) ?></div>
                 <?php
                 $rows = $this->catalogHelper()->getCatalog(['category.value' => $category->getId(), 'catalog.active' => 1]);
@@ -22,6 +23,8 @@ $categories = $this->handbook()->get('catalog-category');
                     <li>
                         <h6><?= $this->lang()->getDataByLang($row['name']) ?></h6>
                         <?= $this->lang()->getDataByLang($row['content']) ?>
+                        <p class="contact"><strong>т. <?= $row['phone'] ?></strong><br/>
+                            <a href="mailto:<?= $row['email'] ?>"><?= $row['email'] ?></a></p>
                     </li>
                     <?php
                 }
@@ -29,6 +32,11 @@ $categories = $this->handbook()->get('catalog-category');
             </ul>
         </div>
         <?php
+        if($bgColor) {
+            $bgColor = false;
+        } else {
+            $bgColor = true;
+        }
     }
     ?>
 </div>

@@ -132,6 +132,7 @@ return [
             'admin/table-ajax' => __DIR__ . '/../view/templates/table/table-ajax.phtml',
             'admin/table-ajax-data' => __DIR__ . '/../view/templates/table/table-ajax-data.phtml',
             'admin/table-body' => __DIR__ . '/../view/templates/table/table-body.phtml',
+            'admin/table/filter' => __DIR__ . '/../view/templates/table/filter.phtml',
 
             'admin/index' => __DIR__ . '/../view/templates/index/index.phtml',
             'admin/login/index' => __DIR__ . '/../view/templates/login/index.phtml',

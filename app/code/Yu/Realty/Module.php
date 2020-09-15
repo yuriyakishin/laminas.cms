@@ -14,6 +14,7 @@ class Module
             __DIR__ . '/config/form.config.php',
             __DIR__ . '/config/table.config.php',
             __DIR__ . '/config/navigation.config.php',
+            __DIR__ . '/config/feedback.config.php',
         );
         foreach ($configFiles as $configFile) {
             $config = \Laminas\Stdlib\ArrayUtils::merge($config, include $configFile);

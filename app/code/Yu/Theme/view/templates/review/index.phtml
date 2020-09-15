@@ -1,10 +1,19 @@
 <?php
 $this->breadcrumbs()->setBreadcrumbs([
     [
-        'label' => $this->lang()->getDataByLang('Отзывы'),
+        'label' => $this->translate('Отзывы'),
     ],
 ]);
 ?>
+<!--header title page-->
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1><?= $this->translate('Отзывы о кампании') ?></h1>
+        </div>
+    </div>
+</div>
+<!--//header title page-->
 <!--body content page-->
 <div class="row">
     <div class="col-md-12 col-lg-10 offset-lg-1">

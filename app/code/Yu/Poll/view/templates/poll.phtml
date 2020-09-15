@@ -1,0 +1,33 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang('Опросы'),
+    ],
+]);
+?>
+<!--header title page-->
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1>Проведенные опросы</h1>
+        </div>
+    </div>
+</div>
+<!--//header title page-->
+<!--body content page-->
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <div class="row a-poll ">
+            <?php
+            foreach($themes as $theme) {
+                ?>
+                <div class="col-sm-6">
+                    <?= $this->poll()->renderPoll($theme); ?>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+</div>
+<!--//body content page-->

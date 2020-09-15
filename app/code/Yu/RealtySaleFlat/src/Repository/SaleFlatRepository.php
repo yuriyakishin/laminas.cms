@@ -12,6 +12,7 @@ use Yu\Realty\Entity\RealtyValueText;
 use Yu\Price\Entity\Price;
 use Yu\Price\Entity\Currency;
 use Yu\Geo\Entity\Marker;
+use Yu\RealtySaleFlat\Repository\SearchCriteriaBuilder;
 
 class SaleFlatRepository implements RealtyRepositoryInterface
 {
@@ -85,4 +86,5 @@ class SaleFlatRepository implements RealtyRepositoryInterface
 
         return $queryBuilder;
     }
+
 }

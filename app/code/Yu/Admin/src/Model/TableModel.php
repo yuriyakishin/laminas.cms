@@ -2,6 +2,8 @@
 
 namespace Yu\Admin\Model;
 
+use Laminas\Form\Form;
+
 class TableModel
 {
     /**
@@ -18,6 +20,11 @@ class TableModel
      * @var array
      */
     private $options = [];
+
+    /**
+     * @var null|Form;
+     */
+    private $filter;
 
     /**
      * TableModel constructor.
@@ -86,4 +93,21 @@ class TableModel
     {
         return $this->options['route'];
     }
+
+    /**
+     * @return Form|null
+     */
+    public function getFilter(): ?Form
+    {
+        return $this->filter;
+    }
+
+    /**
+     * @param Form|null $filter
+     */
+    public function setFilter(?Form $filter): void
+    {
+        $this->filter = $filter;
+    }
+
 }

@@ -8,6 +8,64 @@ use Laminas\Router\Http\Literal;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
+    'router' => [
+        'routes' => [
+            'photogallery' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/photogallery',
+                    'defaults' => [
+                        'controller' => 'Yu\Theme\Controller\PhotogalleryController',
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            'plan' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/plan',
+                    'defaults' => [
+                        'controller' => 'Yu\Theme\Controller\PlanController',
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            'awards' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/about/awards',
+                    'defaults' => [
+                        'controller' => 'Yu\Theme\Controller\AwardsController',
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+        ],
+    ],
+
+    'controllers' => [
+        'factories' => [
+            'Yu\Theme\Controller\PhotogalleryController' => function($container) {
+                $options['identifier'] = 'photogallery';
+                $options['template'] = 'yu/gallery/photogallery';
+                $options['count'] = 20;
+                return new \Yu\Gallery\Controller\GalleryController($options);
+            },
+            'Yu\Theme\Controller\PlanController' => function($container) {
+                $options['identifier'] = 'plan';
+                $options['template'] = 'yu/gallery/plan';
+                $options['count'] = 1000;
+                return new \Yu\Gallery\Controller\GalleryController($options);
+            },
+            'Yu\Theme\Controller\AwardsController' => function($container) {
+                $options['identifier'] = 'awards';
+                $options['template'] = 'yu/gallery/awards';
+                $options['count'] = 1000;
+                return new \Yu\Gallery\Controller\GalleryController($options);
+            },
+        ],
+    ],
+
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions' => true,
@@ -27,6 +85,7 @@ return [
 
             'yu/index' => __DIR__ . '/../view/templates/index/index.phtml',
             'yu/page' => __DIR__ . '/../view/templates/page/page.phtml',
+            'yu/page/contacts' => __DIR__ . '/../view/templates/page/contacts.phtml',
             'yu/blog/rubric' => __DIR__ . '/../view/templates/blog/rubric.phtml',
             'yu/blog/post' => __DIR__ . '/../view/templates/blog/post.phtml',
 
@@ -37,6 +96,10 @@ return [
             'yu/buy' => __DIR__ . '/../view/templates/buy/index.phtml',
 
             'yu/review' => __DIR__ . '/../view/templates/review/index.phtml',
+
+            'yu/gallery/photogallery' => __DIR__ . '/../view/templates/gallery/photogallery.phtml',
+            'yu/gallery/plan' => __DIR__ . '/../view/templates/gallery/plan.phtml',
+            'yu/gallery/awards' => __DIR__ . '/../view/templates/gallery/awards.phtml',
 
             'realty/map/catalog' => __DIR__ . '/../view/templates/realty/map/map-catalog.phtml',
             'realty/map/view' => __DIR__ . '/../view/templates/realty/map/map-view.phtml',
@@ -57,9 +120,9 @@ return [
     'translator' => [
         'translation_file_patterns' => [
             [
-                'type'     => 'phparray',
+                'type' => 'phparray',
                 'base_dir' => __DIR__ . '/../i18n',
-                'pattern'  => '%s.php',
+                'pattern' => '%s.php',
             ],
         ],
     ],

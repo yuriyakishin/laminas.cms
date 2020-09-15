@@ -1,0 +1,30 @@
+<?php
+$resultFull = 0;
+foreach ($options as $option) {
+    $resultFull = $resultFull + $option->getResult();
+}
+?>
+<!--poll rezultat -->
+<div class="poll-container">
+    <div class="question"><?= $this->theme->getValue() ?></div>
+    <div class="poll-body">
+        <?php
+        foreach ($options as $option) {
+            $pr = round(($option->getResult() / $resultFull) * 100, 1);
+            ?>
+            <div class="poll-progress">
+                <div class="poll-procent"><?= $pr ?>%</div>
+                <div><?= $option->getValue() ?>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: <?= $pr ?>%" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+    </div>
+    <div class="poll-footer">Голосов <?= $resultFull ?></div>
+</div>
+<!--//poll rezultat-->

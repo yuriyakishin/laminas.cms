@@ -16,11 +16,15 @@ class IndexController extends AbstractActionController
 
         $this->layout()->setVariable('isHome', true);
 
-        $view = new ViewModel(['page' => $page,
-            'metaKeys' => [
-                'path' => 'page',
-                'entityId' => $page->getId()
-            ]]);
+        if(empty($page)) {
+            return '';
+        }
+
+        $view = new ViewModel([
+            'page' => $page,
+            'path' => 'page',
+            'entityId' => $page->getId()
+        ]);
         $view->setTemplate('yu/index');
         return $view;
     }

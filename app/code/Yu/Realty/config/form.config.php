@@ -197,7 +197,7 @@ return [
                             ],
                             'attributes' => [
                                 'required' => true,
-                                'class' => 'custom-control-input',
+                                'class' => 'form-control',
                             ],
                         ],
                     ],

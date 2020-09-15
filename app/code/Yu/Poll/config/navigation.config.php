@@ -7,30 +7,20 @@ namespace Yu\Poll;
 return [
     'navigation' => [
         'admin' => [
-            'blog' =>
+            'poll' =>
             [
-                'label' => 'Публикации',
+                'label' => 'Опросы',
                 'uri' => '#',
-                'class' => 'fa-copy',
-                'order' => 400,
+                'class' => 'fa-chart-line',
+                'order' => 800,
                 'pages' => [
                     [
-                        'label' => 'Записи',
-                        'route' => 'admin/post',
+                        'label' => 'Опросы',
+                        'route' => 'admin/poll',
                         'pages' => [
                             [
                                 'label' => 'Редактировать',
-                                'route' => 'admin/post/edit',
-                            ],
-                        ],
-                    ],
-                    [
-                        'label' => 'Рубрики',
-                        'route' => 'admin/blog',
-                        'pages' => [
-                            [
-                                'label' => 'Редактировать',
-                                'route' => 'admin/blog/edit',
+                                'route' => 'admin/poll/edit',
                             ],
                         ],
                     ],

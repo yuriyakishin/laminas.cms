@@ -6,6 +6,7 @@ use Yu\Admin\Model\TableModel;
 use Laminas\Serializer\Serializer;
 use Yu\Site\ValueObject\Lang;
 use Yu\Core\DataHelper;
+use Laminas\Form\Form;
 
 class TableManager
 {
@@ -63,6 +64,11 @@ class TableManager
     {
         $table = new TableModel($tableName);
 
+        if (isset($this->config[$tableName]['filter'])) {
+            $filterForm = $this->createFilterForm($tableName);
+            $table->setFilter($filterForm);
+        }
+
         $columns = array();
         foreach ($this->config[$tableName]['columns'] as $column) {
             $columns[] = $column;
@@ -70,11 +76,24 @@ class TableManager
 
         $table->setColumns($columns);
 
-        if(isset($this->config[$tableName]['options'])) {
+        if (isset($this->config[$tableName]['options'])) {
             $table->setOptions($this->config[$tableName]['options']);
         }
 
         return $table;
+    }
+
+    public function createFilterForm(string $tableName)
+    {
+        $filterConfig = $this->config[$tableName]['filter'];
+        $form = new Form();
+        foreach ($filterConfig as $elementConfig) {
+            if (isset($elementConfig['type']) && $elementConfig['type'] == \DoctrineModule\Form\Element\ObjectSelect::class) {
+                $elementConfig['options']['object_manager'] = $this->entityManager;
+            }
+            $form->add($elementConfig);
+        }
+        return $form;
     }
 
     public function retrieveValue($data, $key, $collumn = null)
@@ -95,7 +114,7 @@ class TableManager
 
             if ($collumn !== null && isset($collumn['target_class'])) {
                 $emtity = $this->entityManager->getRepository($collumn['target_class'])->findOneBy(['id' => $value]);
-                if(method_exists($emtity,'get' . DataHelper::toCamelCase($collumn['property']))) {
+                if (method_exists($emtity, 'get' . DataHelper::toCamelCase($collumn['property']))) {
                     $value = $emtity->{'get' . DataHelper::toCamelCase($collumn['property'])}();
                 }
             }

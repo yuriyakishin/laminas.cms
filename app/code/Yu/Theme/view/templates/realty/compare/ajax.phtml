@@ -20,7 +20,7 @@ foreach ($this->ids as $id) {
                 <div class="price-ob txt-cond"><?= $this->partial('realty/price', ['realty' => $realty]) ?></div>
                 <div class="row gallery-ob no-gutters">
                     <div class="col-12 col-lg-8 pr-0 pr-lg-2 mb-1"><a href="<?php echo $this->image()->setImageEntity($preview)->full()->get() ?>" class="big-img img-hover-zoom" data-fancybox="gallery">
-                            <div class="code txt-cond">код <?= $realty['code'] ?></div>
+                            <div class="code txt-cond"><?= $this->translate('код')?> <?= $realty['code'] ?></div>
                             <img src="<?php echo $this->image()->setImageEntity($preview)->resize(410, 250)->get() ?>"
                                  alt="" class="img-fluid"/></a></div>
                     <div class="col-12 col-lg-4 right-block-gallrty">
@@ -58,7 +58,7 @@ foreach ($this->ids as $id) {
                 </div>
             </div>
             <div class="card-footer text-center"><a href="#" type="submit" class="btn red form" data-toggle="modal"
-                                                    data-target="#order">Подать заявку</a></div>
+                                                    data-target="#order"><?= $this->translate('Подать заявку')?></a></div>
         </div>
     </div>
     <?php

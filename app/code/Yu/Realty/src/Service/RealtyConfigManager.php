@@ -34,6 +34,14 @@ class RealtyConfigManager
     }
 
     /**
+     * @return string
+     */
+    public function getRealtyType()
+    {
+        return $this->realtyType;
+    }
+
+    /**
      * Return realty object config
      *
      * @param string|null $realtyType

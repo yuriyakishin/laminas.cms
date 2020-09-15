@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs()->setBreadcrumbs([
     [
-        'label' => $this->lang()->getDataByLang('Доска объявлений'),
+        'label' => $this->translate('Доска объявлений'),
     ],
 ]);
 ?>
@@ -11,9 +11,9 @@ $this->breadcrumbs()->setBreadcrumbs([
         <form method="get" id="form_board" action="<?= $this->urlWithLang($this->url('board')) ?>">
             <div class="row">
                 <div class="col-sm-5">
-                    <select name="type" class="selectpicker form-control" id="number2" title="Категория"
+                    <select name="type" class="selectpicker form-control" id="number2" title="<?= $this->translate('Категория')?>"
                             data-hide-disabled="true">
-                        <option value="0">Категория</option>
+                        <option value="0"><?= $this->translate('Категория')?></option>
                         <?php
                         $types = $this->board()->getTypes();
                         foreach ($types as $type) {
@@ -25,9 +25,9 @@ $this->breadcrumbs()->setBreadcrumbs([
                     </select>
                 </div>
                 <div class="col-sm-5">
-                    <select name="city" class="selectpicker form-control" id="number2" title="Выберите город"
+                    <select name="city" class="selectpicker form-control" id="number2" title="<?= $this->translate('Выберите город')?>"
                             data-hide-disabled="true">
-                        <option value="0">Город</option>
+                        <option value="0"><?= $this->translate('Город')?></option>
                         <?php
                         $cities = $this->board()->getCities();
                         foreach ($cities as $city) {
@@ -39,11 +39,11 @@ $this->breadcrumbs()->setBreadcrumbs([
                     </select>
                 </div>
                 <div class="col-sm-2"><a href="javascript: document.getElementById('form_board').submit()"
-                                         class="btn red form">Найти</a></div>
+                                         class="btn red form"><?= $this->translate('Найти')?></a></div>
             </div>
         </form>
     </div>
-    <div class="col-12  col-lg-4"><a href="<?= $this->urlWithLang($this->url('board/form')) ?>" class="btn gr float-none float-lg-right ">Добавить объявление</a></div>
+    <div class="col-12  col-lg-4"><a href="<?= $this->urlWithLang($this->url('board/form')) ?>" class="btn gr float-none float-lg-right "><?= $this->translate('Добавить объявление')?></a></div>
 </div>
 <!--//header-board-->
 <!--body-board-->

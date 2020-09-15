@@ -3,11 +3,9 @@
 <head>
     <base href="//<?= $_SERVER['HTTP_HOST']; ?>/"/>
     <meta charset="utf-8">
+    <?php echo $this->seo()->renderMeta() ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Масштаб</title>
-    <meta name="description" content="">
-    <meta name="keywords" content=" ">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.min.css">
@@ -32,7 +30,7 @@
                 <div class="wsmobileheader clearfix"><a id="wsnavtoggle" class="animated-arrow"><span></span></a> <a
                             class="smallogo"><img src="/i/logo.png" alt=""/></a>
                     <!--compare-->
-                    <div class="callusicon"><a href="<?= $this->urlLang($this->url('compare')) ?>" title="Сравнение" class="compare"><i
+                    <div class="callusicon"><a href="<?= $this->urlLang($this->url('compare')) ?>" title="<?= $this->translate('Сравнение')?>" class="compare"><i
                                     class="fas fa-balance-scale"><span class="compare-amount">0</span></i></a></div>
                     <!--//compare-->
 
@@ -52,20 +50,17 @@
             <div class="top-site">
                 <div class="row">
                     <div class="col-lg-2 col-xl-3"><a href="/" title="На Главную"><img src="/i/logo.png"
-                                                                                       alt="Риэлторская компания Масштаб"/></a>
+                                                                                       alt="<?= $this->translate('Риэлторская компания Масштаб')?>"/></a>
                     </div>
                     <div class="col-lg-10 col-xl-9">
                         <div class="send-form float-left pt-lg-2 pt-xl-3"><a href="#" class="txt-cond red-top"
                                                                              data-toggle="modal" data-target="#order"><i
-                                        class="far fa-check-circle"></i>Подать заявку</a><a href="#"
+                                        class="far fa-check-circle"></i><?= $this->translate('Подать заявку') ?></a><a href="#"
                                                                                             class="txt-cond red-top"
                                                                                             data-toggle="modal"
                                                                                             data-target="#estimate"><i
-                                        class="far fa-check-circle"></i>Оценить недвижимость On-line</a></div>
-                        <div class="phon-top pt-lg-2 pt-xl-3"><i class="fas fa-phone"></i><a href="tel:+380629407407"
-                                                                                             class="txt-cond mr-4">+38
-                                0629
-                                407-407</a><a href="tel:+380676259111" class="txt-cond">+38 067 62-59-111</a></div>
+                                        class="far fa-check-circle"></i><?= $this->translate('Оценить недвижимость On-line') ?></a></div>
+                        <div class="phon-top pt-lg-2 pt-xl-3"><i class="fas fa-phone"></i><?= $this->content()->getBlock('top_phones') ?></div>
                     </div>
                 </div>
             </div>
@@ -101,10 +96,10 @@
 <footer class="mt-auto">
     <div class="container footer">
         <div class="row">
-            <div class="col-sm-6 col-lg-3 contact-bt"><img src="i/logo.png" alt="Риэлторская компания Масштаб"/>
+            <div class="col-sm-6 col-lg-3 contact-bt"><img src="i/logo.png" alt="<?= $this->translate('Риэлторская компания Масштаб')?>"/>
                 <div class="adres d-sm-inline-flex d-md-flex"><i class="fas fa-map-marker-alt mt-1"></i>
-                    <p>Мариуполь,<br/>
-                        пр. Металлургов 194
+                    <p><?= $this->translate('Мариуполь')?>,<br/>
+<?= $this->translate('пр. Металлургов 194')?>
                 </div>
                 <div class="phone txt-cond d-sm-inline-flex d-md-flex "><i class="fas fa-phone mt-1"></i>
                     <p>+38 (0629) 407-407<br/>
@@ -112,21 +107,20 @@
                         +38 966 121-34-34</p>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond">Продаем</strong>
+            <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond"><?= $this->translate('Продаем')?></strong>
                 <ul class="menu-list">
-                    <li><a href="#">Квартиры</a></li>
-                    <li><a href="#">Дома</a></li>
-                    <li><a href="#">Помещение</a></li>
-                    <li><a href="#">Земля</a></li>
-                    <li><a href="#">Коммерческая недвижимость</a></li>
+                    <li><a href="#"><?= $this->translate('Квартиры')?></a></li>
+                    <li><a href="#"><?= $this->translate('Дома')?></a></li>
+                    <li><a href="#"><?= $this->translate('Земля')?></a></li>
+                    <li><a href="#"><?= $this->translate('Коммерческая недвижимость')?></a></li>
                 </ul>
             </div>
-            <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond">Сдаем</strong>
+            <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond"><?= $this->translate('Сдаем')?></strong>
                 <ul class="menu-list">
-                    <li><a href="#">Квартиры</a></li>
-                    <li><a href="#">Дома</a></li>
-                    <li><a href="#">Посуточно</a></li>
-                    <li><a href="#">Коммерческая недвижимость</a></li>
+                    <li><a href="#"><?= $this->translate('Квартиры')?></a></li>
+                    <li><a href="#"><?= $this->translate('Дома')?></a></li>
+                    <li><a href="#"><?= $this->translate('Посуточно')?></a></li>
+                    <li><a href="#"><?= $this->translate('Коммерческая недвижимость')?></a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-3  text-center pt-2">
@@ -137,10 +131,10 @@
                     <li><a href="#" class="text-hide soc ut">YouTube</a></li>
                 </ul>
                 <img src="i/ulitka.png" alt="" class="ms-ul"/>
-                <div class="cop">Риэлторская кампания «МАСШТАБ»<br/>
-                    Мариуполь © <?= date('Y') ?>
+                <div class="cop"><?= $this->translate('Риэлторская кампания «МАСШТАБ»')?><br/>
+<?= $this->translate('Мариуполь')?> © <?= date('Y') ?>
                 </div>
-                <div class="rp">Сделано в <a href="https://www.rp-studio.net">RP-Studio</a></div>
+                <div class="rp">Made in <a href="https://www.rp-studio.net" target="_blank">RP-Studio</a></div>
             </div>
         </div>
     </div>
@@ -151,6 +145,7 @@
 echo $this->inlineScript();
 ?>
 <!--modal compare-yes-->
+<?php /*
 <div class="modal fade my" id="compare-yes" tabindex="-1" role="dialog" aria-labelledby="compare-yes"
      aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered" role="document">
@@ -171,6 +166,7 @@ echo $this->inlineScript();
         </div>
     </div>
 </div>
+ */?>
 <!--//modal compare-yes-->
 <!--modal order-->
 <div class="modal fade my" id="order" tabindex="-1" role="dialog" aria-labelledby="order" aria-hidden="true">
@@ -203,5 +199,21 @@ echo $this->inlineScript();
     </div>
 </div>
 <!--//modal order-->
+<!------------>
+<!-- Modal -->
+<div class="modal fade my" id="modal-dialog-message" tabindex="-1" role="dialog" aria-labelledby="order" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pt-4 pb-4">
+                <div class="coment modal-dialog-message-text"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------------->
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!--//poll vopros-->
+<div class="poll-container-<?= $theme->getId() ?>">
+    <div class="poll-container">
+        <form>
+            <div class="question"><?= $this->theme->getValue() ?></div>
+            <div class="poll-body">
+                <?php
+                foreach ($options as $option) {
+                    ?>
+                    <div class="form-check">
+                        <label class="form-check-label radio" for="poll_option_<?= $option->getId() ?>">
+                            <input class="form-check-input radio" type="radio" name="radio_poll_option_<?= $theme->getId() ?>"
+                                   id="poll_option_<?= $option->getId() ?>"
+                                   value="<?= $option->getId() ?>">
+                            <div class="radio__text"><?= $option->getValue() ?></div>
+                        </label>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+            <div class="poll-footer"><a href="javascript:void(0)" class="btn form poll-send-<?= $theme->getId() ?>">Отправить</a>
+            </div>
+        </form>
+    </div>
+</div>
+<!--//poll vopros-->
+<?php
+$themeId = $theme->getId();
+$script = <<<EOF
+    $(document).ready(function () {
+        $('.poll-send-$themeId').click(function (e) {
+            if ($('input[name="radio_poll_option_$themeId"]').is(':checked')){
+                var id = $('input[name="radio_poll_option_$themeId"]:checked').val();
+                $.ajax({
+                    url: '/poll/send',
+                    data: { id: id }
+                }).done(function(data) {
+                    $('.poll-container-$themeId').html(data);
+                });
+            } else {
+                alert('Вы не выбрали вариант ответа!');
+            }
+        });
+    });
+EOF;
+
+$this->inlineScript()->offsetSetScript(870+$themeId, $script);
+?>

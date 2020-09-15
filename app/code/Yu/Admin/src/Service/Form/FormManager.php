@@ -124,8 +124,8 @@ class FormManager
                     $fieldset->setOptions($dataFieldset['options']);
                 }
 
-                if (isset($dataFieldset['use_as_base_bieldset'])) {
-                    $fieldset->setUseAsBaseFieldset($dataFieldset['use_as_base_bieldset']);
+                if (isset($dataFieldset['use_as_base_fieldset'])) {
+                    $fieldset->setUseAsBaseFieldset($dataFieldset['use_as_base_fieldset']);
                 }
 
                 // create elements
@@ -206,8 +206,10 @@ class FormManager
     }
 
     /**
+     * @param FormModel $form
      * @param string $fieldsetName
-     * @param object|array $data
+     * @param $data
+     * @return FormModel
      */
     public function setDataToFieldset(FormModel $form, string $fieldsetName, $data)
     {
