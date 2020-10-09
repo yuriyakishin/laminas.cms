@@ -19,16 +19,16 @@ class DataHelper
      */
     public static function unserialize($data, $lang = null)
     {
-        if($lang === null) {
+        if ($lang === null) {
             $lang = Lang::getCurrentLang()['code'];
         }
 
         if (self::checkSerializeString($data)) {
             $unserializ = Serializer::unserialize($data);
-            if(is_array($unserializ) && isset($unserializ[$lang])) {
+            if (is_array($unserializ) && isset($unserializ[$lang])) {
                 $data = $unserializ[$lang];
 
-                if(empty($data)) {
+                if (empty($data)) {
                     $data = $unserializ[Lang::getDefaultLangCode()];
                 }
             }
@@ -49,9 +49,9 @@ class DataHelper
     }
 
     /**
- * @param string $string
- * @return string
- */
+     * @param string $string
+     * @return string
+     */
     public static function getDefaultLangValue($string)
     {
         if (self::checkSerializeString($string)) {
@@ -70,7 +70,7 @@ class DataHelper
         if (self::checkSerializeString($string)) {
             $data = Serializer::unserialize($string);
             $value = $data[\Yu\Site\ValueObject\Lang::getCurrentLang()['code']];
-            if(empty($value)) {
+            if (empty($value)) {
                 $value = self::getDefaultLangValue($string);
             }
             return $value;
@@ -102,5 +102,18 @@ class DataHelper
         $str = preg_replace('/([a-z])([A-Z])/', "\\1_\\2", $str);
         $str = strtolower($str);
         return $str;
+    }
+
+    public static function substring($stringFull, $start, $end)
+    {
+        $string = $stringFull;
+        for ($i = $end; $i > $start+1; $i--) {
+            $string = mb_substr($stringFull, $start, $i);
+            if (mb_substr($stringFull, $i, 1) == " " && mb_substr($stringFull, $i - 1, 1) <> ",") {
+                break;
+            }
+        }
+
+        return $string;
     }
 }

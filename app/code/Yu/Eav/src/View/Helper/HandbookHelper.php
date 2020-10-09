@@ -47,7 +47,7 @@ class HandbookHelper extends AbstractHelper
      * @param string $type
      * @return mixed
      */
-    public function getJson(string $type)
+    public function getJson(string $type, \Closure $cl = null)
     {
         $entities = $this->get($type);
 
@@ -59,8 +59,11 @@ class HandbookHelper extends AbstractHelper
             ];
         }
 
-        return Json::encode($data, false, ['prettyPrint' => true]);
+        if(is_callable($cl)) {
+            $cl($data);
+        }
 
+        return Json::encode($data, false, ['prettyPrint' => true]);
     }
 
 

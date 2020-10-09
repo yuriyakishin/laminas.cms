@@ -49,11 +49,11 @@ class FeedbackManager
      */
     public function createBody(array $data)
     {
-        $body = '12';
+        $body = '';
         foreach ($this->config['feedback'][$this->type]['elements'] as $item)
         {
             if(isset($item['spec'])) {
-                $body .= $item['spec']['options']['label'] . ': ' . $data[$item['spec']['name']];
+                $body .= $item['spec']['options']['label'] . ': ' . $data[$item['spec']['name']] . "\r\n";
             }
         }
         return $body;

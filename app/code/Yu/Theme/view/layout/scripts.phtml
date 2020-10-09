@@ -35,7 +35,10 @@
                 {'id': '4', 'value': '4<?= $this->translate("ком.")?>'},
                 {'id': '5', 'value': '5 <?= $this->translate("и более")?>'},
             ],
-            districts: <?= $this->handbook()->getJson('district') ?>,
+            districts: <?= $this->handbook()->getJson('district', function (&$data) {
+                $default[] = ['id' => 0, 'value' => $this->translate('Все районы')];
+                $data = array_merge($default, $data);
+            }) ?>,
             commercials: <?= $this->handbook()->getJson('commercial') ?>,
             compare: []
         },
@@ -213,14 +216,16 @@
 
         if (localStorage.getItem('compare') != null) {
             compare = localStorage.getItem('compare').split(',').map(Number);
-        };
+        }
+        ;
 
         if (compare.length > 0) {
             $('.compare-amount').text(compare.length);
             $.each(compare, function (index, value) {
                 $('[data-compare-id="' + value + '"]').addClass('selected');
             });
-        };
+        }
+        ;
 
         $('.compare-button').click(function (e) {
             var el = $(this);
@@ -241,6 +246,26 @@
                 localStorage.removeItem('compare');
             }
             return false;
+        });
+
+        $('#compare-block').on("click", ".compare-button-remove", function () {
+            var id = $(this).data('compare-id');
+            var index = compare.indexOf(id);
+            compare.splice(index, 1);
+            if (compare.length > 0) {
+                localStorage.setItem('compare', compare);
+            } else {
+                localStorage.removeItem('compare');
+            }
+            $(this).parent().parent().parent().hide(500);
+            $('.compare-amount').text(compare.length);
+        });
+
+        $('.compare-button-clear').click(function (e) {
+            localStorage.removeItem('compare');
+            $('.compare-amount').text('0');
+            $('#compare-block').children().hide(500);
+            //$('#compare-block').html('');
         });
 
         $('#tabs a').click(function (e) {

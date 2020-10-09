@@ -8,6 +8,7 @@ use Laminas\Mail;
 use Laminas\View\Model\JsonModel;
 use Yu\Feedback\Service\FeedbackManager;
 use Yu\Content\Entity\Block;
+use Yu\Core\DataHelper;
 
 class FeedbackController extends AbstractActionController
 {
@@ -29,7 +30,7 @@ class FeedbackController extends AbstractActionController
 
             $subject = $feedbackManager->createSubject($data);
             $body = $feedbackManager->createBody($data);
-            $email = $this->entityManager()->getRepository(Block::class)->findBlockByIdentifier('email');
+            $email = DataHelper::getCurrentLangValue($this->entityManager()->getRepository(Block::class)->findBlockByIdentifier('email')->getContent());
 
             $mail = new Mail\Message();
             $mail->setBody($body);
@@ -39,6 +40,10 @@ class FeedbackController extends AbstractActionController
 
             $transport = new Mail\Transport\Sendmail();
             $transport->send($mail);
+
+            $message['result'] = 'OK';
+            $message['message'] = 'Выше сообщение успешно отправлено';
+
         } else {
             $message = $form->getMessages();
         }

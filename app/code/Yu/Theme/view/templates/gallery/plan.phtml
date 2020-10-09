@@ -22,7 +22,7 @@ $this->breadcrumbs()->setBreadcrumbs([
             foreach($paginator as $image) {
                 ?>
                 <div class="item col-6 col-sm-4 col-md-4 col-lg-3">
-                    <a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" data-fancybox="gallery">
+                    <a href="<?php echo $this->image()->setImageEntity($image)->full()->get() ?>" data-fancybox="gallery" data-caption="<?= htmlspecialchars($image->getComment()) ?>">
                         <img src="<?php echo $this->image()->setImageEntity($image)->resize(300)->get() ?>" class="img-fluid" alt="<?= htmlspecialchars($image->getComment()) ?>"/>
                         <p><?= $image->getComment() ?></p>
                     </a>

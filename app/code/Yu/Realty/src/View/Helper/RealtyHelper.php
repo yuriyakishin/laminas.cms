@@ -166,4 +166,25 @@ class RealtyHelper extends AbstractHelper
 
         return 'sale';
     }
+
+    public function getRealtyType(string $type)
+    {
+        if(in_array($type,['sale-flat','rent-flat','sale-commercial','sale-land'])) {
+            return 'flat';
+        }
+
+        if(in_array($type,['sale-flat','sale-house','sale-commercial','sale-land'])) {
+            return 'sale';
+        }
+
+        if(in_array($type,['rent-flat','rent-house','rent-commercial'])) {
+            return 'rent';
+        }
+
+        if(in_array($type,['rent-apartment'])) {
+            return 'apartmen';
+        }
+
+        return 'sale';
+    }
 }

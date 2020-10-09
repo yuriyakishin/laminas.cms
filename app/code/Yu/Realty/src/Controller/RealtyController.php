@@ -10,9 +10,12 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrinePaginatorAd
 use Yu\Realty\Service\RealtyConfigManager;
 use Yu\Realty\Service\RealtyManager;
 use Yu\Seo\Entity\Meta;
+use Yu\Seo\Model\Meta as MetaModel;
 use Yu\Realty\Entity\Realty;
 use Yu\Geo\Entity\Marker;
 use Yu\Realty\Repository\RealtyRepositoryInterface;
+use Yu\Content\Entity\Page;
+use Yu\Core\DataHelper;
 
 class RealtyController extends AbstractActionController
 {
@@ -82,31 +85,23 @@ class RealtyController extends AbstractActionController
         $paginator->setCurrentPageNumber($page);
         $paginator->setDefaultItemCountPerPage(20);
 
+        $contentPage = $this->entityManager()->getRepository(Page::class)->findOneByIdentifier($this->options['type']);
 
         $view = new ViewModel([
             'realtyArray' => $paginator,
             'options' => $this->options,
             'params' => $params,
         ]);
+
+        if(!empty($contentPage)) {
+            $view->setVariables(['path' => 'page',
+                'entityId' => $contentPage->getId(),
+                'contentPage' => $contentPage,]);
+        }
+
         $view->setTemplate('realty/catalog');
         return $view;
     }
-
-    /*
-    public function indexAction()
-    {
-        $params = $this->params()->fromQuery();
-        $queryBuilder = $this->repository->getQueryBuilder();
-        $realty = $this->searchCriteriaBuilder->build($queryBuilder, $params)->getQuery()->getResult();
-
-
-        $view = new ViewModel([
-            'realtyArray' => $realty,
-            'options' => $this->options,
-        ]);
-        $view->setTemplate('realty/catalog');
-        return $view;
-    }*/
 
     public function viewAction()
     {
@@ -115,8 +110,26 @@ class RealtyController extends AbstractActionController
         $queryBuilder = $this->repository->getQueryBuilder();
         $realty = $this->searchCriteriaBuilder->build($queryBuilder, ['id' => $id])->getQuery()->getResult();
 
+        $meta = $this->entityManager()->getRepository(Meta::class)->findMeta('realty', $id);
+
+        $attr = $this->realtyManager->getRealtyParamsV2($id, $realty[0]['type']);
+
+        if (empty(DataHelper::getCurrentLangValue($meta->getTitle()))) {
+            $metaModel = MetaModel::getInstance();
+            $title = (string)$attr['anons'];
+            $metaModel->setTitle($title);
+        }
+
+        if (empty(DataHelper::getCurrentLangValue($meta->getDescription()))) {
+            $metaModel = MetaModel::getInstance();
+            $description = (string)$attr['about'];
+            $metaModel->setDescription($description);
+        }
+
         $view = new ViewModel([
-            'realty' => $realty[0]
+            'realty' => $realty[0],
+            'path' => 'realty',
+            'entity_id' => $id,
         ]);
         $view->setTemplate('realty/view');
         return $view;

@@ -29,6 +29,13 @@ class Agent
     private $siteId;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="code", type="string", length=20, nullable=true)
+     */
+    private $code;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=250, precision=0, scale=0, nullable=false, unique=false)
@@ -103,6 +110,30 @@ class Agent
     public function getSiteId()
     {
         return $this->siteId;
+    }
+
+    /**
+     * Set code.
+     *
+     * @param string|null $code
+     *
+     * @return Agent
+     */
+    public function setCode($code = null)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code.
+     *
+     * @return string|null
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**

@@ -36,6 +36,12 @@ return [
                             'label' => 'Агенты',
                             'order' => 100,
                             'route' => 'admin/agent',
+                            'pages' => [
+                                [
+                                    'label' => 'Редактировать',
+                                    'route' => 'admin/agent/edit',
+                                ],
+                            ],
                         ],
                     ],
                 ],

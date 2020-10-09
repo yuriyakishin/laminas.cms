@@ -68,6 +68,30 @@ class RealtyManager
         return $params;
     }
 
+    public function getRealtyParamsV2(int $realtyId, string $realtyType)
+    {
+        $params = [];
+
+        $attributes = $this->realtyConfigManager->getRealtyAttributes($realtyType);
+
+        foreach ($attributes as $attr) {
+            $repository = $this->entityManager->getRepository($this->entityValueClass[$attr['type']]);
+            /**
+             * @var \Yu\Realty\Entity\RealtyValueInterface $entity
+             */
+            $entity = $repository->findOneBy([
+                'entityId' => $realtyId,
+                'attributeId' => $attr['id'],
+            ]);
+
+            if (!empty($entity)) {
+                $params[$attr['code']] = $entity->getValue();
+            }
+        }
+
+        return $params;
+    }
+
     /**
      * @param int $realtyId
      * @param string $type

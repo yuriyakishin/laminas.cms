@@ -14,6 +14,15 @@
     <link rel="stylesheet" type="text/css" href="/css/media.css">
     <link rel="stylesheet" type="text/css" href="/css/media.css">
     <link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#8f072d">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="#8f072d">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#8f072d">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:300,400,700&display=swap"
           rel="stylesheet">
     <script src="https://maps.googleapis.com/maps/api/js?key=<?= \Yu\Geo\ValueObject\Map::API_KEY ?>&callback=initMap&language=ua&libraries=visualization"
@@ -49,18 +58,16 @@
             </div>
             <div class="top-site">
                 <div class="row">
-                    <div class="col-lg-2 col-xl-3"><a href="/" title="На Главную"><img src="/i/logo.png"
+                    <div class="col-lg-2 col-xl-3"><a href="<?= $this->urlLang('/')?>" title="На Главную"><img src="/i/logo.png"
                                                                                        alt="<?= $this->translate('Риэлторская компания Масштаб')?>"/></a>
                     </div>
                     <div class="col-lg-10 col-xl-9">
                         <div class="send-form float-left pt-lg-2 pt-xl-3"><a href="#" class="txt-cond red-top"
                                                                              data-toggle="modal" data-target="#order"><i
-                                        class="far fa-check-circle"></i><?= $this->translate('Подать заявку') ?></a><a href="#"
-                                                                                            class="txt-cond red-top"
-                                                                                            data-toggle="modal"
-                                                                                            data-target="#estimate"><i
+                                        class="far fa-check-circle"></i><?= $this->translate('Подать заявку') ?></a><a href="<?= $this->urlLang('/estimate')?>"
+                                                                                            class="txt-cond red-top"><i
                                         class="far fa-check-circle"></i><?= $this->translate('Оценить недвижимость On-line') ?></a></div>
-                        <div class="phon-top pt-lg-2 pt-xl-3"><i class="fas fa-phone"></i><?= $this->content()->getBlock('top_phones') ?></div>
+                        <div class="phon-top pt-lg-2 pt-xl-3"><i class="fas fa-phone"></i><?= $this->lang($this->content()->getBlock('top_phones')) ?></div>
                     </div>
                 </div>
             </div>
@@ -102,9 +109,7 @@
 <?= $this->translate('пр. Металлургов 194')?>
                 </div>
                 <div class="phone txt-cond d-sm-inline-flex d-md-flex "><i class="fas fa-phone mt-1"></i>
-                    <p>+38 (0629) 407-407<br/>
-                        +38 068 783-14-34<br/>
-                        +38 966 121-34-34</p>
+                    <p><?= strip_tags($this->lang($this->content()->getBlock('bottom_phones')),'<br>') ?></p>
                 </div>
             </div>
             <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond"><?= $this->translate('Продаем')?></strong>
@@ -134,7 +139,13 @@
                 <div class="cop"><?= $this->translate('Риэлторская кампания «МАСШТАБ»')?><br/>
 <?= $this->translate('Мариуполь')?> © <?= date('Y') ?>
                 </div>
-                <div class="rp">Made in <a href="https://www.rp-studio.net" target="_blank">RP-Studio</a></div>
+                <?php
+                if(!empty($isHome)) {
+                    ?>
+                    <div class="rp">Made in <a href="https://www.rp-studio.net" target="_blank">RP-Studio</a></div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -177,21 +188,21 @@ echo $this->inlineScript();
                 </button>
             </div>
             <div class="modal-body pt-4 pb-4">
-                <h5>Заявка в кампанию Масштаб</h5>
+                <h5><?= $this->translate('Заявка в кампанию Масштаб')?></h5>
                 <div class="coment"></div>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" placeholder="Ваше имя">
+                        <input type="text" class="form-control" id="name" placeholder="<?= $this->translate('Ваше имя')?>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="phon" placeholder="Телефон">
+                        <input type="text" class="form-control" id="phon" placeholder="<?= $this->translate('Телефон')?>">
                     </div>
                     <div class="form-group">
                         <textarea class="form-control" id="text"
-                                  placeholder="Текст заявки если из обявления то - Заголовок Продажа 1-комнатная квартира, Центральный р-н, Мариуполь, ул. 50 лет СССР,  17 ЖМР,  рынок"
+                                  placeholder="<?= $this->translate('Сообщение')?>"
                                   style="height:100px;"></textarea>
                     </div>
-                    <div class="form-group text-center"><a href="#" type="submit" class="btn form m-auto">Отправить</a>
+                    <div class="form-group text-center"><a href="#" type="submit" class="btn form m-auto"><?= $this->translate('Отправить')?></a>
                     </div>
                 </form>
             </div>

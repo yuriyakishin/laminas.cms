@@ -59,5 +59,82 @@ return [
                 ],
             ],
         ],
+
+        'realty-estimate' => [
+            'subject' => 'Просьба Оценить недвижимость On-line',
+            'hydrator' => \Laminas\Hydrator\ArraySerializableHydrator::class,
+            'elements' => [
+                [
+                    'spec' => [
+                        'type' => Element\Text::class,
+                        'name' => 'name',
+                        'options' => [
+                            'label' => 'Имя',
+                        ]
+                    ],
+                ],
+                [
+                    'spec' => [
+                        'type' => Element\Tel::class,
+                        'name' => 'phone',
+                        'options' => [
+                            'label' => 'Телефон',
+                        ]
+                    ],
+                ],
+                [
+                    'spec' => [
+                        'type' => Element\Email::class,
+                        'name' => 'email',
+                        'options' => [
+                            'label' => 'Email',
+                        ]
+                    ],
+                ],
+                [
+                    'spec' => [
+                        'type' => Element\Textarea::class,
+                        'name' => 'message',
+                        'options' => [
+                            'label' => 'Сообщение',
+                        ]
+                    ],
+                ],
+            ],
+        ],
+
+        'realty-find' => [
+            'subject' => 'Не нашли подходящий объект? Оставьте заявку, мы подберем подходящий Вам вариант!',
+            'hydrator' => \Laminas\Hydrator\ArraySerializableHydrator::class,
+            'elements' => [
+                [
+                    'spec' => [
+                        'type' => Element\Text::class,
+                        'name' => 'name',
+                        'options' => [
+                            'label' => 'Имя',
+                        ]
+                    ],
+                ],
+                [
+                    'spec' => [
+                        'type' => Element\Tel::class,
+                        'name' => 'phone',
+                        'options' => [
+                            'label' => 'Телефон',
+                        ]
+                    ],
+                ],
+                [
+                    'spec' => [
+                        'type' => Element\Textarea::class,
+                        'name' => 'message',
+                        'options' => [
+                            'label' => 'Сообщение',
+                        ]
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

@@ -10,8 +10,22 @@ return [
             'agent' => [
                 'columns' => [
                     [
+                        'label' => 'Фото',
+                        'key' => 'image',
+                        'source' => [
+                            'view_helper' => \Yu\Media\View\Helper\PreviewHelper::class,
+                            'options' => function ($data) {
+                                return array('path' => 'agent', 'pathId' => $data->getId());
+                            }
+                        ],
+                    ],
+                    [
                         'label' => 'ФИО',
                         'key' => 'name',
+                    ],
+                    [
+                        'label' => 'Код',
+                        'key' => 'code',
                     ],
                     [
                         'label' => 'Телефон 1',

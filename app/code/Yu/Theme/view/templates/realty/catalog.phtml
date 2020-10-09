@@ -9,46 +9,55 @@ $this->breadcrumbs()->setBreadcrumbs([
 ]);
 
 ?>
-<div class="row mb-1 mb-lg-3">
-    <div class="col-12 col-sm-6 col-md-7 col-lg-8">
-        <div class="header-page">
-            <h1><?= $realtyHelper->getLabel($type, 'catalog') ?> <?= $this->translate('в Мариуполе') ?></h1>
+    <div class="row mb-1 mb-lg-3">
+        <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+            <div class="header-page">
+                <h1><?= $this->translate($realtyHelper->getLabel($type, 'catalog')) ?> <?= $this->translate('в Мариуполе') ?></h1>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-5 col-lg-4 text-center">
+            <div class="info-search txt-cond"><?= $this->translate('найдено всего обектов') ?>
+                - <?= ($realtyArray->getTotalItemCount()) ?></div>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-5 col-lg-4 text-center">
-        <div class="info-search txt-cond"><?= $this->translate('найдено всего обектов') ?>
-            - <?= ($realtyArray->getTotalItemCount()) ?></div>
-    </div>
-</div>
-<!--//header title page-->
-<!--link map-->
+    <!--//header title page-->
+    <!--link map-->
 <?= $this->partial('realty/map/catalog', ['realtyArray' => $realtyArray]); ?>
-<!--//link map-->
-<!--catalog-->
-<div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 cards-ob">
-    <?php
-    foreach ($realtyArray as $realty) {
-        echo $this->partial('realty/item', ['realty' => $realty]);
-    } ?>
-</div>
-<!--//catalog-->
-<!--paginator-->
-<div class="row mt-5">
-    <div class="col text-center">
+    <!--//link map-->
+    <!--catalog-->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 cards-ob">
         <?php
-        echo $this->paginationControl($realtyArray, 'Elastic', 'layout/paginator', ['route' => $type, 'params' => $this->params]) ?>
+        foreach ($realtyArray as $realty) {
+            echo $this->partial('realty/item', ['realty' => $realty]);
+        } ?>
     </div>
-</div>
-<!--//paginator-->
+    <!--//catalog-->
+    <!--paginator-->
+    <div class="row mt-5">
+        <div class="col text-center">
+            <?php
+            echo $this->paginationControl($realtyArray, 'Elastic', 'layout/paginator', ['route' => $type, 'params' => $this->params]) ?>
+        </div>
+    </div>
+    <!--//paginator-->
 
 <?php
+
+if(!empty($contentPage)) {
+    echo $this->lang($contentPage->getContent());
+}
+
 echo $this->partial('layout/not-found-realty');
 ?>
 <?php
 $tabId = $realtyHelper->getTabId($type);
+$realtyType = str_replace('sale-', '', str_replace('rent-', '', $type));
+
 $script = <<<EOF
     $(document).ready(function () {
         $('.nav-tabs a[id="$tabId"]').tab('show');
+        localStorage.setItem('realty', '$realtyType');
+        $('#select_realty1').val("$realtyType").change();
     });
 EOF;
 $this->inlineScript()->offsetSetScript(90, $script);

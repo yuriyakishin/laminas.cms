@@ -44,6 +44,17 @@ return [
                                                 'required' => true,
                                             ],
                                         ],
+                                        'code' => [
+                                            'type' => Element\Text::class,
+                                            'name' => 'code',
+                                            'options' => [
+                                                'label' => 'Код сотрудника',
+                                                'required' => false,
+                                            ],
+                                            'attributes' => [
+                                                'required' => false,
+                                            ],
+                                        ],
                                         'phone1' => [
                                             'type' => Element\Text::class,
                                             'name' => 'phone1',
@@ -87,9 +98,9 @@ return [
 
                                             ],
                                         ],
-                                        'about' => [
+                                        'adout' => [
                                             'type' => \Yu\Admin\Form\Element\Wiziwig::class,
-                                            'name' => 'about',
+                                            'name' => 'adout',
                                             'lang' => true,
                                             'options' => [
                                                 'label' => 'О сотруднике',
@@ -106,6 +117,20 @@ return [
                                 ],
                             ],
                         ],
+
+                        'images' => [
+                            'label' => 'Фото',
+                            'fieldsets' => [
+                                'images' => [
+                                    'fieldset' => 'images',
+                                    'options' => [
+                                        'path' => 'agent',
+                                        'path_id' => 'agent[id]',
+                                    ],
+                                ],
+                            ],
+                        ],
+
                     ],
                 ],
             ],

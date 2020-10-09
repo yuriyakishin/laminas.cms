@@ -1,0 +1,43 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->lang()->getDataByLang($page->getTitle()),
+    ],
+]);
+?>
+<!--header title page-->
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1><?= $this->lang()->getDataByLang($page->getTitle()); ?></h1>
+        </div>
+    </div>
+</div>
+<!--//header title page-->
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <?= $this->lang()->getDataByLang($page->getContent()); ?>
+        <form name="form-realty-estimate" role="form" data-toggle="validator">
+            <input type="hidden" name="type" value="realty-estimate">
+            <div class="row form-board">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <input type="text" name="name" class="form-control required mb-4" placeholder="<?= $this->translate('Ваше имя')?>" required>
+                    </div>
+                    <div class="form-group ">
+                        <input type="tel" name="phone" class="form-control required mb-4" placeholder="<?= $this->translate('Телефон')?>" required>
+                    </div>
+                    <div class="form-group ">
+                        <input type="text" name="email" class="form-control" placeholder="E-mail">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <textarea class="form-control" name="message" placeholder="<?= $this->translate('Описание вышего объекта')?>" style="height:160px;"></textarea>
+                    </div>
+                </div>
+                <div class="col-12 text-center pt-2 pb-3"><a class="btn btn-default form m-auto feedback-send" type="submit"><?= $this->translate('Отправить')?></a></div>
+            </div>
+        </form>
+    </div>
+</div>

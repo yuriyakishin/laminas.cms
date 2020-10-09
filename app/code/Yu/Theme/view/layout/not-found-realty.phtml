@@ -3,29 +3,26 @@
         <div class="col-md-12 col-lg-10 offset-lg-1">
             <div class="row form-offers-page">
                 <div class="col-12 col-lg-4 title">
-                    <h5>Не нашли подходящий объект? Оставьте заявку, мы подберем
-                        подходящий Вам вариант!</h5>
-                    <p class="small mb-1">или позвоните нам по телефону:</p>
-                    <span class="txt-cond"><a href="tel:+380629407407">+38 (0629) 407-407</a><br/>
-                            <a href="tel:+380687831434">+38 068 783-14-34</a></span></div>
+                    <h5><?= $this->translate('Не нашли подходящий объект? Оставьте заявку, мы подберем подходящий Вам вариант!') ?></h5>
+                    <p class="small mb-1"><?= $this->translate('или позвоните нам по телефону')?>:</p>
+                    <span class="txt-cond"><?= $this->lang($this->content()->getBlock('bottom_phones')) ?></div>
                 <div class="col-12 col-lg-8 form-content">
-                    <form>
+                    <form name="form-realty-find" action="">
+                        <input type="hidden" name="type" value="realty-find">
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Имя">
+                                    <input type="text" name="name" class="form-control" placeholder="<?= $this->translate('Ваше имя')?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Телефон">
+                                    <input type="text" name="phone" class="form-control" placeholder="<?= $this->translate('Телефон')?>" required>
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="form-group">
-                                            <textarea class="form-control" id="text" placeholder="Интересует Продажа 1-комнатная
-квартира в Центральном районе
-по умолчанию, текст из запроса" style="height:105px;"></textarea>
+                                            <textarea class="form-control" id="message" name="message" placeholder="<?= $this->translate('Сообщение')?>" style="height:105px;"></textarea>
                                 </div>
-                                <div class="form-group"><a href="#" class="btn red">Отправить</a></div>
+                                <div class="form-group"><a type="submit" class="btn red feedback-send"><?= $this->translate('Отправить')?></a></div>
                             </div>
                         </div>
                     </form>

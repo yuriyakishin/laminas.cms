@@ -157,11 +157,12 @@ class ImageHelper extends AbstractHelper
      */
     public function setImageEntity($imageEntity)
     {
-        $this->imageEntity = $imageEntity;
-        $this->imageOrig = $imageEntity->getImage();
-        $this->dirOrig = $imageEntity->getImageDir();
-        $this->imageName = $imageEntity->getImageName();
-
+        if(!empty($imageEntity)) {
+            $this->imageEntity = $imageEntity;
+            $this->imageOrig = $imageEntity->getImage();
+            $this->dirOrig = $imageEntity->getImageDir();
+            $this->imageName = $imageEntity->getImageName();
+        }
         return $this;
     }
 

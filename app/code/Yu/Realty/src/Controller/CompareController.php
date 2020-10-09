@@ -4,7 +4,6 @@ namespace Yu\Realty\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
-use Yu\Realty\Entity\Realty;
 
 class CompareController extends AbstractActionController
 {

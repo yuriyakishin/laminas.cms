@@ -57,6 +57,31 @@ return [
                 ],
             ],
 
+            'agent-search' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/agent',
+                    'defaults' => [
+                        'controller' => Controller\AgentController::class,
+                        'action' => 'search',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'page' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '[/:code]',
+                            'defaults' => [
+                                'controller' => Controller\AgentController::class,
+                                'action' => 'page',
+                                'code' => 0,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+
             'admin' => [
                 'child_routes' => [
                     'agent' => [
@@ -114,6 +139,7 @@ return [
             Controller\HotController::class => Controller\Factory\HotControllerFactory::class,
             Controller\CompareController::class => InvokableFactory::class,
             Controller\SearchController::class => Controller\Factory\SearchControllerFactory::class,
+            Controller\AgentController::class => InvokableFactory::class,
             Controller\Admin\AgentController::class => Controller\Admin\Factory\AgentControllerFactory::class,
         ],
     ],
@@ -121,7 +147,7 @@ return [
     'service_manager' => [
         'factories' => [
             \Yu\Realty\Service\RealtyManager::class => \Yu\Realty\Service\Factory\RealtyManagerFactory::class,
-            \Yu\Realty\Service\RealtyConfigManager::class => function($container) {
+            \Yu\Realty\Service\RealtyConfigManager::class => function ($container) {
                 $config = $container->get('config');
                 return new \Yu\Realty\Service\RealtyConfigManager($config['realty']);
             },

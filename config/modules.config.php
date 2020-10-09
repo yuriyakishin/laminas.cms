@@ -52,5 +52,5 @@ return [
     'Yu\Gallery',
     'Yu\Feedback',
     'Yu\Theme',
-    //'Laminas\DeveloperTools',
+    'Laminas\DeveloperTools',
 ];

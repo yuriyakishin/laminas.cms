@@ -23,6 +23,11 @@ return [
                         'order' => 100,
                     ],
                     [
+                        'label' => 'Сотрудники',
+                        'uri' => '/agent',
+                        'order' => 100,
+                    ],
+                    [
                         'label' => 'Сертификаты и награды',
                         'uri' => '/about/awards',
                         'order' => 200,
@@ -100,11 +105,11 @@ return [
                         'uri' => '/article',
                         'order' => 400,
                     ],
-                    [
+                    /*[
                         'label' => 'А получится ли из Вас риэлтор?',
                         'uri' => '/anketa',
                         'order' => 500,
-                    ],
+                    ],*/
                     [
                         'label' => 'Опросы',
                         'uri' => '/poll',

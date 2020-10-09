@@ -67,9 +67,10 @@ class Page implements RouteInterface
 
             $repository = $this->entityManager->getRepository(PageEntity::class);
 
+            /** @var \Yu\Content\Entity\Page $page */
             $page = $repository->findOneByIdentifier($pathArray[1]);
 
-            if(!empty($page)) {
+            if(!empty($page) && $page->getActive()==1) {
                 $matchedLength = strlen($path);
                 return new RouteMatch([
                     'controller' => \Yu\Content\Controller\PageController::class,

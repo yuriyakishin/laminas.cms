@@ -67,12 +67,28 @@ class SeoHelper extends AbstractHelper
 
     public function getDescription()
     {
+        $description = '';
+        if(!empty($this->metaModel->getDescription())) {
+            $description = $this->metaModel->getDescription();
+        } elseif (!empty($this->metaModel->getPath()) && !empty($this->metaModel->getEntityId())) {
+            $meta = $this->loadMetaEntity();
+            $description = $meta->getDescription();
+        }
 
+        return $description;
     }
 
     public function getKeywords()
     {
+        $keywords = '';
+        if(!empty($this->metaModel->getKeywords())) {
+            $keywords = $this->metaModel->getKeywords();
+        } elseif (!empty($this->metaModel->getPath()) && !empty($this->metaModel->getEntityId())) {
+            $meta = $this->loadMetaEntity();
+            $keywords = $meta->getKeywords();
+        }
 
+        return $keywords;
     }
 
     public function renderMeta()

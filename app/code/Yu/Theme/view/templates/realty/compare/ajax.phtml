@@ -38,7 +38,7 @@ foreach ($this->ids as $id) {
                                 $i++;
                             }
                             ?>
-                            <li class="col-6"><a href="#" class="img-ob-prev img-fluid img-hover-zoom">
+                            <li class="col-6"><a href="<?= $this->urlWithLang($this->url($realty['type'] . '/view', ['id' => $realty['id']])) ?>" class="img-ob-prev img-fluid img-hover-zoom">
                                     <div class="col-photo"><?= count($images) ?></div>
                                     <img src="<?php echo $this->image()->load('realty', $realty['id'])->resize(300, 225)->get() ?>" alt=""/></a></li>
                         </ul>
@@ -57,8 +57,8 @@ foreach ($this->ids as $id) {
                     } ?>
                 </div>
             </div>
-            <div class="card-footer text-center"><a href="#" type="submit" class="btn red form" data-toggle="modal"
-                                                    data-target="#order"><?= $this->translate('Подать заявку')?></a></div>
+            <div class="card-footer text-center"> <a href="javascript:void(0)" onclick="compareRemuve()" class="compare-button-remove close" data-compare-id="<?= $realty['id'] ?>" title="Удалить"><i class="far fa-trash-alt"></i></a><a href="#" type="submit" class="btn red form" data-toggle="modal"
+                                                    data-target="#order"><?= $this->translate('Подать заявку')?></a> </div>
         </div>
     </div>
     <?php

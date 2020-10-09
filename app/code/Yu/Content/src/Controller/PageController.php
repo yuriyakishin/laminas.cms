@@ -15,6 +15,9 @@ class PageController extends AbstractActionController
         $repository = $this->entityManager()->getRepository(PageEntity::class);
 
         $page = $repository->findOneByIdentifier($identifier);
+        if($page == null) {
+            $page = new PageEntity();
+        }
 
         $view = new ViewModel([
             'page' => $page,

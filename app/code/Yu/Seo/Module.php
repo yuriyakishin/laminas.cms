@@ -42,13 +42,12 @@ class Module
                 $metaModel->setPath((string)$vars['path']);
             }
             if(isset($vars['entityId'])) {
-                $metaModel->setEntityId($vars['entityId']);
+                $metaModel->setEntityId( (int) $vars['entityId']);
             }
             if(isset($vars['entity_id'])) {
-                $metaModel->setEntityId($vars['entity_id']);
+                $metaModel->setEntityId( (int) $vars['entity_id']);
             }
         }
-
     }
 
     public function getAutoloaderConfig()

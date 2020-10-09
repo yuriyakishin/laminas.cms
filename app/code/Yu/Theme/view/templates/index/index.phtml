@@ -12,18 +12,18 @@ $this->headMeta($this->lang($this->seo()->getKeywords($metaKeys)),'keywords');
 <!--vitrina-->
 <div class="container-fluid vitrina">
     <div class="row">
-        <div class="item col-sm-12 col-lg-8  wow fadeInLeft" data-wow-delay="0.1s"><a href="<?= $this->urlWithLang($this->url('rent-flat')) ?>">
+        <div class="item col-sm-12 col-lg-8  wow fadeInLeft" data-wow-delay="0.1s"><a href="<?= $this->urlWithLang($this->url('sale-flat')) ?>">
                 <div class="header txt-cond">
-                    <h4><?= $this->translate('Снять квартиру в Мариуполе') ?></h4>
-                    <span><?= $this->realty()->getCount('rent-flat'); ?></span> <?= $this->translate('предложений') ?>
+                    <h4><?= $this->translate('Купить квартиру в Мариуполе') ?></h4>
+                    <span><?= $this->realty()->getCount('sale-flat'); ?></span> <?= $this->translate('предложений') ?>
                 </div>
                 <div class="img-hover-zoom"><img src="i/in_kvartira_arend.jpg" class="img-fluid pik"
                                                  alt="<?= $this->translate('Снять квартиру в Мариуполе') ?>"/></div>
             </a></div>
-        <div class="item col-sm-6 col-lg-4  wow fadeInRight" data-wow-delay="0.1s"><a href="<?= $this->urlWithLang($this->url('sale-flat')) ?>">
+        <div class="item col-sm-6 col-lg-4  wow fadeInRight" data-wow-delay="0.1s"><a href="<?= $this->urlWithLang($this->url('rent-flat')) ?>">
                 <div class="header txt-cond">
-                    <h4><?= $this->translate('Купить квартиру в Мариуполе') ?></h4>
-                    <span><?= $this->realty()->getCount('sale-flat'); ?></span> <?= $this->translate('предложений') ?>
+                    <h4><?= $this->translate('Снять квартиру в Мариуполе') ?></h4>
+                    <span><?= $this->realty()->getCount('rent-flat'); ?></span> <?= $this->translate('предложений') ?>
                 </div>
                 <div class="img-hover-zoom"><img src="i/in_kvartira.jpg" class="img-fluid"
                                                  alt="<?= $this->translate('Купить квартиру в Мариуполе') ?>"/></div>

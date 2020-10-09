@@ -6,18 +6,16 @@ if (!empty($realtyArray)) {
     $lng = 0;
     foreach ($realtyArray as $realty) {
         if (!empty($realty['lat']) && !empty($realty['lng'])) {
-            $info = '<div class="img-prev"><img src="' . $this->image()->load('realty', $realty['id'])->resize(480, 347)->get() . '" class="img-fluid" />
-                <div class="price-code"><span class="price">' . $this->partial('realty/price', ['realty' => $realty]) . '</span> <span class="cod">код ' . $realty['code'] . '</span>
-                </div></div>';
+            $info = '<div class="map-object d-flex"><div><a href="' . $this->urlWithLang($this->url($realty['type'] . '/view', ['id' => $realty['id']])) . '"><img src="' . $this->image()->load('realty', $realty['id'])->resize(100, 100)->get() . '" /></a></div><div class="info"><div class="mb-1 d-flex justify-content-between"><div class="price">' . $this->partial('realty/price', ['realty' => $realty]) . '</div><div class="code">код ' . $realty['code'] . '</div></div><div class="anons">' . $this->lang()->getDataByLang($realty['address']) .'</div></div></div>';
             $label = '•';
-            if(isset($realty['label_1']) /*in_array($realty['type'], ['sale-flar', 'rent-flat', 'sale-house', 'rent-house', 'rent-apartment'])*/) {
+            if (isset($realty['label_1']) /*in_array($realty['type'], ['sale-flar', 'rent-flat', 'sale-house', 'rent-house', 'rent-apartment'])*/) {
                 $label = $realty['label_1'];
             }
             $markers[] = [
                 'lat' => $realty['lat'],
                 'lng' => $realty['lng'],
                 'label' => $label,
-                //'info' => $info,
+                'info' => $info,
             ];
             $lat = $lat + $realty['lat'];
             $lng = $lng + $realty['lng'];
@@ -62,7 +60,7 @@ if (!empty($realtyArray)) {
             
           infowindow[i] = new google.maps.InfoWindow({
                content: markers[i]['info'],
-               maxWidth: 200
+               maxWidth: 450
             });
             
           marker[i].addListener('click', function() {

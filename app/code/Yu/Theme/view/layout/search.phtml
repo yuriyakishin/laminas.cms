@@ -23,7 +23,7 @@
                         <div class="form-row d-flex">
                             <div class="col-md-2">
 
-                                <select class="selectpicker form-control" ref="select_realty1" title="<?= $this->translate('Недвижимость')?>" data-hide-disabled="true" v-model="realty">
+                                <select class="selectpicker form-control" id="select_realty1" ref="select_realty1" title="<?= $this->translate('Недвижимость')?>" data-hide-disabled="true" v-model="realty">
                                     <option v-for="option in realties_sale" :value="option.id">{{ option.value }}</option>
                                 </select>
 

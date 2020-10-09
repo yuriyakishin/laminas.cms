@@ -11,7 +11,7 @@ class MetaRepository extends EntityRepository
     /**
      * @param $path
      * @param $entityId
-     * @return object|Meta|null
+     * @return Meta|null
      */
     public function findMeta($path, $entityId)
     {
@@ -22,7 +22,6 @@ class MetaRepository extends EntityRepository
         if(empty($entity)) {
             $entity = new Meta();
         }
-
         return $entity;
     }
 

@@ -86,6 +86,7 @@ return [
             'yu/index' => __DIR__ . '/../view/templates/index/index.phtml',
             'yu/page' => __DIR__ . '/../view/templates/page/page.phtml',
             'yu/page/contacts' => __DIR__ . '/../view/templates/page/contacts.phtml',
+            'yu/page/estimate' => __DIR__ . '/../view/templates/page/estimate.phtml',
             'yu/blog/rubric' => __DIR__ . '/../view/templates/blog/rubric.phtml',
             'yu/blog/post' => __DIR__ . '/../view/templates/blog/post.phtml',
 
@@ -101,6 +102,8 @@ return [
             'yu/gallery/plan' => __DIR__ . '/../view/templates/gallery/plan.phtml',
             'yu/gallery/awards' => __DIR__ . '/../view/templates/gallery/awards.phtml',
 
+            'agent/search' => __DIR__ . '/../view/templates/agent/search.phtml',
+            'agent/page' => __DIR__ . '/../view/templates/agent/page.phtml',
             'realty/map/catalog' => __DIR__ . '/../view/templates/realty/map/map-catalog.phtml',
             'realty/map/view' => __DIR__ . '/../view/templates/realty/map/map-view.phtml',
             'realty/catalog' => __DIR__ . '/../view/templates/realty/catalog.phtml',

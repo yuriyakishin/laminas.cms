@@ -1,0 +1,33 @@
+<?php
+$this->breadcrumbs()->setBreadcrumbs([
+    [
+        'label' => $this->translate('Сотрудники'),
+        'uri' => $this->url('agent-search'),
+    ],
+    [
+        'label' => $this->lang($agent->getName()),
+    ],
+]);
+?>
+<div class="row mb-1 mb-lg-3">
+    <div class="col-12">
+        <div class="header-page">
+            <h1><?= $this->lang()->getDataByLang($agent->getName()); ?></h1>
+            <h3><?= $this->lang()->getDataByLang($agent->getPost()); ?></h3>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-lg-10 offset-lg-1">
+        <img src="<?php echo $this->image()->load('agent',$agent->getId(),'preview')->resize(250)->get() ?>" class="img-fluid" style="float:left; margin-right:30px; margin-bottom:30px;" alt=""/>
+        <?= $this->lang()->getDataByLang($agent->getAdout()); ?>
+        <p>Телефон: <?= $this->lang()->getDataByLang($agent->getPhone1()); ?></p>
+        <?php
+        if(!empty($agent->getEmail())) {
+            ?>
+            <p>Email: <?= $this->lang()->getDataByLang($agent->getEmail()); ?></p>
+            <?php
+        }
+        ?>
+    </div>
+</div>

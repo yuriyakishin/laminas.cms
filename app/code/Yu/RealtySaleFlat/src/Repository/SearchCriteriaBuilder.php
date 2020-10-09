@@ -47,7 +47,7 @@ class SearchCriteriaBuilder implements SearchCriteriaBuilderInterface
         }
 
         if(!empty($params['price'])) {
-            $queryBuilder->andWhere('p.value>=:price')->setParameter('price',$params['price']);
+            $queryBuilder->andWhere('p.value<=:price')->setParameter('price',$params['price']);
         }
 
         return $queryBuilder;

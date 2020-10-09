@@ -66,6 +66,16 @@ class AgentController extends AbstractAdminController
                     $agent->setSiteId($this->authAdmin()->getCurrentUser()->getSiteId());
                     $id = $agentRepository->save($agent);
 
+                    if (isset($data['images'])) {
+                        $this->entityManager()->getRepository(\Yu\Media\Entity\Image::class)->saveGallery($data['images'],
+                            [
+                                'user_id' => $this->authAdmin()->getCurrentUser()->getId(),
+                                'site_id' => $this->authAdmin()->getCurrentUser()->getSiteId(),
+                                'path' => 'agent',
+                                'path_id' => $id,
+                            ]);
+                    }
+
                     $this->flashMessenger()->addSuccessMessage("Данные сохранены");
                     if (empty($data['save_end_close'])) {
                         return $this->redirect()->toRoute('admin/agent/edit', ['id' => $id]);
