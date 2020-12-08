@@ -44,6 +44,7 @@
         },
         methods: {
             search_realty: function (event) {
+
                 if (this.type == 'sale') {
                     if (this.realty == 'flat') {
                         var params = {
@@ -76,6 +77,9 @@
                         };
                         window.location.href = '<?= $this->urlWithLang($this->url('sale-land')) ?>?' + $.param(params);
                     }
+                    if (this.realty == '' || this.realty == undefined) {
+                        alert('Выберите вид недвижимости');
+                    }
                 }
                 ;
                 if (this.type == 'rent') {
@@ -103,9 +107,12 @@
                         };
                         window.location.href = '<?= $this->urlWithLang($this->url('rent-commercial')) ?>?' + $.param(params);
                     }
+                    if (this.realty == '' || this.realty == undefined) {
+                        alert('Выберите вид недвижимости');
+                    }
                 }
 
-                if (this.type == 'apartmen') {
+                if (this.type == 'apartment') {
                     var params = {
                         district: this.district,
                         room: this.room,
@@ -136,6 +143,30 @@
             tabClick: function (tab_type) {
                 this.type = tab_type;
                 localStorage.setItem('type', tab_type);
+                if(tab_type=='sale') {
+                    $('#sale-collapse').addClass('active');
+                    $('#rent-collapse').removeClass('active');
+                    $('#apartment-collapse').removeClass('active');
+                    $('#code-collapse').removeClass('active');
+                }
+                if(tab_type=='rent') {
+                    $('#sale-collapse').removeClass('active');
+                    $('#rent-collapse').addClass('active');
+                    $('#apartment-collapse').removeClass('active');
+                    $('#code-collapse').removeClass('active');
+                }
+                if(tab_type=='apartment') {
+                    $('#sale-collapse').removeClass('active');
+                    $('#rent-collapse').removeClass('active');
+                    $('#apartment-collapse').addClass('active');
+                    $('#code-collapse').removeClass('active');
+                }
+                if(tab_type=='code') {
+                    $('#sale-collapse').removeClass('active');
+                    $('#rent-collapse').removeClass('active');
+                    $('#apartment-collapse').removeClass('active');
+                    $('#code-collapse').addClass('active');
+                }
             },
             addCompare: function (id) {
                 this.compare.push(id);

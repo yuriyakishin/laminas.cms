@@ -161,7 +161,7 @@ class RealtyHelper extends AbstractHelper
         }
 
         if(in_array($type,['rent-apartment'])) {
-            return 'apartmen';
+            return 'apartment';
         }
 
         return 'sale';
@@ -182,7 +182,7 @@ class RealtyHelper extends AbstractHelper
         }
 
         if(in_array($type,['rent-apartment'])) {
-            return 'apartmen';
+            return 'apartment';
         }
 
         return 'sale';

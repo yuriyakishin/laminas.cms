@@ -159,7 +159,7 @@ $agent = $realtyHelper->getAgent($realty['agent_id']);
                 <div class="phon-contact"> <?= $this->translate('или позвоните нам по телефону') ?>
                     <p class="txt-cond">
                         <?php
-                        $phones = $agent->getPhone1();
+                        $phones = $agent->getPhone2();
                         $phones = $this->lang($phones);
                         $phonesArray = explode(',', $phones);
                         foreach ($phonesArray as $phone) {

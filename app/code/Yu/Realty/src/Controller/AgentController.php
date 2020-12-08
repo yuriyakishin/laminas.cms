@@ -20,7 +20,7 @@ class AgentController extends AbstractActionController
             if (!empty($agent)) {
                 $this->redirect()->toRoute('agent-search/page', ['code' => $code]);
             } else {
-                $error = 'Агент не найден';
+                $error = 'Специалист не найден';
             }
         }
 

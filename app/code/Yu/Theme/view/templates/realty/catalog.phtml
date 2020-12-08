@@ -58,6 +58,8 @@ $script = <<<EOF
         $('.nav-tabs a[id="$tabId"]').tab('show');
         localStorage.setItem('realty', '$realtyType');
         $('#select_realty1').val("$realtyType").change();
+        $('#$tabId-collapse').click();
+        app.tabClick('$tabId');
     });
 EOF;
 $this->inlineScript()->offsetSetScript(90, $script);

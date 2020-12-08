@@ -27,7 +27,8 @@
           rel="stylesheet">
     <script src="https://maps.googleapis.com/maps/api/js?key=<?= \Yu\Geo\ValueObject\Map::API_KEY ?>&callback=initMap&language=ua&libraries=visualization"
             async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="//code.jivosite.com/widget/0k60oKtkhc" async></script>
+    <script src="/js/vue.js"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -103,7 +104,7 @@
 <footer class="mt-auto">
     <div class="container footer">
         <div class="row">
-            <div class="col-sm-6 col-lg-3 contact-bt"><img src="i/logo.png" alt="<?= $this->translate('Риэлторская компания Масштаб')?>"/>
+            <div class="col-sm-6 col-lg-3 contact-bt"><img src="/i/logo.png" alt="<?= $this->translate('Риэлторская компания Масштаб')?>"/>
                 <div class="adres d-sm-inline-flex d-md-flex"><i class="fas fa-map-marker-alt mt-1"></i>
                     <p><?= $this->translate('Мариуполь')?>,<br/>
 <?= $this->translate('пр. Металлургов 194')?>
@@ -114,28 +115,25 @@
             </div>
             <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond"><?= $this->translate('Продаем')?></strong>
                 <ul class="menu-list">
-                    <li><a href="#"><?= $this->translate('Квартиры')?></a></li>
-                    <li><a href="#"><?= $this->translate('Дома')?></a></li>
-                    <li><a href="#"><?= $this->translate('Земля')?></a></li>
-                    <li><a href="#"><?= $this->translate('Коммерческая недвижимость')?></a></li>
+                    <li><a href="<?= $this->url('sale-flat')?>"><?= $this->translate('Квартиры')?></a></li>
+                    <li><a href="<?= $this->url('sale-house')?>"><?= $this->translate('Дома')?></a></li>
+                    <li><a href="<?= $this->url('sale-land')?>"><?= $this->translate('Земля')?></a></li>
+                    <li><a href="<?= $this->url('sale-commercial')?>"><?= $this->translate('Коммерческая недвижимость')?></a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-3 d-none d-lg-block pt-2"><strong class="txt-cond"><?= $this->translate('Сдаем')?></strong>
                 <ul class="menu-list">
-                    <li><a href="#"><?= $this->translate('Квартиры')?></a></li>
-                    <li><a href="#"><?= $this->translate('Дома')?></a></li>
-                    <li><a href="#"><?= $this->translate('Посуточно')?></a></li>
-                    <li><a href="#"><?= $this->translate('Коммерческая недвижимость')?></a></li>
+                    <li><a href="<?= $this->url('rent-flat')?>"><?= $this->translate('Квартиры')?></a></li>
+                    <li><a href="<?= $this->url('rent-house')?>"><?= $this->translate('Дома')?></a></li>
+                    <li><a href="<?= $this->url('rent-apartment')?>"><?= $this->translate('Посуточно')?></a></li>
+                    <li><a href="<?= $this->url('rent-commercial')?>"><?= $this->translate('Коммерческая недвижимость')?></a></li>
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-3  text-center pt-2">
                 <ul class="icon-soc">
-                    <li><a href="#" class="text-hide soc vk">ВКонтакте</a></li>
-                    <li><a href="#" class="text-hide soc fb">Facebook</a></li>
-                    <li><a href="#" class="text-hide soc ins">Instagram</a></li>
-                    <li><a href="#" class="text-hide soc ut">YouTube</a></li>
+                    <li><a href="https://www.youtube.com/channel/UClxn_V_nwRgxTPJ0aLNbKuQ" target="_blank" class="text-hide soc ut">YouTube</a></li>
                 </ul>
-                <img src="i/ulitka.png" alt="" class="ms-ul"/>
+                <img src="/i/ulitka.png" alt="" class="ms-ul"/>
                 <div class="cop"><?= $this->translate('Риэлторская кампания «МАСШТАБ»')?><br/>
 <?= $this->translate('Мариуполь')?> © <?= date('Y') ?>
                 </div>

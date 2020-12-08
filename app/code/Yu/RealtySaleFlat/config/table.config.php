@@ -24,7 +24,7 @@ return [
                         ],
                     ],
                     [
-                        'label' => 'Кол. комнат',
+                        'label' => 'Ком.',
                         'key' => 'rooms',
                     ],
                     [
@@ -52,7 +52,7 @@ return [
                         'findBy' => 'id',
                         'property' => 'name',
                     ],
-                    [
+                    /*[
                         'label' => 'Проект',
                         'key' => 'project',
                         'source' => [
@@ -65,7 +65,7 @@ return [
                     [
                         'label' => 'ID',
                         'key' => 'id',
-                    ],
+                    ],*/
                     [
                         'label' => 'Активность',
                         'key' => 'active',

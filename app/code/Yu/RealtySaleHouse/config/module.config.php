@@ -112,6 +112,7 @@ return [
                     'code' => 'district',
                     'label' => 'Район',
                     'type' => 'int',
+                    'options' => true,
                 ],
                 'rooms' => [
                     'id' => 101,

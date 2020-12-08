@@ -4,7 +4,7 @@
                                            role="tab"><?= $this->translate('Купить') ?></a></li>
         <li class="col-2 nav-item pr-1"><a id="rent" href="#pane-rent" class="nav-link" v-on:click="tabClick('rent')"
                                            role="tab"><?= $this->translate('Снять') ?></a></li>
-        <li class="col-2 nav-item pr-1"><a id="apartmen" href="#pane-rent-day" class="nav-link" v-on:click="tabClick('apartmen')"
+        <li class="col-2 nav-item pr-1"><a id="apartmen" href="#pane-rent-day" class="nav-link" v-on:click="tabClick('apartment')"
                                            role="tab"><?= $this->translate('Посуточно') ?></a></li>
         <li class="col-2 nav-item"><a id="code" href="#pane-code" class="nav-link"  role="tab" v-on:click="tabClick('code')"><?= $this->translate('Поиск по коду') ?></a></li>
     </ul>
@@ -12,8 +12,10 @@
         <!--panel-item-->
         <div id="pane-buy" class="card tab-pane show active" role="tabpanel" aria-labelledby="buy">
             <div class="card-header txt-cond" role="tab" id="heading-buy"><a class="active" data-toggle="collapse"
+                                                                             id="sale-collapse"
                                                                              href="#collapse-buy"
                                                                              aria-expanded="true"
+                                                                             v-on:click="tabClick('sale')"
                                                                              aria-controls="collapse-buy">
 <?= $this->translate('Купить')?> </a></div>
             <div id="collapse-buy" class="collapse show" data-parent="#content" role="tabpanel"
@@ -58,8 +60,10 @@
         <div id="pane-rent" class="card tab-pane" role="tabpanel" aria-labelledby="rent">
             <div class="card-header txt-cond" role="tab" id="heading-rent"><a class="collapsed"
                                                                               data-toggle="collapse"
+                                                                              id="rent-collapse"
                                                                               href="#collapse-rent"
                                                                               aria-expanded="false"
+                                                                              v-on:click="tabClick('rent')"
                                                                               aria-controls="collapse-rent">
 <?= $this->translate('Снять')?> </a></div>
             <div id="collapse-rent" class="collapse" data-parent="#content" role="tabpanel"
@@ -107,8 +111,10 @@
         <div id="pane-rent-day" class="card tab-pane" role="tabpanel" aria-labelledby="rent-day">
             <div class="card-header txt-cond" role="tab" id="heading-rent-day"><a class="collapsed"
                                                                                   data-toggle="collapse"
+                                                                                  id="apartment-collapse"
                                                                                   href="#collapse-rent-day"
                                                                                   aria-expanded="false"
+                                                                                  v-on:click="tabClick('apartment')"
                                                                                   aria-controls="collapse-rent-day">
 <?= $this->translate('Посуточно')?> </a></div>
             <div id="collapse-rent-day" class="collapse" role="tabpanel" data-parent="#content"
@@ -153,8 +159,10 @@
         <div id="pane-code" class="card tab-pane" role="tabpanel" aria-labelledby="code">
             <div class="card-header txt-cond" role="tab" id="heading-rent-day"><a class="collapsed"
                                                                                   data-toggle="collapse"
+                                                                                  id="code-collapse"
                                                                                   href="#collapse-code"
                                                                                   aria-expanded="false"
+                                                                                  v-on:click="tabClick('code')"
                                                                                   aria-controls="collapse-code">
 <?= $this->translate('Поиск по коду')?> </a></div>
             <div id="collapse-code" class="collapse" role="tabpanel" data-parent="#content"

@@ -96,6 +96,7 @@ return [
     "Сравнение" => "Compare",
     "Статьи" => "Articles",
     "Сообщение" => "Message",
+    "Специалисты" => "Specialists",
     "Телефон" => "Phone",
     "Типовые планировки" => "Typical layouts",
     "Услуги" => "Service",

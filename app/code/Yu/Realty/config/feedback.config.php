@@ -58,6 +58,16 @@ return [
                     ],
                 ],
             ],
+            'input_filter' => [
+                [
+                    'name' => 'email',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'message',
+                    'required' => false,
+                ],
+            ],
         ],
 
         'realty-estimate' => [
@@ -101,6 +111,16 @@ return [
                     ],
                 ],
             ],
+            'input_filter' => [
+                [
+                    'name' => 'email',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'message',
+                    'required' => false,
+                ],
+            ],
         ],
 
         'realty-find' => [
@@ -133,6 +153,16 @@ return [
                             'label' => 'Сообщение',
                         ]
                     ],
+                ],
+            ],
+            'input_filter' => [
+                [
+                    'name' => 'name',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'message',
+                    'required' => false,
                 ],
             ],
         ],
